@@ -1,0 +1,127 @@
+apply plugin: 'io.github.rockerhieu.versionberg'
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.getkeepsafe.dexcount'
+
+versionberg {
+    major 1
+    minor 0
+    nameTemplate '${major}.${minor}.${commitCount}.${commitSha}'
+    codeTemplate '(((${major} * 100) + ${minor}) * 100) * 100000 + ${build}'
+}
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+
+    defaultConfig {
+        applicationId "xyz.santeri.palmtree"
+        minSdkVersion 19
+        targetSdkVersion 24
+
+        versionCode versionberg.code
+        versionName versionberg.name
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            applicationIdSuffix '.debug'
+        }
+    }
+
+    productFlavors {
+        dev { // A higher minimum SDK version gives build times a nice boost
+            minSdkVersion 21
+        }
+        publish {
+            minSdkVersion 19
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        textReport true
+        textOutput "stdout"
+        checkAllWarnings true
+        warningsAsErrors true
+        showAll true
+        explainIssues true
+    }
+}
+
+dependencies {
+    def appcompatVersion = '24.2.1'
+    def daggerVersion = '2.7'
+    def autovalueVersion = '1.3'
+    def thirtyinchVersion = '0.7.1'
+    def butterknifeVersion = '8.4.0'
+    def leakcanaryVersion = '1.4'
+
+    compile "com.android.support:appcompat-v7:$appcompatVersion"
+    compile "com.android.support:recyclerview-v7:$appcompatVersion"
+    compile "com.android.support:cardview-v7:$appcompatVersion"
+    compile "com.android.support:design:$appcompatVersion"
+
+    compile "com.google.dagger:dagger:$daggerVersion"
+    apt "com.google.dagger:dagger-compiler:$daggerVersion"
+    provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger 2
+
+    provided "com.google.auto.value:auto-value:$autovalueVersion"
+    apt "com.google.auto.value:auto-value:$autovalueVersion"
+    apt 'com.ryanharter.auto.value:auto-value-parcel:0.2.4-rc2'
+
+    compile "net.grandcentrix.thirtyinch:thirtyinch:$thirtyinchVersion"
+    compile "net.grandcentrix.thirtyinch:thirtyinch-rx:$thirtyinchVersion"
+
+    compile "com.jakewharton:butterknife:$butterknifeVersion"
+    apt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
+
+    compile 'io.reactivex:rxjava:1.2.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+
+    compile 'org.jsoup:jsoup:1.9.2'
+
+    compile 'com.jakewharton.timber:timber:4.3.0'
+
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+    compile 'com.github.prashantsolanki3:Shoot:0.8.3'
+
+    ///
+    /// Libraries for UI
+    ///
+
+    compile "com.mikepenz:materialize:1.0.0@aar"
+    compile 'me.zhanghai.android.materialprogressbar:library:1.1.7'
+
+    compile "com.mikepenz:itemanimators:0.5.0@aar"
+    compile "com.andkulikov:transitionseverywhere:1.6.9"
+    compile 'com.github.liuguangqiang.swipeback:library:1.0.2@aar'
+
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.devbrackets.android:exomedia:3.0.3'
+    compile "com.davemorrissey.labs:subsampling-scale-image-view:3.5.0"
+    compile 'com.github.linger1216:labelview:v1.1.1'
+
+    // TODO: Remember license https://github.com/wseemann/FFmpegMediaMetadataRetriever
+    compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.11'
+
+    // If you're wondering, this is a forked version with "fullscreen swipe" functionality
+    // See: https://github.com/ikew0ng/SwipeBackLayout/pull/121
+    compile project(':swipe-layout')
+}

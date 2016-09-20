@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_list"
+        android:icon="@drawable/ic_action_list"
+        android:title="@string/action_list"
+        app:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:checked="true"
+                    android:id="@+id/action_list_frontpage"
+                    android:title="@string/action_list_frontpage" />
+
+                <item
+                    android:id="@+id/action_list_images"
+                    android:title="@string/action_list_images" />
+
+                <item
+                    android:enabled="false"
+                    android:id="@+id/action_list_videos"
+                    android:title="@string/action_list_videos" />
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="ifRoom" />
+</menu>

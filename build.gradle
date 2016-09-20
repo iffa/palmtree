@@ -1,0 +1,29 @@
+// Top-level build file
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.1'
+        classpath 'io.github.rockerhieu:versionberg:1.0.0'
+    }
+}
+
+ext {
+    androidVersion = 24
+    buildToolVersion = '24.0.2'
+    supportLibraryVersion = '24.2.0'
+    exoPlayerVersion = 'r1.5.10'
+    minSupportSDKVersion = 19
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url 'http://oss.sonatype.org/content/repositories/snapshots' }
+        maven { url "https://jitpack.io" }
+    }
+}

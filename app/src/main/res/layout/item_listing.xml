@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:clickable="true"
+    app:cardCornerRadius="@dimen/cardview_default_radius"
+    app:cardElevation="@dimen/cardview_default_elevation"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:maxLines="2"
+                android:paddingBottom="16dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:paddingTop="16dp"
+                android:textAppearance="?android:textAppearanceListItem"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="18sp"
+                tools:text="Alaska on suurempi kuin luuletkaan" />
+        </FrameLayout>
+
+        <com.lid.lib.LabelImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:scaleType="centerCrop"
+            app:label_backgroundColor="@color/accent"
+            app:label_distance="32dp"
+            app:label_height="24dp"
+            app:label_orientation="RIGHT_TOP"
+            app:label_text="@string/badge_gif"
+            app:label_textSize="14sp"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
