@@ -1,4 +1,4 @@
-# SSKKY-ruokalista
+# Palmtree
 Unofficial Android client for [Naamapalmu.com](http://naamapalmu.com).
 
 
