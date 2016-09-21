@@ -156,7 +156,7 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     public void openDetails(Integer position) {
         ImageDetails image = adapter.getItemAt(position);
 
-        startActivity(DetailActivity.getStartIntent(getContext(), image));
+        startActivity(DetailActivity.getStartIntent(getContext(), image.id()));
     }
 
     @Override

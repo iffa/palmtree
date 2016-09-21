@@ -5,5 +5,6 @@ package xyz.santeri.palmtree.data.model;
  */
 public enum ImageType {
     IMAGE,
-    VIDEO
+    VIDEO,
+    UNDEFINED
 }

@@ -4,19 +4,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import timber.log.Timber;
 import xyz.santeri.palmtree.data.model.ImageDetails;
-import xyz.santeri.palmtree.data.model.ImageType;
 import xyz.santeri.palmtree.ui.listing.adapter.base.BaseAdapter;
 import xyz.santeri.palmtree.ui.listing.adapter.base.BaseViewHolder;
 
 /**
  * @author Santeri Elo
  */
-public class ListingAdapter extends BaseAdapter<ImageDetails, BaseViewHolder> {
+public class ListingAdapter extends BaseAdapter<ImageDetails> {
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder<ImageDetails> onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view;
-        final BaseViewHolder viewHolder;
+        final BaseViewHolder<ImageDetails> viewHolder;
 
         if (viewType == BaseViewHolder.TYPE_IMAGE) {
             view = LayoutInflater.from(parent.getContext())
@@ -33,11 +33,19 @@ public class ListingAdapter extends BaseAdapter<ImageDetails, BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return items.get(position).type().equals(ImageType.IMAGE) ? BaseViewHolder.TYPE_IMAGE : BaseViewHolder.TYPE_VIDEO;
+        switch (items.get(position).type()) {
+            case IMAGE:
+                return BaseViewHolder.TYPE_IMAGE;
+            case VIDEO:
+                return BaseViewHolder.TYPE_VIDEO;
+            default:
+                return BaseViewHolder.TYPE_IMAGE;
+        }
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(BaseViewHolder<ImageDetails> holder, int position) {
+        Timber.d("Binding view holder");
         holder.bind(this, items.get(position));
     }
 }

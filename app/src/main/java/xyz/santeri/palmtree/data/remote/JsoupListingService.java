@@ -13,7 +13,6 @@ import xyz.santeri.palmtree.base.ListingService;
 import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.data.model.ImageType;
 import xyz.santeri.palmtree.data.model.ListingType;
-import xyz.santeri.palmtree.data.model.TableImage;
 
 /**
  * @author Santeri Elo
@@ -37,75 +36,6 @@ public class JsoupListingService implements ListingService {
                     case LATEST_IMAGES:
                         doc = Jsoup.connect(String.format(LATEST_IMAGES_URL, pageNumber)).get();
                         break;
-                    default:
-                        doc = Jsoup.connect(String.format(FRONTPAGE_URL, pageNumber)).get();
-                        break;
-                }
-            } catch (IOException e) {
-                subscriber.onError(e);
-            } finally {
-                if (doc == null || doc.select("div.file") == null) {
-                    subscriber.onError(new NullPointerException("Document is invalid"));
-                }
-            }
-
-            assert doc != null;
-            Elements files = doc.select("div.file");
-
-            for (Element file : files) {
-                int id;
-                boolean nsfw = false;
-                ImageType imageType = ImageType.IMAGE;
-                String fileUrl = null;
-                String title = null;
-                String rating = null;
-
-                title = file.select("p.filetitle").first().text();
-
-                if (file.select("p.nsfwwarning").size() > 0) {
-                    nsfw = true;
-                }
-
-                if (file.select("a > img").size() > 0) {
-                    fileUrl = file.select("a > img").first().attr("src");
-                    imageType = ImageType.IMAGE;
-                } else if (file.select("video > source").size() > 0) {
-                    fileUrl = file.select("video > source").first().attr("src");
-                    imageType = ImageType.VIDEO;
-                }
-
-                id = Integer.parseInt(file.select("p.filetitle > a").first().attr("href").split("/")[4]);
-
-                rating = file.select("div.listingcomments > span").first().text();
-
-                ImageDetails imageDetails = ImageDetails.create(id, fileUrl, imageType, nsfw, title, rating);
-                subscriber.onNext(imageDetails);
-            }
-
-            subscriber.onCompleted();
-        });
-    }
-
-    /**
-     * Because table listings are a bit different, we need a different model object for tables.
-     *
-     * @param type       {@link ListingType} - only LATEST_VIDEOS and LATEST_ALL are supported
-     * @param pageNumber Page number
-     * @return {@link Observable} stream of {@link TableImage} objects
-     */
-    @Override
-    public Observable<TableImage> getTableListing(ListingType type, int pageNumber) {
-        return Observable.create(subscriber -> {
-            Document doc = null;
-
-            try {
-                switch (type) {
-                    case FRONT_PAGE:
-                        subscriber.onError(new UnsupportedOperationException("Only listing types LATEST_VIDEOS or LATEST_ALL are supported"));
-                        break;
-                    case LATEST_IMAGES:
-                        subscriber.onError(new UnsupportedOperationException("Only listing types LATEST_VIDEOS or LATEST_ALL are supported"));
-                        break;
                     case LATEST_VIDEOS:
                         doc = Jsoup.connect(String.format(LATEST_VIDEOS_URL, pageNumber)).get();
                         break;
@@ -113,44 +43,86 @@ public class JsoupListingService implements ListingService {
                         doc = Jsoup.connect(String.format(LATEST_ALL_URL, pageNumber)).get();
                         break;
                     default:
-                        doc = Jsoup.connect(String.format(LATEST_ALL_URL, pageNumber)).get();
+                        doc = Jsoup.connect(String.format(FRONTPAGE_URL, pageNumber)).get();
                         break;
                 }
             } catch (IOException e) {
                 subscriber.onError(e);
             } finally {
-                if (doc == null || doc.select("tbody > tr") == null) {
+                if (doc == null) {
                     subscriber.onError(new NullPointerException("Document is invalid"));
                 }
             }
 
             assert doc != null;
-            Elements files = doc.select("table.filelist > tbody").first().getElementsByTag("td");
 
-            Timber.d("Found %s files in table", files.size());
+            if (type == ListingType.FRONT_PAGE || type == ListingType.LATEST_IMAGES) {
+                Elements files = doc.select("div.file");
 
-            for (Element file : files) {
-                int id;
-                boolean nsfw = false;
-                String thumbnailUrl = null;
-                String title = null;
+                for (Element file : files) {
+                    int id;
+                    boolean nsfw = false;
+                    ImageType imageType = ImageType.IMAGE;
+                    String fileUrl = null;
+                    String title = null;
+                    String rating = null;
 
-                title = file.select("a > span").first().text();
+                    title = file.select("p.filetitle").first().text();
 
-                if (file.select("a > img").first().attr("src").contains("nsfw.png")) {
-                    nsfw = true;
+                    if (file.select("p.nsfwwarning").size() > 0) {
+                        nsfw = true;
+                    }
+
+                    if (file.select("a > img").size() > 0) {
+                        fileUrl = file.select("a > img").first().attr("src");
+                        imageType = ImageType.IMAGE;
+                    } else if (file.select("video > source").size() > 0) {
+                        fileUrl = file.select("video > source").first().attr("src");
+                        imageType = ImageType.VIDEO;
+                    }
+
+                    id = Integer.parseInt(file.select("p.filetitle > a").first().attr("href").split("/")[4]);
+
+                    rating = file.select("div.listingcomments > span").first().text();
+
+                    ImageDetails imageDetails = ImageDetails.create(id, fileUrl, imageType, nsfw, title, rating);
+                    subscriber.onNext(imageDetails);
                 }
+            } else {
+                Elements files = doc.select("table.filelist > tbody").first().getElementsByTag("td");
 
-                thumbnailUrl = file.select("a > img").first().attr("src");
+                Timber.d("Found %s files in table", files.size());
 
-                id = Integer.parseInt(file.select("a").first().attr("href").split("/")[4]);
+                for (Element file : files) {
+                    int id;
+                    boolean nsfw = false;
+                    String thumbnailUrl = null;
+                    String title = null;
 
-                TableImage image = TableImage.create(id, thumbnailUrl, nsfw, title);
-                Timber.d("File %s: '%s", files.indexOf(file), image.toString());
-                subscriber.onNext(image);
+                    title = file.select("a > span").first().text();
+
+                    if (file.select("a > img").first().attr("src").contains("nsfw.png")) {
+                        nsfw = true;
+                    }
+
+                    thumbnailUrl = file.select("a > img").first().attr("src");
+
+                    id = Integer.parseInt(file.select("a").first().attr("href").split("/")[4]);
+
+                    ImageDetails image = ImageDetails.create(id, thumbnailUrl, ImageType.UNDEFINED, nsfw, title, null);
+                    subscriber.onNext(image);
+                    Timber.d("File %s: '%s", files.indexOf(file), image.toString());
+                }
             }
 
             subscriber.onCompleted();
         });
     }
+
+    @Override
+    public Observable<ImageDetails> getTableListing(ListingType type, int pageNumber) {
+        return null;
+    }
+
+
 }

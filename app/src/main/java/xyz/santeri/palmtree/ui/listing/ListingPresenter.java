@@ -27,7 +27,7 @@ import xyz.santeri.palmtree.ui.base.event.ScrollToTopEvent;
  */
 @Singleton
 public class ListingPresenter extends TiPresenter<ListingView> {
-    private LinkedHashMap<Integer, List<ImageDetails>> items = new LinkedHashMap<>();
+    private LinkedHashMap<Integer, List<ImageDetails>> itemsListing = new LinkedHashMap<>();
     private int scrollPosition;
     private ListingType listingType = ListingType.FRONT_PAGE;
 
@@ -49,16 +49,17 @@ public class ListingPresenter extends TiPresenter<ListingView> {
 
         EventBus.getDefault().register(this);
 
-        if (items.size() > 0) {
-            Timber.d("Already have %s pages of items (configuration change?)", items.size());
+        if (itemsListing.size() > 0) {
+            Timber.d("Already have %s pages of items (configuration change?)", itemsListing.size());
+
             List<ImageDetails> restored = new ArrayList<>();
 
             //noinspection Convert2streamapi
-            for (List<ImageDetails> images : items.values()) {
+            for (List<ImageDetails> images : itemsListing.values()) {
                 restored.addAll(images);
             }
 
-            getView().restoreImages(restored, items.size(), scrollPosition);
+            getView().restoreImages(restored, itemsListing.size(), scrollPosition);
         } else {
             Timber.d("No existing data, loading fresh from page 1");
 
@@ -89,7 +90,7 @@ public class ListingPresenter extends TiPresenter<ListingView> {
         Timber.d("Refreshing front page");
 
         getView().clear();
-        items.clear();
+        itemsListing.clear();
 
         load(1);
     }
@@ -102,15 +103,20 @@ public class ListingPresenter extends TiPresenter<ListingView> {
         }
 
         List<ImageDetails> newItems = new ArrayList<>();
+
         dataManager.getListing(listingType, page)
                 .subscribe(
                         item -> {
+                            Timber.d("Got item, sending to UI");
                             newItems.add(item);
                             getView().addImage(item);
                         },
-                        throwable -> getView().showError(true),
+                        throwable -> {
+                            Timber.e(throwable, "Failed to load %s page %s", listingType, page);
+                            getView().showError(true);
+                        },
                         () -> {
-                            items.put(page, newItems);
+                            itemsListing.put(page, newItems);
                             getView().finishLoading();
                         });
     }

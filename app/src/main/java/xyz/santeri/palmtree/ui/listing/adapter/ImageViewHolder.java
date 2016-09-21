@@ -15,7 +15,7 @@ import xyz.santeri.palmtree.ui.listing.adapter.base.BaseViewHolder;
 /**
  * @author Santeri Elo
  */
-class ImageViewHolder extends BaseViewHolder {
+class ImageViewHolder extends BaseViewHolder<ImageDetails> {
     static final int LAYOUT_RES = R.layout.item_listing;
 
     private final TextView title;

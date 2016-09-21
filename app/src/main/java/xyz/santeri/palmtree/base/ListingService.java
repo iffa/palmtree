@@ -3,7 +3,6 @@ package xyz.santeri.palmtree.base;
 import rx.Observable;
 import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.data.model.ListingType;
-import xyz.santeri.palmtree.data.model.TableImage;
 
 /**
  * @author Santeri Elo
@@ -23,7 +22,7 @@ public interface ListingService {
      *
      * @param type       {@link ListingType} - only LATEST_VIDEOS and LATEST_ALL are supported
      * @param pageNumber Page number
-     * @return {@link Observable} stream of {@link TableImage} objects
+     * @return {@link Observable} stream of {@link ImageDetails} objects
      */
-    Observable<TableImage> getTableListing(ListingType type, int pageNumber);
+    Observable<ImageDetails> getTableListing(ListingType type, int pageNumber);
 }

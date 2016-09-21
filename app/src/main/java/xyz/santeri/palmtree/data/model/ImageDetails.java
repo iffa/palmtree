@@ -1,6 +1,7 @@
 package xyz.santeri.palmtree.data.model;
 
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 
@@ -37,9 +38,10 @@ public abstract class ImageDetails implements Parcelable {
     /**
      * @return File rating, e.g. +123
      */
+    @Nullable
     public abstract String rating(); // Don't need it as an integer
 
-    public static ImageDetails create(int id, String fileUrl, ImageType type, boolean nsfw, String title, String rating) {
+    public static ImageDetails create(int id, String fileUrl, ImageType type, boolean nsfw, String title, @Nullable String rating) {
         return new AutoValue_ImageDetails(id, fileUrl, type, nsfw, title, rating);
     }
 }
