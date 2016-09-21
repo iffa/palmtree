@@ -86,7 +86,18 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
                 getPresenter().onListingTypeChange(ListingType.LATEST_IMAGES);
                 return true;
             case R.id.action_list_videos:
+                if (item.isChecked()) return true;
+                item.setChecked(true);
                 getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.latest_videos)));
+
+                getPresenter().onListingTypeChange(ListingType.LATEST_VIDEOS);
+                return true;
+            case R.id.action_list_all:
+                if (item.isChecked()) return true;
+                item.setChecked(true);
+                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.latest_all)));
+
+                getPresenter().onListingTypeChange(ListingType.LATEST_ALL);
                 return true;
         }
         return super.onOptionsItemSelected(item);
