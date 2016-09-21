@@ -17,7 +17,7 @@ import xyz.santeri.palmtree.data.model.ImageDetails;
  * @author Santeri Elo
  */
 public class DetailPresenter extends TiPresenter<DetailView> {
-    private ImageDetails imageDetails;
+    private ImageDetails imageDetails = null;
 
     @Inject
     DataManager dataManager;
@@ -42,11 +42,19 @@ public class DetailPresenter extends TiPresenter<DetailView> {
     }
 
     void load(ImageDetails imageDetails) {
+        if (imageDetails != null) {
+            getView().showImage(imageDetails);
+        }
+
         this.imageDetails = imageDetails;
         getView().showImage(imageDetails);
     }
 
     void load(int fileId) {
+        if (imageDetails != null) {
+            getView().showImage(imageDetails);
+        }
+
         dataManager.getImageDetails(fileId).subscribe(
                 item -> {
                     this.imageDetails = item;

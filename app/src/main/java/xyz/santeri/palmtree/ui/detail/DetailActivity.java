@@ -32,7 +32,6 @@ import me.imid.swipebacklayout.lib.Utils;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import timber.log.Timber;
 import xyz.santeri.palmtree.BuildConfig;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.model.ImageDetails;
@@ -44,6 +43,7 @@ import xyz.santeri.palmtree.data.model.ImageType;
 public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
         implements DetailView, OnPreparedListener, OnCompletionListener, SwipeBackActivityBase {
     private static final String EXTRA_IMAGE = "imagedetails";
+    private static final String EXTRA_IMAGE_ID = "imageid";
     private SwipeBackActivityHelper swipeHelper;
 
     @BindView(R.id.toolbar)
@@ -61,6 +61,13 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
     public static Intent getStartIntent(Context context, ImageDetails imageDetails) {
         Intent startIntent = new Intent(context, DetailActivity.class);
         startIntent.putExtra(EXTRA_IMAGE, imageDetails);
+
+        return startIntent;
+    }
+
+    public static Intent getStartIntent(Context context, int id) {
+        Intent startIntent = new Intent(context, DetailActivity.class);
+        startIntent.putExtra(EXTRA_IMAGE_ID, id);
 
         return startIntent;
     }
@@ -105,10 +112,11 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
         // Load data, either from a link or previous activity
         if (getIntent().hasExtra(EXTRA_IMAGE)) {
             getPresenter().load(getIntent().getParcelableExtra(EXTRA_IMAGE));
+        } else if (getIntent().hasExtra(EXTRA_IMAGE_ID)) {
+            getPresenter().load(getIntent().getIntExtra(EXTRA_IMAGE_ID, 0));
         } else {
             if (getIntent().getData() == null) {
-                Timber.e("NO EXTRA_IMAGE set and intent data is null, this shouldn't happen");
-                // TODO: Fail
+                throw new UnsupportedOperationException("NO EXTRA_IMAGE or EXTRA_IMAGE_ID set and intent data is null");
             }
 
             Uri data = getIntent().getData();
