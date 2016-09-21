@@ -2,7 +2,7 @@ package xyz.santeri.palmtree.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +21,7 @@ import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.base.DetailsService;
 import xyz.santeri.palmtree.base.ListingService;
 import xyz.santeri.palmtree.data.model.ListingType;
+import xyz.santeri.palmtree.ui.ChangelogDialogFragment;
 import xyz.santeri.palmtree.ui.listing.ListingFragment;
 
 /**
@@ -116,6 +117,8 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
 
     @Override
     public void showUpdateInfo() {
-        Snackbar.make(toolbar, R.string.app_update, Snackbar.LENGTH_INDEFINITE).show();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        ChangelogDialogFragment.newInstance().show(fragmentManager, "changelog_dialog");
     }
 }
