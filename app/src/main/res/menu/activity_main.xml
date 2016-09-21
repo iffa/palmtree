@@ -18,9 +18,11 @@
                     android:title="@string/action_list_images" />
 
                 <item
-                    android:enabled="false"
                     android:id="@+id/action_list_videos"
                     android:title="@string/action_list_videos" />
+                <item
+                    android:id="@+id/action_list_all"
+                    android:title="@string/action_list_all" />
             </group>
         </menu>
     </item>
