@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import rx.Observable;
 import xyz.santeri.palmtree.base.DetailsService;
@@ -52,6 +53,8 @@ public class JsoupDetailsService implements DetailsService {
             } else if (file.select("video > source").size() > 0) {
                 fileUrl = file.select("video > source").first().attr("src");
                 imageType = ImageType.VIDEO;
+            } else {
+                subscriber.onError(new UnsupportedEncodingException("Only images or videos are supported"));
             }
 
             title = details.select("h4").first().text();

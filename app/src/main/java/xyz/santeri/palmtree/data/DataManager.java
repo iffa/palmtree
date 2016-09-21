@@ -11,6 +11,7 @@ import xyz.santeri.palmtree.base.DetailsService;
 import xyz.santeri.palmtree.base.ListingService;
 import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.data.model.ListingType;
+import xyz.santeri.palmtree.data.model.TableImage;
 
 /**
  * @author Santeri Elo
@@ -43,6 +44,21 @@ public class DataManager {
     public Observable<ImageDetails> getListing(ListingType type, int page) {
         Timber.d("Getting listing %s page %s", type.name(), page);
         return listingService.getListing(type, page)
+                .doOnCompleted(() -> Timber.d("Completed loading page %s", page))
+                .doOnError(throwable -> Timber.e(throwable, "Failed to load listing %s page %s", type.name(), page))
+                .compose(applySchedulers());
+    }
+
+    /**
+     * Gets a table listing of the specified type and page number.
+     *
+     * @param type {@link ListingType}
+     * @param page Page number
+     * @return {@link Observable} stream of {{@link TableImage} objects
+     */
+    public Observable<TableImage> getTableListing(ListingType type, int page) {
+        Timber.d("Getting listing %s page %s", type.name(), page);
+        return listingService.getTableListing(type, page)
                 .doOnCompleted(() -> Timber.d("Completed loading page %s", page))
                 .doOnError(throwable -> Timber.e(throwable, "Failed to load listing %s page %s", type.name(), page))
                 .compose(applySchedulers());
