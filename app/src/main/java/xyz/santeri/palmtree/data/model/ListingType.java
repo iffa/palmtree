@@ -6,5 +6,6 @@ package xyz.santeri.palmtree.data.model;
 public enum ListingType {
     FRONT_PAGE,
     LATEST_IMAGES,
-    LATEST_VIDEOS
+    LATEST_VIDEOS,
+    LATEST_ALL
 }
