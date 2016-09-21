@@ -175,6 +175,7 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
     public void showImage(ImageDetails imageDetails) {
         //noinspection ConstantConditions
         getSupportActionBar().setTitle(imageDetails.title());
+        getSupportActionBar().setSubtitle(imageDetails.rating());
 
         if (imageView.isImageLoaded())
             return; // Without this, we will crash horribly on pause/resume
