@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.lid.lib.LabelImageView;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import rx.Single;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -25,17 +26,20 @@ class ThumbnailViewHolder extends BaseViewHolder<ImageDetails> {
 
     private final TextView title;
     private final LabelImageView image;
+    private final MaterialProgressBar progressBar;
 
     ThumbnailViewHolder(View itemView) {
         super(itemView);
 
         title = (TextView) itemView.findViewById(R.id.title);
         image = (LabelImageView) itemView.findViewById(R.id.image);
+        progressBar = (MaterialProgressBar) itemView.findViewById(R.id.progress);
     }
 
 
     @Override
     public void bind(RecyclerView.Adapter adapter, ImageDetails item) {
+        progressBar.setVisibility(View.VISIBLE);
         title.setText(item.title());
 
         getVideoThumbnail(item.fileUrl())
@@ -45,9 +49,12 @@ class ThumbnailViewHolder extends BaseViewHolder<ImageDetails> {
                         bitmap -> {
                             image.setImageBitmap(bitmap);
                             image.setLabelVisual(true);
+                            progressBar.setVisibility(View.GONE);
                         },
-                        throwable ->
-                                Timber.e(throwable, "Failed to load thumbnail for video"));
+                        throwable -> {
+                            Timber.e(throwable, "Failed to load thumbnail for video");
+                            progressBar.setVisibility(View.GONE);
+                        });
     }
 
     /**

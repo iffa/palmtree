@@ -19,4 +19,5 @@
     <string name="hint_swipe">Tip: swipe right to get back quickly!</string>
     <string name="action_list_all">Latest (all)</string>
     <string name="latest_all">latest (all)</string>
+    <string name="content_description">Funny image/video</string>
 </resources>
