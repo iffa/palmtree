@@ -32,6 +32,7 @@ import me.imid.swipebacklayout.lib.Utils;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import timber.log.Timber;
 import xyz.santeri.palmtree.BuildConfig;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.model.ImageDetails;
@@ -87,8 +88,6 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getPresenter().load(getIntent().getParcelableExtra(EXTRA_IMAGE));
-
         imageView.setDoubleTapZoomDuration(250);
         imageView.setDebug(BuildConfig.DEBUG);
         imageView.setMaxScale(8.0f);
@@ -97,6 +96,26 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
         videoView.setOnCompletionListener(this);
 
         getSwipeBackLayout().setFullScreenSwipeEnabled(true);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Load data, either from a link or previous activity
+        if (getIntent().hasExtra(EXTRA_IMAGE)) {
+            getPresenter().load(getIntent().getParcelableExtra(EXTRA_IMAGE));
+        } else {
+            if (getIntent().getData() == null) {
+                Timber.e("NO EXTRA_IMAGE set and intent data is null, this shouldn't happen");
+                // TODO: Fail
+            }
+
+            Uri data = getIntent().getData();
+            String fileId = data.getPath().replaceAll("\\D+", "");
+
+            getPresenter().load(Integer.parseInt(fileId));
+        }
     }
 
     @Override
@@ -149,7 +168,8 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
         //noinspection ConstantConditions
         getSupportActionBar().setTitle(imageDetails.title());
 
-        if (imageView.isImageLoaded()) return; // Without this, we will crash horribly on pause/resume
+        if (imageView.isImageLoaded())
+            return; // Without this, we will crash horribly on pause/resume
 
         if (imageDetails.type() == ImageType.IMAGE) {
             videoView.setVisibility(View.GONE);

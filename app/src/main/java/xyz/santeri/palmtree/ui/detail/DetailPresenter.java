@@ -32,8 +32,6 @@ public class DetailPresenter extends TiPresenter<DetailView> {
 
         getView().showLoading();
 
-        getView().showImage(imageDetails);
-
         // Show a swipe hint to the user when first starting
         Shoot.once(App.SHOOT_DETAILS_SWIPE, new OnShootListener() {
             @Override
@@ -45,6 +43,17 @@ public class DetailPresenter extends TiPresenter<DetailView> {
 
     void load(ImageDetails imageDetails) {
         this.imageDetails = imageDetails;
+        getView().showImage(imageDetails);
+    }
+
+    void load(int fileId) {
+        dataManager.getImageDetails(fileId).subscribe(
+                item -> {
+                    this.imageDetails = item;
+                    getView().showImage(item);
+                }, throwable -> {
+                    // TODO: throw error
+                });
     }
 
     void onShareClicked() {

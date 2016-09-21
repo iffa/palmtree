@@ -49,6 +49,20 @@ public class DataManager {
     }
 
     /**
+     * Gets details of the specified image id.
+     *
+     * @param imageNumber Image id
+     * @return {@link Observable} emitting an {@link ImageDetails} object
+     */
+    public Observable<ImageDetails> getImageDetails(int imageNumber) {
+        Timber.d("Getting details for id %s", imageNumber);
+        return detailsService.getImageDetails(imageNumber)
+                .doOnCompleted(() -> Timber.d("Completed loading details for id %s", imageNumber))
+                .doOnError(throwable -> Timber.e(throwable, "Failed to load details for id %s", imageNumber))
+                .compose(applySchedulers());
+    }
+
+    /**
      * Returns a link to the image on naamapalmu.com.
      *
      * @param imageDetails {@link ImageDetails} to get URL For
