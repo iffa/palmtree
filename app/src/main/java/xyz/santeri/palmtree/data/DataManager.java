@@ -43,9 +43,8 @@ public class DataManager {
     public Observable<ImageDetails> getListing(ListingType type, int page) {
         Timber.d("Getting listing %s page %s", type.name(), page);
         return listingService.getListing(type, page)
-                .onBackpressureDrop()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .onBackpressureDrop() // Fails to load 2 listing types without this, what the fuck
+                .compose(applySchedulers());
     }
 
     /**
