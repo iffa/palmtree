@@ -4,6 +4,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Preference styles -->
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.Material</item>
+        <item name="asp_preferenceIconTint">?colorAccent</item>
+        <item name="asp_preferenceDialogIconTint">?asp_preferenceIconTint</item>
     </style>
 
     <style name="Theme.Palmtree.Translucent" parent="Theme.Palmtree">

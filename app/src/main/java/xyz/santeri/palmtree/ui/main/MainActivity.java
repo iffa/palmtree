@@ -1,5 +1,7 @@
 package xyz.santeri.palmtree.ui.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +25,7 @@ import xyz.santeri.palmtree.base.ListingService;
 import xyz.santeri.palmtree.data.model.ListingType;
 import xyz.santeri.palmtree.ui.ChangelogDialogFragment;
 import xyz.santeri.palmtree.ui.listing.ListingFragment;
+import xyz.santeri.palmtree.ui.settings.SettingsActivity;
 
 /**
  * @author Santeri Elo
@@ -36,6 +39,14 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    public static Intent getStartIntent(Context context, boolean newTask) {
+        Intent intent = new Intent(context, MainActivity.class);
+        if (newTask) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +81,7 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
         assert getSupportActionBar() != null; // damn I love doing this
         switch (item.getItemId()) {
             case R.id.action_settings:
-                // TODO: Settings
+                startActivity(SettingsActivity.getStartIntent(this));
                 return true;
             case R.id.action_list_frontpage:
                 if (item.isChecked()) return true;

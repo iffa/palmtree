@@ -53,6 +53,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:label="@string/action_settings"
+            android:parentActivityName=".ui.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.main.MainActivity" />
+        </activity>
+
         <meta-data
             android:name="xyz.santeri.palmtree.ui.base.CacheGlideModule"
             android:value="GlideModule" />

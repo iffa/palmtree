@@ -1,5 +1,10 @@
 package xyz.santeri.palmtree.data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.preference.PreferenceManager;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -11,15 +16,18 @@ import xyz.santeri.palmtree.base.DetailsService;
 import xyz.santeri.palmtree.base.ListingService;
 import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.data.model.ListingType;
+import xyz.santeri.palmtree.di.AppContext;
 
 /**
  * @author Santeri Elo
  */
 @Singleton
 public class DataManager {
+    public static final String PREF_KEY_THEME = "pref_theme";
     private static final String SHARE_URL_TEMPLATE = "http://naamapalmu.com/file/%s";
     private final ListingService listingService;
     private final DetailsService detailsService;
+    private final SharedPreferences preferences;
 
     @SuppressWarnings("RedundantCast") // Not redundant - won't compile without the cast
     private final Observable.Transformer schedulersTransformer =
@@ -28,9 +36,10 @@ public class DataManager {
 
 
     @Inject
-    DataManager(ListingService listingService, DetailsService detailsService) {
+    DataManager(ListingService listingService, DetailsService detailsService, @AppContext Context context) {
         this.listingService = listingService;
         this.detailsService = detailsService;
+        this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     /**
@@ -69,6 +78,23 @@ public class DataManager {
      */
     public String getShareUrl(ImageDetails imageDetails) {
         return String.format(SHARE_URL_TEMPLATE, imageDetails.id());
+    }
+
+    public int getTheme() {
+        switch (Integer.parseInt(preferences.getString(PREF_KEY_THEME, "3"))) {
+            case 0:
+                Timber.d("Current theme: light");
+                return AppCompatDelegate.MODE_NIGHT_NO;
+            case 1:
+                Timber.d("Current theme: dark");
+                return AppCompatDelegate.MODE_NIGHT_YES;
+            case 2:
+                Timber.d("Current theme: automatic");
+                return AppCompatDelegate.MODE_NIGHT_AUTO;
+            default:
+                Timber.d("Current theme: system default");
+                return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+        }
     }
 
     @SuppressWarnings("unchecked")

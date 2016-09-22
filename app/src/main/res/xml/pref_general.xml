@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--suppress AndroidUnknownAttribute -->
+    <ListPreference
+        style="@style/Preference.Material.DialogPreference.ListPreference.SimpleMenu"
+        android:defaultValue="0"
+        android:entries="@array/pref_themes"
+        android:entryValues="@array/pref_themes_values"
+        android:icon="@drawable/ic_pref_theme"
+        android:key="pref_theme"
+        android:title="@string/pref_theme"
+        android:summary="@string/pref_theme_summary"
+        app:asp_tintEnabled="true" />
+
+    <Preference
+        android:icon="@drawable/ic_pref_feedback"
+        android:key="pref_feedback"
+        android:summary="@string/pref_feedback_summary"
+        android:title="@string/pref_feedback"
+        app:asp_tintEnabled="true">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="mailto:me@santeri.xyz" />
+    </Preference>
+
+    <Preference
+        android:icon="@drawable/ic_pref_info"
+        android:key="pref_version"
+        android:title="@string/app_name"
+        app:asp_tintEnabled="true">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/iffa/palmtree" />
+    </Preference>
+
+
+</PreferenceScreen>

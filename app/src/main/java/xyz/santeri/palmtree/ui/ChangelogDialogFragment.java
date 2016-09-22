@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import xyz.santeri.palmtree.BuildConfig;
 import xyz.santeri.palmtree.R;
 
 /**
@@ -21,7 +22,7 @@ public class ChangelogDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new MaterialDialog.Builder(getActivity())
-                .title(getString(R.string.changelog_title, getString(R.string.app_version)))
+                .title(getString(R.string.changelog_title, BuildConfig.VERSION_NAME))
                 .content(R.string.changelog)
                 .positiveText(R.string.ok)
                 .build();
