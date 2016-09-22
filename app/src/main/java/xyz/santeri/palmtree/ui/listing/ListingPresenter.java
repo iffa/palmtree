@@ -29,6 +29,7 @@ import xyz.santeri.palmtree.ui.base.event.ScrollToTopEvent;
 public class ListingPresenter extends TiPresenter<ListingView> {
     private LinkedHashMap<Integer, List<ImageDetails>> itemsListing = new LinkedHashMap<>();
     private int scrollPosition;
+    private int currentPage;
     private ListingType listingType = ListingType.FRONT_PAGE;
 
     @Inject
@@ -59,7 +60,7 @@ public class ListingPresenter extends TiPresenter<ListingView> {
                 restored.addAll(images);
             }
 
-            getView().restoreImages(restored, itemsListing.size(), scrollPosition);
+            getView().restoreImages(restored, currentPage, scrollPosition);
         } else {
             Timber.d("No existing data, loading fresh from page 1");
 
@@ -102,12 +103,13 @@ public class ListingPresenter extends TiPresenter<ListingView> {
             getView().startLoading(false);
         }
 
+        currentPage = page;
+
         List<ImageDetails> newItems = new ArrayList<>();
 
         dataManager.getListing(listingType, page)
                 .subscribe(
                         item -> {
-                            Timber.d("Got item, sending to UI");
                             newItems.add(item);
                             getView().addImage(item);
                         },

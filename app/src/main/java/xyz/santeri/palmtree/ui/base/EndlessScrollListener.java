@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
+import timber.log.Timber;
+
 /**
  * @author Santeri Elo
  */
@@ -19,6 +21,8 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
     protected EndlessScrollListener(LinearLayoutManager layoutManager) {
         this.mLayoutManager = layoutManager;
+
+        Timber.d("Created EndlessSCrollListener");
     }
 
     private int getLastVisibleItem(int[] lastVisibleItemPositions) {
@@ -71,5 +75,7 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
+
+        Timber.d("Set current page as %s", currentPage);
     }
 }

@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import timber.log.Timber;
 import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.ui.listing.adapter.base.BaseAdapter;
 import xyz.santeri.palmtree.ui.listing.adapter.base.BaseViewHolder;
@@ -45,7 +44,6 @@ public class ListingAdapter extends BaseAdapter<ImageDetails> {
 
     @Override
     public void onBindViewHolder(BaseViewHolder<ImageDetails> holder, int position) {
-        Timber.d("Binding view holder");
         holder.bind(this, items.get(position));
     }
 }

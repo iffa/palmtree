@@ -109,8 +109,8 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
 
         // Save the first completely visible item (if it exists) or simply the first one visible
         int visiblePosition = layoutManager.findFirstCompletelyVisibleItemPosition();
@@ -119,6 +119,11 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
         }
 
         getPresenter().saveScrollPosition(visiblePosition);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -148,6 +153,7 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     public void restoreImages(List<ImageDetails> items, int currentPage, int scrollPosition) {
         scrollListener.setCurrentPage(currentPage);
 
+        adapter.clear();
         adapter.addItems(items);
         recyclerView.scrollToPosition(scrollPosition);
     }
