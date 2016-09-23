@@ -23,7 +23,7 @@
     <string name="ok" translatable="false">OK</string>
     <string name="changelog">• New and improved\n• Bug fixes</string>
     <string name="pref_theme">Theme</string>
-    <string name="pref_feedback">Give feedback</string>
+    <string name="pref_feedback">Feedback</string>
     <string name="pref_feedback_summary">Report bugs and suggest new features.</string>
     <string name="pref_theme_summary">Change the app\'s theme.</string>
     <string name="dialog_listing_quality_title">Thumbnail quality</string>
@@ -31,6 +31,24 @@
     <string name="dialog_licenses_title">Licenses</string>
     <string name="pref_licenses">Licenses</string>
     <string name="pref_licenses_summary">Third party library licenses.</string>
+    <string name="pref_customization">Customization</string>
+    <string name="pref_other">Other</string>
+    <string name="pref_confirm_exit">Confirm exit</string>
+    <string name="pref_general">General</string>
+    <string name="pref_show_nsfw">Show NSFW content</string>
+    <string name="pref_swipe_back">Swipe to return</string>
+    <string name="pref_swipe_back_summary">Swipe to return from detail view or settings.</string>
+    <string name="pref_click_back_summary">Click to return from detail view.</string>
+    <string name="pref_click_back">Click to return</string>
+    <string name="pref_toolbar_hide">Autohide toolbar</string>
+    <string name="pref_toolbar_hide_summary">Hide the toolbar when scrolling.</string>
+    <string name="pref_changelog">Show changelog</string>
+    <string name="pref_changelog_summary">Show changelog after app update.</string>
+    <string name="pref_category">Default category</string>
+    <string name="pref_category_summary">Change the default category.</string>
+    <string name="random">Random</string>
+    <string name="pref_rate">Rate the app</string>
+    <string name="pref_rate_summary">Rate the app on the Play store.</string>
     <string-array name="pref_themes">
         <item>Light (day)</item>
         <item>Dark (night)</item>
@@ -40,5 +58,20 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+    </string-array>
+
+    <string-array name="pref_category">
+        <item>@string/frontpage</item>
+        <item>@string/latest_images</item>
+        <item>@string/latest_videos</item>
+        <item>@string/latest_all</item>
+        <item>@string/random</item>
+    </string-array>
+    <string-array name="pref_category_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
     </string-array>
 </resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/pref_customization">
+    <!--suppress AndroidUnknownAttribute -->
+    <ListPreference
+        style="@style/Preference.Material.DialogPreference.ListPreference.SimpleMenu"
+        android:defaultValue="0"
+        android:entries="@array/pref_themes"
+        android:entryValues="@array/pref_themes_values"
+        android:icon="@drawable/ic_pref_theme"
+        android:key="pref_theme"
+        android:summary="@string/pref_theme_summary"
+        android:title="@string/pref_theme"
+        app:asp_tintEnabled="true" />
+
+    <!--suppress AndroidUnknownAttribute -->
+    <ListPreference
+        style="@style/Preference.Material.DialogPreference.ListPreference.SimpleMenu"
+        android:defaultValue="0"
+        android:entries="@array/pref_category"
+        android:entryValues="@array/pref_category_values"
+        android:icon="@drawable/ic_action_list"
+        android:key="pref_category"
+        android:enabled="false"
+        android:summary="@string/pref_category_summary"
+        android:title="@string/pref_category"
+        app:asp_tintEnabled="true" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:enabled="false"
+        android:key="pref_toolbar_hide"
+        android:summary="@string/pref_toolbar_hide_summary"
+        android:title="@string/pref_toolbar_hide" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:enabled="false"
+        android:key="pref_swipe_back"
+        android:summary="@string/pref_swipe_back_summary"
+        android:title="@string/pref_swipe_back" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:enabled="false"
+        android:key="pref_click_back"
+        android:summary="@string/pref_click_back_summary"
+        android:title="@string/pref_click_back" />
+</PreferenceScreen>
