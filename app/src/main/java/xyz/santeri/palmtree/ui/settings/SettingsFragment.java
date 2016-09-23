@@ -53,6 +53,13 @@ public class SettingsFragment extends XpPreferenceFragment implements SharedPref
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        App.get(getContext()).refWatcher().watch(this);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 

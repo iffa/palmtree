@@ -11,6 +11,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.BuildConfig;
 import xyz.santeri.palmtree.R;
 
@@ -61,5 +62,12 @@ public class DialogFactory extends DialogFragment {
             default:
                 throw new UnsupportedOperationException("Invalid dialog type specified");
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        App.get(getContext()).refWatcher().watch(this);
     }
 }
