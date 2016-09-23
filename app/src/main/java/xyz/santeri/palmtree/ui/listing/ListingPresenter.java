@@ -14,6 +14,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.github.prashantsolanki3.shoot.Shoot;
+import io.github.prashantsolanki3.shoot.listener.OnShootListener;
+import io.github.prashantsolanki3.shoot.utils.Scope;
 import timber.log.Timber;
 import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.data.DataManager;
@@ -92,6 +95,16 @@ public class ListingPresenter extends TiPresenter<ListingView> {
 
         getView().clear();
         itemsListing.clear();
+
+        if (listingType == ListingType.LATEST_VIDEOS || listingType == ListingType.LATEST_ALL) {
+            Shoot.once(App.SHOOT_LISTING_QUALITY, new OnShootListener() {
+                @Override
+                public void onExecute(@Scope int scope, String TAG, int iterationCount) {
+                    Timber.d("Showing listing quality info");
+                    getView().showQualityInfo();
+                }
+            });
+        }
 
         load(1);
     }

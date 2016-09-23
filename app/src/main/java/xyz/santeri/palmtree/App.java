@@ -21,6 +21,7 @@ import xyz.santeri.palmtree.di.module.AppModule;
  */
 public class App extends Application {
     public static final String SHOOT_UPDATE_TAG = "APP_UPDATE";
+    public static final String SHOOT_LISTING_QUALITY = "LISTING_QUALITY";
     public static final String SHOOT_DETAILS_SWIPE = "DETAILS_SWIPE";
     private AppComponent component;
     private RefWatcher refWatcher;

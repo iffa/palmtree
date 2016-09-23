@@ -26,6 +26,8 @@
     <string name="pref_feedback">Give feedback</string>
     <string name="pref_feedback_summary">Report bugs and suggest new features.</string>
     <string name="pref_theme_summary">Change the app\'s theme.</string>
+    <string name="dialog_listing_quality_title">Thumbnail quality</string>
+    <string name="dialog_listing_quality_content">Please note that due to the way Palmtree loads data for categories latest (all) and latest videos, the thumbnails are of low quality. Opening images in detail view will behave normally.</string>
     <string-array name="pref_themes">
         <item>Light (day)</item>
         <item>Dark (night)</item>

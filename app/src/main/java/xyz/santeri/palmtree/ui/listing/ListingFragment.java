@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ import xyz.santeri.palmtree.ui.base.EndlessScrollListener;
 import xyz.santeri.palmtree.ui.base.ItemClickSupport;
 import xyz.santeri.palmtree.ui.base.StatefulRecyclerView;
 import xyz.santeri.palmtree.ui.detail.DetailActivity;
+import xyz.santeri.palmtree.ui.dialog.DialogFactory;
 import xyz.santeri.palmtree.ui.listing.adapter.ListingAdapter;
 import xyz.santeri.palmtree.util.DeviceUtils;
 
@@ -163,6 +165,13 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
         ImageDetails image = adapter.getItemAt(position);
 
         startActivity(DetailActivity.getStartIntent(getContext(), image.id()));
+    }
+
+    @Override
+    public void showQualityInfo() {
+        FragmentManager fragmentManager = getFragmentManager();
+
+        DialogFactory.newInstance(DialogFactory.DIALOG_LISTING_QUALITY).show(fragmentManager, "listing_quality_dialog");
     }
 
     @Override

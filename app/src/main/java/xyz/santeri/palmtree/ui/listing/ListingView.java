@@ -34,4 +34,7 @@ interface ListingView extends TiView {
 
     @CallOnMainThread
     void openDetails(Integer position);
+
+    @CallOnMainThread
+    void showQualityInfo();
 }

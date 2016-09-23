@@ -23,7 +23,7 @@ import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.base.DetailsService;
 import xyz.santeri.palmtree.base.ListingService;
 import xyz.santeri.palmtree.data.model.ListingType;
-import xyz.santeri.palmtree.ui.ChangelogDialogFragment;
+import xyz.santeri.palmtree.ui.dialog.DialogFactory;
 import xyz.santeri.palmtree.ui.listing.ListingFragment;
 import xyz.santeri.palmtree.ui.settings.SettingsActivity;
 
@@ -130,6 +130,6 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
     public void showUpdateInfo() {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        ChangelogDialogFragment.newInstance().show(fragmentManager, "changelog_dialog");
+        DialogFactory.newInstance(DialogFactory.DIALOG_CHANGELOG).show(fragmentManager, "changelog_dialog");
     }
 }
