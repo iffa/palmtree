@@ -14,6 +14,7 @@ import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.BuildConfig;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.DataManager;
+import xyz.santeri.palmtree.data.local.PreferencesHelper;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
 import xyz.santeri.palmtree.ui.main.MainActivity;
 
@@ -79,7 +80,7 @@ public class SettingsFragment extends XpPreferenceFragment implements SharedPref
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(DataManager.PREF_KEY_THEME)) {
+        if (key.equals(PreferencesHelper.PREF_KEY_THEME)) {
             //noinspection WrongConstant
             AppCompatDelegate.setDefaultNightMode(dataManager.getTheme());
             startActivity(MainActivity.getStartIntent(getContext(), true));
