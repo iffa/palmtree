@@ -14,6 +14,7 @@ import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.BuildConfig;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.DataManager;
+import xyz.santeri.palmtree.ui.dialog.DialogFactory;
 import xyz.santeri.palmtree.ui.main.MainActivity;
 
 /**
@@ -21,6 +22,7 @@ import xyz.santeri.palmtree.ui.main.MainActivity;
  */
 public class SettingsFragment extends XpPreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String PREF_KEY_VERSION = "pref_version";
+    private static final String PREF_KEY_LICENSES = "pref_licenses";
 
     @Inject
     DataManager dataManager;
@@ -34,6 +36,13 @@ public class SettingsFragment extends XpPreferenceFragment implements SharedPref
         addPreferencesFromResource(R.xml.pref_general);
 
         bindPreferenceSummaryToValue(findPreference(PREF_KEY_VERSION));
+
+        findPreference(PREF_KEY_LICENSES).setOnPreferenceClickListener(
+                preference -> {
+                    DialogFactory.newInstance(DialogFactory.DIALOG_LICENSES)
+                            .show(getFragmentManager(), "licenses_dialog");
+                    return true;
+                });
     }
 
     private void bindPreferenceSummaryToValue(Preference preference) {

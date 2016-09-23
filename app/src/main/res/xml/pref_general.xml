@@ -9,8 +9,8 @@
         android:entryValues="@array/pref_themes_values"
         android:icon="@drawable/ic_pref_theme"
         android:key="pref_theme"
-        android:title="@string/pref_theme"
         android:summary="@string/pref_theme_summary"
+        android:title="@string/pref_theme"
         app:asp_tintEnabled="true" />
 
     <Preference
@@ -23,6 +23,13 @@
             android:action="android.intent.action.VIEW"
             android:data="mailto:me@santeri.xyz" />
     </Preference>
+
+    <Preference
+        android:icon="@drawable/ic_pref_licenses"
+        android:key="pref_licenses"
+        android:summary="@string/pref_licenses_summary"
+        android:title="@string/pref_licenses"
+        app:asp_tintEnabled="true" />
 
     <Preference
         android:icon="@drawable/ic_pref_info"

@@ -28,6 +28,9 @@
     <string name="pref_theme_summary">Change the app\'s theme.</string>
     <string name="dialog_listing_quality_title">Thumbnail quality</string>
     <string name="dialog_listing_quality_content">Please note that due to the way Palmtree loads data for categories latest (all) and latest videos, the thumbnails are of low quality. Opening images in detail view will behave normally.</string>
+    <string name="dialog_licenses_title">Licenses</string>
+    <string name="pref_licenses">Licenses</string>
+    <string name="pref_licenses_summary">Third party library licenses.</string>
     <string-array name="pref_themes">
         <item>Light (day)</item>
         <item>Dark (night)</item>
