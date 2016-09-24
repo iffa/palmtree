@@ -25,6 +25,7 @@ import butterknife.Unbinder;
 import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.model.ImageDetails;
+import xyz.santeri.palmtree.data.model.ListingType;
 import xyz.santeri.palmtree.ui.base.EfficientLinearLayoutManager;
 import xyz.santeri.palmtree.ui.base.EndlessScrollListener;
 import xyz.santeri.palmtree.ui.base.ItemClickSupport;
@@ -53,8 +54,16 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     @BindView(R.id.progress)
     ProgressBar progressBar;
 
-    public static ListingFragment newInstance() {
-        return new ListingFragment();
+    private static final String ARG_CATEGORY = "category";
+
+    public static ListingFragment newInstance(ListingType listingType) {
+        ListingFragment fragment = new ListingFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_CATEGORY, listingType);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Nullable
@@ -138,7 +147,7 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     @NonNull
     @Override
     public ListingPresenter providePresenter() {
-        return new ListingPresenter(getContext());
+        return new ListingPresenter(getContext(), (ListingType) getArguments().getSerializable(ARG_CATEGORY));
     }
 
     @Override

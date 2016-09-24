@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/pref_general">
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:enabled="false"
-        android:key="pref_show_nsfw"
-        android:title="@string/pref_show_nsfw" />
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="@string/pref_general">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="false"
+            android:icon="@drawable/ic_pref_nsfw"
+            android:key="pref_show_nsfw"
+            android:title="@string/pref_show_nsfw"
+            app:asp_tintEnabled="true" />
 
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:enabled="false"
-        android:key="pref_confirm_exit"
-        android:title="@string/pref_confirm_exit" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="false"
+            android:icon="@drawable/ic_pref_confirm_exit"
+            android:key="pref_confirm_exit"
+            android:title="@string/pref_confirm_exit"
+            app:asp_tintEnabled="true" />
 
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:enabled="false"
-        android:key="pref_changelog"
-        android:summary="@string/pref_changelog_summary"
-        android:title="@string/pref_changelog" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="false"
+            android:icon="@drawable/ic_pref_changelog"
+            android:key="pref_changelog"
+            android:summary="@string/pref_changelog_summary"
+            android:title="@string/pref_changelog"
+            app:asp_tintEnabled="true" />
+    </PreferenceCategory>
 </PreferenceScreen>

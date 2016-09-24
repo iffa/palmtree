@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:title="@string/pref_other">
-    <Preference
-        android:icon="@drawable/ic_pref_feedback"
-        android:key="pref_feedback"
-        android:summary="@string/pref_feedback_summary"
-        android:title="@string/pref_feedback"
-        app:asp_tintEnabled="true">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="mailto:me@santeri.xyz" />
-    </Preference>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="@string/pref_other">
+        <Preference
+            android:enabled="false"
+            android:icon="@drawable/ic_pref_rate"
+            android:key="pref_rate"
+            android:summary="@string/pref_rate_summary"
+            android:title="@string/pref_rate"
+            app:asp_tintEnabled="true">
+            <!-- TODO: Add intent to Play store when published -->
+        </Preference>
 
-    <Preference
-        android:enabled="false"
-        android:icon="@drawable/ic_pref_rate"
-        android:key="pref_rate"
-        app:asp_tintEnabled="true"
-        android:summary="@string/pref_rate_summary"
-        android:title="@string/pref_rate">
-        <!-- TODO: Add intent to Play store when published -->
-    </Preference>
+        <Preference
+            android:icon="@drawable/ic_pref_feedback"
+            android:key="pref_feedback"
+            android:summary="@string/pref_feedback_summary"
+            android:title="@string/pref_feedback"
+            app:asp_tintEnabled="true"
+            app:asp_tintMode="src_in">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="mailto:me@santeri.xyz" />
+        </Preference>
 
-    <Preference
-        android:icon="@drawable/ic_pref_licenses"
-        android:key="pref_licenses"
-        android:summary="@string/pref_licenses_summary"
-        android:title="@string/pref_licenses"
-        app:asp_tintEnabled="true" />
+        <Preference
+            android:icon="@drawable/ic_pref_licenses"
+            android:key="pref_licenses"
+            android:summary="@string/pref_licenses_summary"
+            android:title="@string/pref_licenses"
+            app:asp_tintEnabled="true" />
 
-    <Preference
-        android:icon="@drawable/ic_pref_info"
-        android:key="pref_version"
-        android:title="@string/app_name"
-        app:asp_tintEnabled="true">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="https://github.com/iffa/palmtree" />
-    </Preference>
+        <Preference
+            android:icon="@drawable/ic_pref_info"
+            android:key="pref_version"
+            android:title="@string/app_name"
+            app:asp_tintEnabled="true">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/iffa/palmtree" />
+        </Preference>
+    </PreferenceCategory>
 </PreferenceScreen>

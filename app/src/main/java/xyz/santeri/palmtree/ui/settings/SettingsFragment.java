@@ -8,8 +8,6 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.XpPreferenceFragment;
 import android.view.View;
 
-import net.xpece.android.support.preference.PreferenceDividerDecoration;
-
 import javax.inject.Inject;
 
 import xyz.santeri.palmtree.App;
@@ -81,7 +79,6 @@ public class SettingsFragment extends XpPreferenceFragment implements SharedPref
 
         App.get(getContext()).component().inject(this);
 
-        getListView().addItemDecoration(new PreferenceDividerDecoration(getContext()).drawBottom(true));
         getListView().setFocusable(false);
     }
 

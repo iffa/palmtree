@@ -20,8 +20,7 @@ import butterknife.ButterKnife;
 import rx.Observable;
 import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.R;
-import xyz.santeri.palmtree.base.DetailsService;
-import xyz.santeri.palmtree.base.ListingService;
+import xyz.santeri.palmtree.data.local.PreferencesHelper;
 import xyz.santeri.palmtree.data.model.ListingType;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
 import xyz.santeri.palmtree.ui.listing.ListingFragment;
@@ -32,13 +31,12 @@ import xyz.santeri.palmtree.ui.settings.SettingsActivity;
  */
 public class MainActivity extends TiActivity<MainPresenter, MainView> implements MainView {
     @Inject
-    DetailsService detailsService;
-
-    @Inject
-    ListingService listingService;
+    PreferencesHelper preferencesHelper;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    private Menu menu;
 
     public static Intent getStartIntent(Context context, boolean newTask) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -60,9 +58,11 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
         setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
+            ListingType listingType = preferencesHelper.getCategory();
+
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.content, ListingFragment.newInstance())
+                    .replace(R.id.content, ListingFragment.newInstance(listingType))
                     .commit();
 
             //noinspection ConstantConditions
@@ -73,6 +73,7 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
+        this.menu = menu;
         return super.onCreateOptionsMenu(menu);
     }
 

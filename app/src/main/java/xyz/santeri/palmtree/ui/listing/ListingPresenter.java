@@ -33,13 +33,14 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     private LinkedHashMap<Integer, List<ImageDetails>> itemsListing = new LinkedHashMap<>();
     private int scrollPosition;
     private int currentPage;
-    private ListingType listingType = ListingType.FRONT_PAGE;
+    private ListingType listingType;
 
     @Inject
     DataManager dataManager;
 
-    ListingPresenter(Context context) {
+    ListingPresenter(Context context, ListingType listingType) {
         App.get(context).component().inject(this);
+        this.listingType = listingType;
     }
 
     @Override
