@@ -38,8 +38,6 @@ public class SettingsActivity extends AppCompatActivity implements SwipeBackActi
 
         Fixes.updateLayoutInflaterFactory(getLayoutInflater());
 
-        overridePendingTransition(R.anim.right_in_fade, 0);
-
         swipeHelper = new SwipeBackActivityHelper(this);
         swipeHelper.onActivityCreate();
 
@@ -85,12 +83,6 @@ public class SettingsActivity extends AppCompatActivity implements SwipeBackActi
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(0, R.anim.right_out_fade);
     }
 
     @Override
