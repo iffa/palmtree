@@ -112,6 +112,13 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
 
                 getPresenter().onListingTypeChange(ListingType.LATEST_ALL);
                 return true;
+            case R.id.action_list_random:
+                if (item.isChecked()) return true;
+                item.setChecked(true);
+                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.random)));
+
+                getPresenter().onListingTypeChange(ListingType.RANDOM);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

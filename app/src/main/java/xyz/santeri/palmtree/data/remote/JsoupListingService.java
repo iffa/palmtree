@@ -22,6 +22,7 @@ public class JsoupListingService implements ListingService {
     private static final String LATEST_IMAGES_URL = "http://naamapalmu.com/filelist/images/latest/listing/%s";
     private static final String LATEST_VIDEOS_URL = "http://naamapalmu.com/filelist/videos/latest/table/%s";
     private static final String LATEST_ALL_URL = "http://naamapalmu.com/filelist/all/latest/table/%s";
+    private static final String RANDOM_URL = "http://naamapalmu.com/filelist/all/random/table/%s";
 
     @Override
     public Observable<ImageDetails> getListing(ListingType type, int pageNumber) {
@@ -41,6 +42,9 @@ public class JsoupListingService implements ListingService {
                         break;
                     case LATEST_ALL:
                         doc = Jsoup.connect(String.format(LATEST_ALL_URL, pageNumber)).get();
+                        break;
+                    case RANDOM:
+                        doc = Jsoup.connect(String.format(RANDOM_URL, pageNumber)).get();
                         break;
                     default:
                         doc = Jsoup.connect(String.format(FRONTPAGE_URL, pageNumber)).get();

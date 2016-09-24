@@ -21,7 +21,6 @@
     <string name="content_description">Funny image/video</string>
     <string name="changelog_title">Changelog - %s</string>
     <string name="ok" translatable="false">OK</string>
-    <string name="changelog">• New and improved\n• Bug fixes</string>
     <string name="pref_theme">Theme</string>
     <string name="pref_feedback">Feedback</string>
     <string name="pref_feedback_summary">Report bugs and suggest new features.</string>
@@ -46,9 +45,10 @@
     <string name="pref_changelog_summary">Show changelog after app update.</string>
     <string name="pref_category">Default category</string>
     <string name="pref_category_summary">Change the default category.</string>
-    <string name="random">Random</string>
+    <string name="random">random</string>
     <string name="pref_rate">Rate the app</string>
     <string name="pref_rate_summary">Rate the app on the Play store.</string>
+    <string name="action_list_random">Random</string>
     <string-array name="pref_themes">
         <item>Light (day)</item>
         <item>Dark (night)</item>
@@ -61,11 +61,11 @@
     </string-array>
 
     <string-array name="pref_category">
-        <item>@string/frontpage</item>
-        <item>@string/latest_images</item>
-        <item>@string/latest_videos</item>
-        <item>@string/latest_all</item>
-        <item>@string/random</item>
+        <item>@string/action_list_frontpage</item>
+        <item>@string/action_list_images</item>
+        <item>@string/action_list_videos</item>
+        <item>@string/action_list_all</item>
+        <item>@string/action_list_random</item>
     </string-array>
     <string-array name="pref_category_values" translatable="false">
         <item>0</item>
@@ -74,4 +74,7 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+
+    <!-- never-ending TODO: update changelog -->
+    <string name="changelog">• Added random-category\n• Added new settings\n• Bug fixes</string>
 </resources>
