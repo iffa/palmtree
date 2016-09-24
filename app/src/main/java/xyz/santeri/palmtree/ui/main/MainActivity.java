@@ -50,18 +50,18 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.content, ListingFragment.newInstance(getPresenter().getDefaultCategory()))
+                    .replace(R.id.content, ListingFragment.newInstance(getPresenter().getCurrentCategory()))
                     .commit();
-
-            setToolbarTitle(getPresenter().getDefaultCategory());
         }
+
+        setToolbarTitle(getPresenter().getCurrentCategory());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
 
-        switch (getPresenter().getDefaultCategory()) {
+        switch (getPresenter().getCurrentCategory()) {
             case FRONT_PAGE:
                 menu.findItem(R.id.action_list_frontpage).setChecked(true);
                 return true;

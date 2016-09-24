@@ -23,7 +23,7 @@ import xyz.santeri.palmtree.ui.base.event.ScrollToTopEvent;
  */
 public class MainPresenter extends TiPresenter<MainView> {
     private RxTiPresenterSubscriptionHandler subscriptionHelper = new RxTiPresenterSubscriptionHandler(this);
-    private ListingType defaultCategory;
+    private ListingType currentCategory;
 
     @Inject
     PreferencesHelper preferencesHelper;
@@ -36,7 +36,7 @@ public class MainPresenter extends TiPresenter<MainView> {
     protected void onCreate() {
         super.onCreate();
 
-        defaultCategory = preferencesHelper.getCategory();
+        currentCategory = preferencesHelper.getCategory();
     }
 
     @Override
@@ -56,10 +56,11 @@ public class MainPresenter extends TiPresenter<MainView> {
     }
 
     void onListingTypeChange(ListingType type) {
+        currentCategory = type;
         EventBus.getDefault().post(new ListingTypeChangeEvent(type));
     }
 
-    ListingType getDefaultCategory() {
-        return defaultCategory;
+    ListingType getCurrentCategory() {
+        return currentCategory;
     }
 }
