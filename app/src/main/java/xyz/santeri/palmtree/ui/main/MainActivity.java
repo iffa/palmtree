@@ -16,6 +16,7 @@ import net.grandcentrix.thirtyinch.TiActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
+import timber.log.Timber;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.model.ListingType;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
@@ -23,9 +24,6 @@ import xyz.santeri.palmtree.ui.listing.ListingFragment;
 import xyz.santeri.palmtree.ui.settings.SettingsActivity;
 
 /**
- * TODO: Fix default category behavior (toolbar title)
- * TODO: Fix toolbar title sometimes resetting (what)
- *
  * @author Santeri Elo
  */
 public class MainActivity extends TiActivity<MainPresenter, MainView> implements MainView {
@@ -55,8 +53,7 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
                     .replace(R.id.content, ListingFragment.newInstance(getPresenter().getDefaultCategory()))
                     .commit();
 
-            //noinspection ConstantConditions
-            getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.frontpage)));
+            setToolbarTitle(getPresenter().getDefaultCategory());
         }
     }
 
@@ -87,7 +84,6 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        assert getSupportActionBar() != null; // damn I love doing this
         switch (item.getItemId()) {
             case R.id.action_settings:
                 startActivity(SettingsActivity.getStartIntent(this));
@@ -95,36 +91,36 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
             case R.id.action_list_frontpage:
                 if (item.isChecked()) return true;
                 item.setChecked(true);
-                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.frontpage)));
 
+                setToolbarTitle(ListingType.FRONT_PAGE);
                 getPresenter().onListingTypeChange(ListingType.FRONT_PAGE);
                 return true;
             case R.id.action_list_images:
                 if (item.isChecked()) return true;
                 item.setChecked(true);
-                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.latest_images)));
 
+                setToolbarTitle(ListingType.LATEST_IMAGES);
                 getPresenter().onListingTypeChange(ListingType.LATEST_IMAGES);
                 return true;
             case R.id.action_list_videos:
                 if (item.isChecked()) return true;
                 item.setChecked(true);
-                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.latest_videos)));
 
+                setToolbarTitle(ListingType.LATEST_VIDEOS);
                 getPresenter().onListingTypeChange(ListingType.LATEST_VIDEOS);
                 return true;
             case R.id.action_list_all:
                 if (item.isChecked()) return true;
                 item.setChecked(true);
-                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.latest_all)));
 
+                setToolbarTitle(ListingType.LATEST_ALL);
                 getPresenter().onListingTypeChange(ListingType.LATEST_ALL);
                 return true;
             case R.id.action_list_random:
                 if (item.isChecked()) return true;
                 item.setChecked(true);
-                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.random)));
 
+                setToolbarTitle(ListingType.RANDOM);
                 getPresenter().onListingTypeChange(ListingType.RANDOM);
                 return true;
         }
@@ -147,5 +143,28 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         DialogFactory.newInstance(DialogFactory.DIALOG_CHANGELOG).show(fragmentManager, "changelog_dialog");
+    }
+
+    @Override
+    public void setToolbarTitle(ListingType listingType) {
+        Timber.d("Setting toolbar title to type %s", listingType.name());
+        assert getSupportActionBar() != null;
+        switch (listingType) {
+            case FRONT_PAGE:
+                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.frontpage)));
+                break;
+            case LATEST_IMAGES:
+                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.latest_images)));
+                break;
+            case LATEST_VIDEOS:
+                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.latest_videos)));
+                break;
+            case LATEST_ALL:
+                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.latest_all)));
+                break;
+            case RANDOM:
+                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.random)));
+                break;
+        }
     }
 }

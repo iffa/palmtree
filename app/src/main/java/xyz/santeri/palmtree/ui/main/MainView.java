@@ -4,6 +4,7 @@ import net.grandcentrix.thirtyinch.TiView;
 import net.grandcentrix.thirtyinch.callonmainthread.CallOnMainThread;
 
 import rx.Observable;
+import xyz.santeri.palmtree.data.model.ListingType;
 
 /**
  * @author Santeri Elo
@@ -14,4 +15,7 @@ interface MainView extends TiView {
 
     @CallOnMainThread
     void showUpdateInfo();
+
+    @CallOnMainThread
+    void setToolbarTitle(ListingType listingType);
 }
