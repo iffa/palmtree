@@ -8,9 +8,11 @@
             android:icon="@drawable/ic_pref_nsfw"
             android:key="pref_show_nsfw"
             android:title="@string/pref_show_nsfw"
+            app:asp_tint="?android:textColorPrimary"
             app:asp_tintEnabled="true" />
 
         <CheckBoxPreference
+            app:asp_tint="?android:textColorPrimary"
             android:defaultValue="false"
             android:enabled="false"
             android:icon="@drawable/ic_pref_confirm_exit"
@@ -19,6 +21,7 @@
             app:asp_tintEnabled="true" />
 
         <CheckBoxPreference
+            app:asp_tint="?android:textColorPrimary"
             android:defaultValue="true"
             android:enabled="false"
             android:icon="@drawable/ic_pref_changelog"

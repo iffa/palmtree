@@ -23,6 +23,9 @@ import xyz.santeri.palmtree.ui.listing.ListingFragment;
 import xyz.santeri.palmtree.ui.settings.SettingsActivity;
 
 /**
+ * TODO: Fix default category behavior (toolbar title)
+ * TODO: Fix toolbar title sometimes resetting (what)
+ *
  * @author Santeri Elo
  */
 public class MainActivity extends TiActivity<MainPresenter, MainView> implements MainView {

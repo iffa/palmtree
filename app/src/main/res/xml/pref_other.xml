@@ -4,6 +4,7 @@
     <PreferenceCategory android:title="@string/pref_other">
         <Preference
             android:enabled="false"
+            app:asp_tint="?android:textColorPrimary"
             android:icon="@drawable/ic_pref_rate"
             android:key="pref_rate"
             android:summary="@string/pref_rate_summary"
@@ -13,6 +14,7 @@
         </Preference>
 
         <Preference
+            app:asp_tint="?android:textColorPrimary"
             android:icon="@drawable/ic_pref_feedback"
             android:key="pref_feedback"
             android:summary="@string/pref_feedback_summary"
@@ -29,11 +31,13 @@
             android:key="pref_licenses"
             android:summary="@string/pref_licenses_summary"
             android:title="@string/pref_licenses"
+            app:asp_tint="?android:textColorPrimary"
             app:asp_tintEnabled="true" />
 
         <Preference
             android:icon="@drawable/ic_pref_info"
             android:key="pref_version"
+            app:asp_tint="?android:textColorPrimary"
             android:title="@string/app_name"
             app:asp_tintEnabled="true">
             <intent
