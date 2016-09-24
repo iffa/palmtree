@@ -13,14 +13,10 @@ import com.jakewharton.rxbinding.view.RxView;
 
 import net.grandcentrix.thirtyinch.TiActivity;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
-import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.R;
-import xyz.santeri.palmtree.data.local.PreferencesHelper;
 import xyz.santeri.palmtree.data.model.ListingType;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
 import xyz.santeri.palmtree.ui.listing.ListingFragment;
@@ -30,13 +26,8 @@ import xyz.santeri.palmtree.ui.settings.SettingsActivity;
  * @author Santeri Elo
  */
 public class MainActivity extends TiActivity<MainPresenter, MainView> implements MainView {
-    @Inject
-    PreferencesHelper preferencesHelper;
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
-    private Menu menu;
 
     public static Intent getStartIntent(Context context, boolean newTask) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -50,19 +41,15 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        App.get(this).component().inject(this);
-
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
-            ListingType listingType = preferencesHelper.getCategory();
-
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.content, ListingFragment.newInstance(listingType))
+                    .replace(R.id.content, ListingFragment.newInstance(getPresenter().getDefaultCategory()))
                     .commit();
 
             //noinspection ConstantConditions
@@ -73,7 +60,25 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
-        this.menu = menu;
+
+        switch (getPresenter().getDefaultCategory()) {
+            case FRONT_PAGE:
+                menu.findItem(R.id.action_list_frontpage).setChecked(true);
+                return true;
+            case LATEST_IMAGES:
+                menu.findItem(R.id.action_list_images).setChecked(true);
+                return true;
+            case LATEST_VIDEOS:
+                menu.findItem(R.id.action_list_videos).setChecked(true);
+                return true;
+            case LATEST_ALL:
+                menu.findItem(R.id.action_list_all).setChecked(true);
+                return true;
+            case RANDOM:
+                menu.findItem(R.id.action_list_random).setChecked(true);
+                return true;
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -126,7 +131,7 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
     @NonNull
     @Override
     public MainPresenter providePresenter() {
-        return new MainPresenter();
+        return new MainPresenter(this);
     }
 
     @Override

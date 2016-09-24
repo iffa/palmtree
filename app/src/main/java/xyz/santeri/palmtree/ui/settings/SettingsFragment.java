@@ -84,7 +84,7 @@ public class SettingsFragment extends XpPreferenceFragment implements SharedPref
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(PreferencesHelper.PREF_KEY_THEME)) {
+        if (key.equals(PreferencesHelper.PREF_KEY_THEME) || key.equals(PreferencesHelper.PREF_KEY_CATEGORY)) {
             //noinspection WrongConstant
             AppCompatDelegate.setDefaultNightMode(dataManager.getTheme());
             startActivity(MainActivity.getStartIntent(getContext(), true));

@@ -97,7 +97,8 @@ public class ListingPresenter extends TiPresenter<ListingView> {
         getView().clear();
         itemsListing.clear();
 
-        if (listingType == ListingType.LATEST_VIDEOS || listingType == ListingType.LATEST_ALL) {
+        if (listingType == ListingType.LATEST_VIDEOS
+                || listingType == ListingType.LATEST_ALL || listingType == ListingType.RANDOM) {
             Shoot.once(App.SHOOT_LISTING_QUALITY, new OnShootListener() {
                 @Override
                 public void onExecute(@Scope int scope, String TAG, int iterationCount) {

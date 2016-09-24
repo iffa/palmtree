@@ -18,7 +18,6 @@
         <ListPreference
             style="@style/Preference.Material.DialogPreference.ListPreference.SimpleMenu"
             android:defaultValue="0"
-            android:enabled="false"
             android:entries="@array/pref_category"
             android:entryValues="@array/pref_category_values"
             android:icon="@drawable/ic_action_list"

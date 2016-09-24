@@ -9,7 +9,6 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:checked="true"
                     android:id="@+id/action_list_frontpage"
                     android:title="@string/action_list_frontpage" />
 

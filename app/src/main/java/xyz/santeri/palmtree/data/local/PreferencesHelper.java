@@ -16,7 +16,7 @@ import xyz.santeri.palmtree.di.AppContext;
 @Singleton
 public class PreferencesHelper {
     public static final String PREF_KEY_THEME = "pref_theme";
-    private static final String PREF_KEY_CATEGORY = "pref_category";
+    public static final String PREF_KEY_CATEGORY = "pref_category";
     private static final String PREF_KEY_SWIPE = "pref_swipe_back";
     private static final String PREF_KEY_CLICK = "pref_click_back";
     private static final String PREF_KEY_TOOLBAR = "pref_toolbar_hide";
