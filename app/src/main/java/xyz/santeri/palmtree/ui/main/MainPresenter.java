@@ -50,7 +50,9 @@ public class MainPresenter extends TiPresenter<MainView> {
         Shoot.once(Shoot.APP_VERSION, App.SHOOT_UPDATE_TAG, new OnShootListener() {
             @Override
             public void onExecute(@Scope int scope, String TAG, int iterationCount) {
-                getView().showUpdateInfo();
+                if (preferencesHelper.getShowChangelog()) {
+                    getView().showUpdateInfo();
+                }
             }
         });
     }
