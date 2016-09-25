@@ -8,7 +8,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 import rx.Observable;
-import timber.log.Timber;
 import xyz.santeri.palmtree.base.ListingService;
 import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.data.model.ImageType;
@@ -95,8 +94,6 @@ public class JsoupListingService implements ListingService {
             } else {
                 Elements files = doc.select("table.filelist > tbody").first().getElementsByTag("td");
 
-                Timber.d("Found %s files in table", files.size());
-
                 for (Element file : files) {
                     int id;
                     boolean nsfw = false;
@@ -115,7 +112,6 @@ public class JsoupListingService implements ListingService {
 
                     ImageDetails image = ImageDetails.create(id, thumbnailUrl, ImageType.UNDEFINED, nsfw, title, null);
                     subscriber.onNext(image);
-                    Timber.d("File %s: '%s", files.indexOf(file), image.toString());
                 }
             }
 
