@@ -4,7 +4,6 @@
     <PreferenceCategory android:title="@string/pref_general">
         <CheckBoxPreference
             android:defaultValue="false"
-            android:enabled="false"
             android:icon="@drawable/ic_pref_nsfw"
             android:key="pref_show_nsfw"
             android:title="@string/pref_show_nsfw"

@@ -178,7 +178,7 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
         getSupportActionBar().setSubtitle(imageDetails.rating());
 
         if (imageView.isImageLoaded())
-            return; // Without this, we will crash horribly on pause/resume
+            return; // Without this, we will crash horribly on pause/resume (when image is already loaded)
 
         if (imageDetails.type() == ImageType.IMAGE) {
             videoView.setVisibility(View.GONE);

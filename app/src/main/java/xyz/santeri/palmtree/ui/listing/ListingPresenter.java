@@ -3,6 +3,7 @@ package xyz.santeri.palmtree.ui.listing;
 import android.content.Context;
 
 import net.grandcentrix.thirtyinch.TiPresenter;
+import net.grandcentrix.thirtyinch.rx.RxTiPresenterSubscriptionHandler;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -20,6 +21,7 @@ import io.github.prashantsolanki3.shoot.utils.Scope;
 import timber.log.Timber;
 import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.data.DataManager;
+import xyz.santeri.palmtree.data.local.PreferencesHelper;
 import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.data.model.ListingType;
 import xyz.santeri.palmtree.ui.base.event.ListingTypeChangeEvent;
@@ -30,6 +32,7 @@ import xyz.santeri.palmtree.ui.base.event.ScrollToTopEvent;
  */
 @Singleton
 public class ListingPresenter extends TiPresenter<ListingView> {
+    private RxTiPresenterSubscriptionHandler subscriptionHelper = new RxTiPresenterSubscriptionHandler(this);
     private LinkedHashMap<Integer, List<ImageDetails>> itemsListing = new LinkedHashMap<>();
     private int scrollPosition;
     private int currentPage;
@@ -37,6 +40,9 @@ public class ListingPresenter extends TiPresenter<ListingView> {
 
     @Inject
     DataManager dataManager;
+
+    @Inject
+    PreferencesHelper preferences;
 
     ListingPresenter(Context context, ListingType listingType) {
         App.get(context).component().inject(this);
@@ -122,8 +128,19 @@ public class ListingPresenter extends TiPresenter<ListingView> {
 
         List<ImageDetails> newItems = new ArrayList<>();
 
-        dataManager.getListing(listingType, page)
-                .subscribe(
+        subscriptionHelper.manageSubscription(
+                dataManager.getListing(listingType, page)
+                        .filter(image -> {
+                            if (preferences.getShowNsfw()) return true;
+
+                            if (image.nsfw()) {
+                                Timber.d("Not showing NSFW image as current settings don't allow it");
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        })
+                        .subscribe(
                         item -> {
                             newItems.add(item);
                             getView().addImage(item);
@@ -135,7 +152,7 @@ public class ListingPresenter extends TiPresenter<ListingView> {
                         () -> {
                             itemsListing.put(page, newItems);
                             getView().finishLoading();
-                        });
+                        }));
     }
 
     void onItemClick(int position) {

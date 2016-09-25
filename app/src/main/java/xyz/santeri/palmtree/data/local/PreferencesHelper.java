@@ -17,13 +17,14 @@ import xyz.santeri.palmtree.di.AppContext;
 public class PreferencesHelper {
     public static final String PREF_KEY_THEME = "pref_theme";
     public static final String PREF_KEY_CATEGORY = "pref_category";
+    private static final String PREF_KEY_NSFW = "pref_nsfw";
     private static final String PREF_KEY_SWIPE = "pref_swipe_back";
     private static final String PREF_KEY_CLICK = "pref_click_back";
     private static final String PREF_KEY_TOOLBAR = "pref_toolbar_hide";
     private final SharedPreferences preferences;
 
     @Inject
-    public PreferencesHelper(@AppContext Context context) {
+    PreferencesHelper(@AppContext Context context) {
         this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
@@ -33,6 +34,10 @@ public class PreferencesHelper {
 
     public int getTheme() {
         return Integer.parseInt(preferences.getString(PREF_KEY_THEME, "0"));
+    }
+
+    public boolean getShowNsfw() {
+        return preferences.getBoolean(PREF_KEY_NSFW, false);
     }
 
     public ListingType getCategory() {
