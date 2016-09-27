@@ -27,35 +27,5 @@
             android:title="@string/pref_category"
             app:asp_tint="?android:textColorPrimary"
             app:asp_tintEnabled="true" />
-
-        <CheckBoxPreference
-            app:asp_tint="?android:textColorPrimary"
-            android:defaultValue="true"
-            android:enabled="false"
-            android:icon="@drawable/ic_pref_toolbar"
-            android:key="pref_toolbar_hide"
-            android:summary="@string/pref_toolbar_hide_summary"
-            android:title="@string/pref_toolbar_hide"
-            app:asp_tintEnabled="true" />
-
-        <CheckBoxPreference
-            app:asp_tint="?android:textColorPrimary"
-            android:defaultValue="true"
-            android:enabled="false"
-            android:icon="@drawable/ic_pref_return"
-            android:key="pref_swipe_back"
-            android:summary="@string/pref_swipe_back_summary"
-            android:title="@string/pref_swipe_back"
-            app:asp_tintEnabled="true" />
-
-        <CheckBoxPreference
-            app:asp_tint="?android:textColorPrimary"
-            android:defaultValue="true"
-            android:enabled="false"
-            android:icon="@drawable/ic_pref_return"
-            android:key="pref_click_back"
-            android:summary="@string/pref_click_back_summary"
-            android:title="@string/pref_click_back"
-            app:asp_tintEnabled="true" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -58,18 +58,6 @@ public class PreferencesHelper {
         }
     }
 
-    public boolean getSwipeToReturnEnabled() {
-        return preferences.getBoolean(PREF_KEY_SWIPE, true);
-    }
-
-    public boolean getClickToReturnEnabled() {
-        return preferences.getBoolean(PREF_KEY_CLICK, true);
-    }
-
-    public boolean getHideToolbarEnabled() {
-        return preferences.getBoolean(PREF_KEY_TOOLBAR, true);
-    }
-
     public boolean getShowChangelog() {
         return preferences.getBoolean(PREF_KEY_CHANGELOG, true);
     }
