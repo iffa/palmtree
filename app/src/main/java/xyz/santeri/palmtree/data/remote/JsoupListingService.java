@@ -77,10 +77,10 @@ public class JsoupListingService implements ListingService {
                     }
 
                     if (file.select("a > img").size() > 0) {
-                        fileUrl = file.select("a > img").first().attr("src");
+                        fileUrl = "http:" + file.select("a > img").first().attr("src");
                         imageType = ImageType.IMAGE;
                     } else if (file.select("video > source").size() > 0) {
-                        fileUrl = file.select("video > source").first().attr("src");
+                        fileUrl = "http:" + file.select("video > source").first().attr("src");
                         imageType = ImageType.VIDEO;
                     }
 
@@ -106,7 +106,7 @@ public class JsoupListingService implements ListingService {
                         nsfw = true;
                     }
 
-                    thumbnailUrl = file.select("a > img").first().attr("src");
+                    thumbnailUrl = "http:" + file.select("a > img").first().attr("src");
 
                     id = Integer.parseInt(file.select("a").first().attr("href").split("/")[4]);
 
@@ -118,11 +118,4 @@ public class JsoupListingService implements ListingService {
             subscriber.onCompleted();
         });
     }
-
-    @Override
-    public Observable<ImageDetails> getTableListing(ListingType type, int pageNumber) {
-        return null;
-    }
-
-
 }

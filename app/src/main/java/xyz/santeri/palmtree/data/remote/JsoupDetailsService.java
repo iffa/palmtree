@@ -48,10 +48,10 @@ public class JsoupDetailsService implements DetailsService {
             }
 
             if (file.select("a > img").size() > 0) {
-                fileUrl = file.select("a > img").first().attr("src");
+                fileUrl = "http:" + file.select("a > img").first().attr("src");
                 imageType = ImageType.IMAGE;
             } else if (file.select("video > source").size() > 0) {
-                fileUrl = file.select("video > source").first().attr("src");
+                fileUrl = "http:" + file.select("video > source").first().attr("src");
                 imageType = ImageType.VIDEO;
             } else {
                 subscriber.onError(new UnsupportedEncodingException("Only images or videos are supported"));
