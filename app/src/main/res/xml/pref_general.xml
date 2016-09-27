@@ -11,21 +11,31 @@
             app:asp_tintEnabled="true" />
 
         <CheckBoxPreference
+            android:enabled="false"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_pref_data"
+            android:key="pref_save_data"
+            android:summary="@string/pref_save_data_summary"
+            android:title="@string/pref_save_data"
             app:asp_tint="?android:textColorPrimary"
+            app:asp_tintEnabled="true" />
+
+        <CheckBoxPreference
             android:defaultValue="false"
             android:enabled="false"
             android:icon="@drawable/ic_pref_confirm_exit"
             android:key="pref_confirm_exit"
             android:title="@string/pref_confirm_exit"
+            app:asp_tint="?android:textColorPrimary"
             app:asp_tintEnabled="true" />
 
         <CheckBoxPreference
-            app:asp_tint="?android:textColorPrimary"
             android:defaultValue="true"
             android:icon="@drawable/ic_pref_changelog"
             android:key="pref_changelog"
             android:summary="@string/pref_changelog_summary"
             android:title="@string/pref_changelog"
+            app:asp_tint="?android:textColorPrimary"
             app:asp_tintEnabled="true" />
     </PreferenceCategory>
 </PreferenceScreen>
