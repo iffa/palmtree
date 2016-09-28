@@ -69,8 +69,13 @@ public class JsoupListingService implements ListingService {
                     String fileUrl = null;
                     String title = null;
                     String rating = null;
+                    String description = null;
 
                     title = file.select("p.filetitle").first().text();
+
+                    if (file.select("pre").size() > 0) {
+                        description = file.select("pre").first().text();
+                    }
 
                     if (file.select("p.nsfwwarning").size() > 0) {
                         nsfw = true;
@@ -88,7 +93,7 @@ public class JsoupListingService implements ListingService {
 
                     rating = file.select("div.listingcomments > span").first().text();
 
-                    ImageDetails imageDetails = ImageDetails.create(id, fileUrl, imageType, nsfw, title, rating);
+                    ImageDetails imageDetails = ImageDetails.create(id, fileUrl, imageType, nsfw, title, rating, description);
                     subscriber.onNext(imageDetails);
                 }
             } else {
@@ -110,7 +115,7 @@ public class JsoupListingService implements ListingService {
 
                     id = Integer.parseInt(file.select("a").first().attr("href").split("/")[4]);
 
-                    ImageDetails image = ImageDetails.create(id, thumbnailUrl, ImageType.UNDEFINED, nsfw, title, null);
+                    ImageDetails image = ImageDetails.create(id, thumbnailUrl, ImageType.UNDEFINED, nsfw, title, null, null);
                     subscriber.onNext(image);
                 }
             }

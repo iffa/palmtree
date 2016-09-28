@@ -159,4 +159,8 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     ListingAdapter getListingAdapter() {
         return listingAdapter;
     }
+
+    void onItemLongClick(int position) {
+        getView().openDialogDetails(listingAdapter.getItemAt(position));
+    }
 }

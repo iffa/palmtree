@@ -29,4 +29,7 @@ interface ListingView extends TiView {
 
     @CallOnMainThread
     void showQualityInfo();
+
+    @CallOnMainThread
+    void openDialogDetails(ImageDetails item);
 }

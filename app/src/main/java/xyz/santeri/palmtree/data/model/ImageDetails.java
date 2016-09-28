@@ -41,7 +41,13 @@ public abstract class ImageDetails implements Parcelable {
     @Nullable
     public abstract String rating(); // Don't need it as an integer
 
-    public static ImageDetails create(int id, String fileUrl, ImageType type, boolean nsfw, String title, @Nullable String rating) {
-        return new AutoValue_ImageDetails(id, fileUrl, type, nsfw, title, rating);
+    /**
+     * @return File description
+     */
+    @Nullable
+    public abstract String description();
+
+    public static ImageDetails create(int id, String fileUrl, ImageType type, boolean nsfw, String title, @Nullable String rating, @Nullable String description) {
+        return new AutoValue_ImageDetails(id, fileUrl, type, nsfw, title, rating, description);
     }
 }

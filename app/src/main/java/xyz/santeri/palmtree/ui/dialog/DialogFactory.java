@@ -20,6 +20,7 @@ import timber.log.Timber;
 import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.BuildConfig;
 import xyz.santeri.palmtree.R;
+import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.ui.main.MainActivity;
 
 /**
@@ -27,7 +28,7 @@ import xyz.santeri.palmtree.ui.main.MainActivity;
  */
 public class DialogFactory extends DialogFragment {
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({DIALOG_CHANGELOG, DIALOG_LISTING_QUALITY, DIALOG_LICENSES, DIALOG_CONFIRM_EXIT})
+    @IntDef({DIALOG_CHANGELOG, DIALOG_LISTING_QUALITY, DIALOG_LICENSES, DIALOG_CONFIRM_EXIT, DIALOG_IMAGE_INFO})
     public @interface DialogType {
     }
 
@@ -35,14 +36,28 @@ public class DialogFactory extends DialogFragment {
     public static final int DIALOG_LISTING_QUALITY = 1;
     public static final int DIALOG_LICENSES = 2;
     public static final int DIALOG_CONFIRM_EXIT = 3;
+    public static final int DIALOG_IMAGE_INFO = 4;
 
     private static final String ARG_DIALOG_TYPE = "dialog_type";
+    private static final String ARG_IMAGE = "image";
 
     public static DialogFactory newInstance(@DialogType int dialogType) {
         DialogFactory fragment = new DialogFactory();
 
         Bundle args = new Bundle();
         args.putInt(ARG_DIALOG_TYPE, dialogType);
+
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    public static DialogFactory newInstance(@DialogType int dialogType, ImageDetails imageDetails) {
+        DialogFactory fragment = new DialogFactory();
+
+        Bundle args = new Bundle();
+        args.putInt(ARG_DIALOG_TYPE, dialogType);
+        args.putParcelable(ARG_IMAGE, imageDetails);
 
         fragment.setArguments(args);
 
@@ -76,6 +91,15 @@ public class DialogFactory extends DialogFragment {
                         .positiveText(R.string.exit)
                         .negativeText(R.string.cancel)
                         .onPositive((dialog, which) -> startActivity(MainActivity.getStartIntent(getContext(), true, true)))
+                        .build();
+            case DIALOG_IMAGE_INFO:
+                ImageDetails image = getArguments().getParcelable(ARG_IMAGE);
+
+                assert image != null;
+                return new MaterialDialog.Builder(getActivity())
+                        .title(image.title())
+                        .content(getString(R.string.dialog_image_info_content, image.description(), image.rating(), image.nsfw()))
+                        .positiveText(R.string.ok)
                         .build();
             case DIALOG_LICENSES:
                 StringBuilder buf = new StringBuilder();

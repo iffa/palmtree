@@ -83,4 +83,5 @@
     <string name="dialog_confirm_exit_content">Are you sure you want to exit Palmtree?</string>
     <string name="exit">Exit</string>
     <string name="cancel">Cancel</string>
+    <string name="dialog_image_info_content" formatted="false">Description: "%s"\nRating: "%s"\nNSFW: "%b"</string>
 </resources>

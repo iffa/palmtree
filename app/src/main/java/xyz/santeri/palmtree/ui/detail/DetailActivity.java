@@ -185,7 +185,6 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
             videoView.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
 
-            // TODO: fix Error, cannot access an invalid/free'd bitmap here
             Glide.with(this).load(imageDetails.fileUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
