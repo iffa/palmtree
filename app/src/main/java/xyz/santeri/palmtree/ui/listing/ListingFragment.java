@@ -19,6 +19,7 @@ import net.grandcentrix.thirtyinch.TiFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import timber.log.Timber;
 import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.model.ImageDetails;
@@ -168,10 +169,32 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     }
 
     @Override
-    public void showError(boolean snack, Throwable throwable) {
+    public void showError(boolean snack, int page) {
         refreshLayout.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
-        Snackbar.make(refreshLayout, getString(R.string.error_page_load, throwable.getMessage()), Snackbar.LENGTH_LONG).show();
+
+        Snackbar snackbar = Snackbar.make(refreshLayout, getString(R.string.error_page_load), Snackbar.LENGTH_INDEFINITE);
+
+        snackbar.setAction(R.string.retry, view -> {
+            snackbar.dismiss();
+
+            if (page == 1) {
+                getPresenter().onRefresh();
+            } else {
+                getPresenter().load(page);
+            }
+        });
+
+        snackbar.setCallback(new Snackbar.Callback() {
+            @Override
+            public void onDismissed(Snackbar snackbar, int event) {
+                super.onDismissed(snackbar, event);
+
+                Timber.d("Error snackbar dismissed");
+            }
+        });
+
+        snackbar.show();
     }
 
     @Override

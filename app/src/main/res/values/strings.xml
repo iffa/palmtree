@@ -3,7 +3,7 @@
     <string name="app_name_launcher">Palmtree</string>
     <string name="activity_main_title">Palmtree - %s</string>
 
-    <string name="error_page_load">Failed to load page - %s</string>
+    <string name="error_page_load">Failed to load page, try again</string>
     <string name="badge_gif" translatable="false">GIF</string>
     <string name="action_share">Share</string>
     <string name="action_share_title">Share link using</string>
@@ -90,4 +90,5 @@
     <string name="cancel">Cancel</string>
     <string name="dialog_image_info_content" formatted="false">Description: "%s"\nRating: "%s"\nNSFW: "%b"\n\nMetadata:\n"%s"</string>
     <string name="action_details">Details</string>
+    <string name="retry">Retry</string>
 </resources>
