@@ -1,16 +1,16 @@
 package xyz.santeri.palmtree.ui.listing;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.rx.RxTiPresenterSubscriptionHandler;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -22,19 +22,20 @@ import timber.log.Timber;
 import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.data.DataManager;
 import xyz.santeri.palmtree.data.local.PreferencesHelper;
-import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.data.model.ListingType;
 import xyz.santeri.palmtree.ui.base.event.ListingTypeChangeEvent;
 import xyz.santeri.palmtree.ui.base.event.ScrollToTopEvent;
+import xyz.santeri.palmtree.ui.listing.adapter.ListingAdapter;
 
 /**
  * @author Santeri Elo
  */
 @Singleton
 public class ListingPresenter extends TiPresenter<ListingView> {
+    private final String KEY_RECYCLER_STATE = "recycler_state";
+    private Bundle recyclerState = new Bundle();
+    private ListingAdapter listingAdapter;
     private RxTiPresenterSubscriptionHandler subscriptionHelper = new RxTiPresenterSubscriptionHandler(this);
-    private LinkedHashMap<Integer, List<ImageDetails>> itemsListing = new LinkedHashMap<>();
-    private int scrollPosition;
     private int currentPage;
     private ListingType listingType;
 
@@ -52,6 +53,7 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     @Override
     protected void onCreate() {
         super.onCreate();
+        listingAdapter = new ListingAdapter();
     }
 
     @Override
@@ -60,17 +62,10 @@ public class ListingPresenter extends TiPresenter<ListingView> {
 
         EventBus.getDefault().register(this);
 
-        if (itemsListing.size() > 0) {
-            Timber.d("Already have %s pages of items (configuration change?)", itemsListing.size());
+        if (listingAdapter.getItemCount() > 0) {
+            Timber.d("Already have items in adapter (configuration change?)");
 
-            List<ImageDetails> restored = new ArrayList<>();
-
-            //noinspection Convert2streamapi
-            for (List<ImageDetails> images : itemsListing.values()) {
-                restored.addAll(images);
-            }
-
-            getView().restoreImages(restored, currentPage, scrollPosition);
+            getView().restoreCurrentPage(currentPage);
         } else {
             Timber.d("No existing data, loading fresh from page 1");
 
@@ -100,8 +95,9 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     void onRefresh() {
         Timber.d("Refreshing front page");
 
-        getView().clear();
-        itemsListing.clear();
+        listingAdapter.clear();
+        recyclerState.clear();
+        getView().restoreCurrentPage(1);
 
         if (listingType == ListingType.LATEST_VIDEOS
                 || listingType == ListingType.LATEST_ALL || listingType == ListingType.RANDOM) {
@@ -126,8 +122,6 @@ public class ListingPresenter extends TiPresenter<ListingView> {
 
         currentPage = page;
 
-        List<ImageDetails> newItems = new ArrayList<>();
-
         subscriptionHelper.manageSubscription(
                 dataManager.getListing(listingType, page)
                         .filter(image -> {
@@ -141,25 +135,28 @@ public class ListingPresenter extends TiPresenter<ListingView> {
                             }
                         })
                         .subscribe(
-                        item -> {
-                            newItems.add(item);
-                            getView().addImage(item);
-                        },
-                        throwable -> {
-                            Timber.e(throwable, "Failed to load %s page %s", listingType, page);
-                            getView().showError(true);
-                        },
-                        () -> {
-                            itemsListing.put(page, newItems);
-                            getView().finishLoading();
-                        }));
+                                item -> listingAdapter.addItem(item),
+                                throwable -> {
+                                    Timber.e(throwable, "Failed to load %s page %s", listingType, page);
+                                    getView().showError(true);
+                                },
+                                () -> getView().finishLoading()));
     }
 
     void onItemClick(int position) {
-        getView().openDetails(position);
+        getView().openDetails(listingAdapter.getItemAt(position));
     }
 
-    void saveScrollPosition(int firstVisibleItemPosition) {
-        scrollPosition = firstVisibleItemPosition;
+    void putRecyclerState(@NonNull Parcelable state) {
+        recyclerState.putParcelable(KEY_RECYCLER_STATE, state);
+    }
+
+    @Nullable
+    Parcelable getRecyclerState() {
+        return recyclerState.getParcelable(KEY_RECYCLER_STATE);
+    }
+
+    ListingAdapter getListingAdapter() {
+        return listingAdapter;
     }
 }

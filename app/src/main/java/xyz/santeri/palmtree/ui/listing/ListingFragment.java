@@ -17,8 +17,6 @@ import com.mikepenz.itemanimators.AlphaCrossFadeAnimator;
 
 import net.grandcentrix.thirtyinch.TiFragment;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -31,7 +29,6 @@ import xyz.santeri.palmtree.ui.base.EndlessScrollListener;
 import xyz.santeri.palmtree.ui.base.ItemClickSupport;
 import xyz.santeri.palmtree.ui.detail.DetailActivity;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
-import xyz.santeri.palmtree.ui.listing.adapter.ListingAdapter;
 import xyz.santeri.palmtree.util.DeviceUtils;
 
 /**
@@ -48,7 +45,6 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
     EfficientLinearLayoutManager layoutManager;
-    ListingAdapter adapter;
 
     @BindView(R.id.progress)
     ProgressBar progressBar;
@@ -98,7 +94,7 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setHasFixedSize(false);
-        recyclerView.setAdapter(adapter = new ListingAdapter());
+        recyclerView.setAdapter(getPresenter().getListingAdapter());
         recyclerView.setItemAnimator(new AlphaCrossFadeAnimator());
 
         // Improve user experience by caching more items
@@ -122,18 +118,16 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     public void onPause() {
         super.onPause();
 
-        // Save the first completely visible item (if it exists) or simply the first one visible
-        int visiblePosition = layoutManager.findFirstCompletelyVisibleItemPosition();
-        if (visiblePosition == RecyclerView.NO_POSITION) {
-            visiblePosition = layoutManager.findFirstVisibleItemPosition();
-        }
-
-        getPresenter().saveScrollPosition(visiblePosition);
+        getPresenter().putRecyclerState(layoutManager.onSaveInstanceState());
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onResume() {
+        super.onResume();
+
+        if (getPresenter().getRecyclerState() != null) {
+            layoutManager.onRestoreInstanceState(getPresenter().getRecyclerState());
+        }
     }
 
     @Override
@@ -155,23 +149,7 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     }
 
     @Override
-    public void addImage(ImageDetails imageDetails) {
-        adapter.addItem(imageDetails);
-    }
-
-    @Override
-    public void restoreImages(List<ImageDetails> items, int currentPage, int scrollPosition) {
-        scrollListener.setCurrentPage(currentPage);
-
-        adapter.clear();
-        adapter.addItems(items);
-        recyclerView.scrollToPosition(scrollPosition);
-    }
-
-    @Override
-    public void openDetails(Integer position) {
-        ImageDetails image = adapter.getItemAt(position);
-
+    public void openDetails(ImageDetails image) {
         startActivity(DetailActivity.getStartIntent(getContext(), image.id()));
     }
 
@@ -209,8 +187,7 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     }
 
     @Override
-    public void clear() {
-        adapter.clear();
-        scrollListener.setCurrentPage(1);
+    public void restoreCurrentPage(int currentPage) {
+        scrollListener.setCurrentPage(currentPage);
     }
 }
