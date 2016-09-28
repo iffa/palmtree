@@ -22,7 +22,6 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:enabled="false"
             android:icon="@drawable/ic_pref_confirm_exit"
             android:key="pref_confirm_exit"
             android:title="@string/pref_confirm_exit"

@@ -79,4 +79,8 @@
 
     <!-- never-ending TODO: update changelog -->
     <string name="changelog">• Added random-category\n• Added new settings\n• Bug fixes</string>
+    <string name="dialog_confirm_exit">Confirm exit</string>
+    <string name="dialog_confirm_exit_content">Are you sure you want to exit Palmtree?</string>
+    <string name="exit">Exit</string>
+    <string name="cancel">Cancel</string>
 </resources>

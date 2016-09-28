@@ -22,6 +22,7 @@ public class PreferencesHelper {
     private static final String PREF_KEY_SWIPE = "pref_swipe_back";
     private static final String PREF_KEY_CLICK = "pref_click_back";
     private static final String PREF_KEY_TOOLBAR = "pref_toolbar_hide";
+    private static final String PREF_KEY_CONFIRM_EXIT = "pref_confirm_exit";
     private final SharedPreferences preferences;
 
     @Inject
@@ -60,5 +61,9 @@ public class PreferencesHelper {
 
     public boolean getShowChangelog() {
         return preferences.getBoolean(PREF_KEY_CHANGELOG, true);
+    }
+
+    public boolean getConfirmExit() {
+        return preferences.getBoolean(PREF_KEY_CONFIRM_EXIT, false);
     }
 }

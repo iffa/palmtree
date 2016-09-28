@@ -27,20 +27,27 @@ import xyz.santeri.palmtree.ui.settings.SettingsActivity;
  * @author Santeri Elo
  */
 public class MainActivity extends TiActivity<MainPresenter, MainView> implements MainView {
+    private static final String EXTRA_KEY_FINISH = "finish";
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    public static Intent getStartIntent(Context context, boolean newTask) {
+    public static Intent getStartIntent(Context context, boolean newTask, boolean finish) {
         Intent intent = new Intent(context, MainActivity.class);
         if (newTask) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
+        intent.putExtra(EXTRA_KEY_FINISH, finish);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getIntent().getBooleanExtra(EXTRA_KEY_FINISH, false)) {
+            finish();
+        }
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -125,6 +132,15 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getPresenter().shouldConfirmExit()) {
+            DialogFactory.newInstance(DialogFactory.DIALOG_CONFIRM_EXIT).show(getSupportFragmentManager(), "confirm_exit_dialog");
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @NonNull

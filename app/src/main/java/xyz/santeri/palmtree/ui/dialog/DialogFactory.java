@@ -20,19 +20,21 @@ import timber.log.Timber;
 import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.BuildConfig;
 import xyz.santeri.palmtree.R;
+import xyz.santeri.palmtree.ui.main.MainActivity;
 
 /**
  * @author Santeri Elo
  */
 public class DialogFactory extends DialogFragment {
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({DIALOG_CHANGELOG, DIALOG_LISTING_QUALITY, DIALOG_LICENSES})
+    @IntDef({DIALOG_CHANGELOG, DIALOG_LISTING_QUALITY, DIALOG_LICENSES, DIALOG_CONFIRM_EXIT})
     public @interface DialogType {
     }
 
     public static final int DIALOG_CHANGELOG = 0;
     public static final int DIALOG_LISTING_QUALITY = 1;
     public static final int DIALOG_LICENSES = 2;
+    public static final int DIALOG_CONFIRM_EXIT = 3;
 
     private static final String ARG_DIALOG_TYPE = "dialog_type";
 
@@ -66,6 +68,14 @@ public class DialogFactory extends DialogFragment {
                         .title(R.string.dialog_listing_quality_title)
                         .content(R.string.dialog_listing_quality_content)
                         .positiveText(R.string.ok)
+                        .build();
+            case DIALOG_CONFIRM_EXIT:
+                return new MaterialDialog.Builder(getActivity())
+                        .title(R.string.dialog_confirm_exit)
+                        .content(R.string.dialog_confirm_exit_content)
+                        .positiveText(R.string.exit)
+                        .negativeText(R.string.cancel)
+                        .onPositive((dialog, which) -> startActivity(MainActivity.getStartIntent(getContext(), true, true)))
                         .build();
             case DIALOG_LICENSES:
                 StringBuilder buf = new StringBuilder();

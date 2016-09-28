@@ -57,6 +57,10 @@ public class MainPresenter extends TiPresenter<MainView> {
         });
     }
 
+    boolean shouldConfirmExit() {
+        return preferencesHelper.getConfirmExit();
+    }
+
     void onListingTypeChange(ListingType type) {
         currentCategory = type;
         EventBus.getDefault().post(new ListingTypeChangeEvent(type));
