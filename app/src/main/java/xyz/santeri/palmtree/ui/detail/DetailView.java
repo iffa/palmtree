@@ -20,4 +20,7 @@ interface DetailView extends TiView {
 
     @CallOnMainThread
     void showSwipeHint();
+
+    @CallOnMainThread
+    void showDetailsDialog(ImageDetails imageDetails);
 }

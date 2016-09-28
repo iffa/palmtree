@@ -93,7 +93,7 @@ public class JsoupListingService implements ListingService {
 
                     rating = file.select("div.listingcomments > span").first().text();
 
-                    ImageDetails imageDetails = ImageDetails.create(id, fileUrl, imageType, nsfw, title, rating, description);
+                    ImageDetails imageDetails = ImageDetails.create(id, fileUrl, imageType, nsfw, title, rating, description, null);
                     subscriber.onNext(imageDetails);
                 }
             } else {
@@ -115,7 +115,7 @@ public class JsoupListingService implements ListingService {
 
                     id = Integer.parseInt(file.select("a").first().attr("href").split("/")[4]);
 
-                    ImageDetails image = ImageDetails.create(id, thumbnailUrl, ImageType.UNDEFINED, nsfw, title, null, null);
+                    ImageDetails image = ImageDetails.create(id, thumbnailUrl, ImageType.UNDEFINED, nsfw, title, null, null, null);
                     subscriber.onNext(image);
                 }
             }

@@ -43,6 +43,7 @@ public class JsoupDetailsService implements DetailsService {
             String title = null;
             String rating = null;
             String description = null;
+            String metadata = null;
 
             if (file.select("p.nsfwwarning").size() > 0) {
                 nsfw = true;
@@ -64,9 +65,11 @@ public class JsoupDetailsService implements DetailsService {
                 description = details.select("pre").first().text();
             }
 
+            metadata = details.select("div.infotext").first().text();
+
             rating = details.select(String.format("div.right > span#votecount-%s", imageNumber)).first().text();
 
-            ImageDetails imageDetails = ImageDetails.create(imageNumber, fileUrl, imageType, nsfw, title, rating, description);
+            ImageDetails imageDetails = ImageDetails.create(imageNumber, fileUrl, imageType, nsfw, title, rating, description, metadata);
 
             subscriber.onNext(imageDetails);
             subscriber.onCompleted();

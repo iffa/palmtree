@@ -37,6 +37,7 @@ import xyz.santeri.palmtree.BuildConfig;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.data.model.ImageType;
+import xyz.santeri.palmtree.ui.dialog.DialogFactory;
 
 /**
  * @author Santeri Elo
@@ -58,13 +59,6 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
 
     @BindView(R.id.video)
     EMVideoView videoView;
-
-    public static Intent getStartIntent(Context context, ImageDetails imageDetails) {
-        Intent startIntent = new Intent(context, DetailActivity.class);
-        startIntent.putExtra(EXTRA_IMAGE, imageDetails);
-
-        return startIntent;
-    }
 
     public static Intent getStartIntent(Context context, int id) {
         Intent startIntent = new Intent(context, DetailActivity.class);
@@ -154,6 +148,9 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
             case R.id.action_share:
                 getPresenter().onShareClicked();
                 return true;
+            case R.id.action_details:
+                getPresenter().onDetailsClicked();
+                return true;
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -219,6 +216,12 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
     @Override
     public void showSwipeHint() {
         Snackbar.make(imageView, R.string.hint_swipe, Snackbar.LENGTH_INDEFINITE).show();
+    }
+
+    @Override
+    public void showDetailsDialog(ImageDetails imageDetails) {
+        DialogFactory.newInstance(DialogFactory.DIALOG_IMAGE_INFO, imageDetails)
+                .show(getSupportFragmentManager(), "details_dialog");
     }
 
     @Override

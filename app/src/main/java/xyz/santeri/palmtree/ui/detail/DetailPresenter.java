@@ -67,4 +67,10 @@ public class DetailPresenter extends TiPresenter<DetailView> {
     void onShareClicked() {
         getView().startShareIntent(dataManager.getShareUrl(imageDetails));
     }
+
+    void onDetailsClicked() {
+        if (imageDetails != null) {
+            getView().showDetailsDialog(imageDetails);
+        }
+    }
 }
