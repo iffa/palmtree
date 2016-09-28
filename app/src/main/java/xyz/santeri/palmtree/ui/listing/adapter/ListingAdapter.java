@@ -9,6 +9,8 @@ import xyz.santeri.palmtree.ui.listing.adapter.base.BaseAdapter;
 import xyz.santeri.palmtree.ui.listing.adapter.base.BaseViewHolder;
 
 /**
+ * TODO: The view holders might get bloated, so somehow combine the two so new functionality is quick and easy to implement.
+ *
  * @author Santeri Elo
  */
 public class ListingAdapter extends BaseAdapter<ImageDetails> {

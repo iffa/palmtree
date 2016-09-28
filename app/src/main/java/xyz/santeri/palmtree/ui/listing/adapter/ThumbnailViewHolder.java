@@ -25,6 +25,7 @@ class ThumbnailViewHolder extends BaseViewHolder<ImageDetails> {
     static final int LAYOUT_RES = R.layout.item_listing;
 
     private final TextView title;
+    private final TextView description;
     private final LabelImageView image;
     private final MaterialProgressBar progressBar;
 
@@ -32,6 +33,7 @@ class ThumbnailViewHolder extends BaseViewHolder<ImageDetails> {
         super(itemView);
 
         title = (TextView) itemView.findViewById(R.id.title);
+        description = (TextView) itemView.findViewById(R.id.description);
         image = (LabelImageView) itemView.findViewById(R.id.image);
         progressBar = (MaterialProgressBar) itemView.findViewById(R.id.progress);
     }
@@ -41,6 +43,13 @@ class ThumbnailViewHolder extends BaseViewHolder<ImageDetails> {
     public void bind(RecyclerView.Adapter adapter, ImageDetails item) {
         progressBar.setVisibility(View.VISIBLE);
         title.setText(item.title());
+
+        if (item.description() == null) {
+            description.setVisibility(View.GONE);
+        } else {
+            description.setText(item.description());
+            description.setVisibility(View.VISIBLE);
+        }
 
         getVideoThumbnail(item.fileUrl())
                 .subscribeOn(Schedulers.io())

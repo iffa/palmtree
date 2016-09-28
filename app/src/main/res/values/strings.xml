@@ -80,6 +80,7 @@
     <!-- never-ending TODO: update changelog -->
     <string name="changelog">
         • Added new categories\n
+        • Image descriptions are now shown in the list\n
         • Long click an image to see details quickly\n
         • New customization options\n
         • Fixed bugs and improved performance</string>
