@@ -88,7 +88,7 @@
     <string name="dialog_confirm_exit_content">Are you sure you want to exit?</string>
     <string name="exit">Exit</string>
     <string name="cancel">Cancel</string>
-    <string name="dialog_image_info_content" formatted="false">Description: "%s"\nRating: "%s"\nNSFW: "%b"\n\nMetadata:\n"%s"</string>
+    <string name="dialog_image_info_content" formatted="false">Description:\n"%s"\n\nRating:\n"%s"\n\nNSFW:\n"%b"\n\nMetadata:\n"%s"</string>
     <string name="action_details">Details</string>
     <string name="retry">Retry</string>
 </resources>
