@@ -32,6 +32,7 @@ import me.imid.swipebacklayout.lib.Utils;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import timber.log.Timber;
 import xyz.santeri.palmtree.BuildConfig;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.model.ImageDetails;
@@ -188,6 +189,11 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
             Glide.with(this).load(imageDetails.fileUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    if (resource.isRecycled()) {
+                        Timber.w("Trying to use a recycled Bitmap");
+                        return;
+                    }
+
                     progressBar.setVisibility(View.GONE);
                     ObjectAnimator fadeAltAnim = ObjectAnimator.ofFloat(imageView, View.ALPHA, 0, 1);
                     fadeAltAnim.start();
