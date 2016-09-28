@@ -18,4 +18,6 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
+
+    <style name="ThemeOverLay.AppCompat.DayNight" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
