@@ -29,7 +29,6 @@ import xyz.santeri.palmtree.data.model.ListingType;
 import xyz.santeri.palmtree.ui.base.EfficientLinearLayoutManager;
 import xyz.santeri.palmtree.ui.base.EndlessScrollListener;
 import xyz.santeri.palmtree.ui.base.ItemClickSupport;
-import xyz.santeri.palmtree.ui.base.StatefulRecyclerView;
 import xyz.santeri.palmtree.ui.detail.DetailActivity;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
 import xyz.santeri.palmtree.ui.listing.adapter.ListingAdapter;
@@ -47,7 +46,7 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     SwipeRefreshLayout refreshLayout;
 
     @BindView(R.id.recycler)
-    StatefulRecyclerView recyclerView;
+    RecyclerView recyclerView;
     EfficientLinearLayoutManager layoutManager;
     ListingAdapter adapter;
 
