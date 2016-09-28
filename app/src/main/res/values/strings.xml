@@ -3,7 +3,7 @@
     <string name="app_name_launcher">Palmtree</string>
     <string name="activity_main_title">Palmtree - %s</string>
 
-    <string name="error_page_load">Failed to load page - sorry :(</string>
+    <string name="error_page_load">Failed to load page - %s</string>
     <string name="badge_gif" translatable="false">GIF</string>
     <string name="action_share">Share</string>
     <string name="action_share_title">Share link using</string>

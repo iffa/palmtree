@@ -138,7 +138,7 @@ public class ListingPresenter extends TiPresenter<ListingView> {
                                 item -> listingAdapter.addItem(item),
                                 throwable -> {
                                     Timber.e(throwable, "Failed to load %s page %s", listingType, page);
-                                    getView().showError(true);
+                                    getView().showError(true, throwable);
                                 },
                                 () -> getView().finishLoading()));
     }

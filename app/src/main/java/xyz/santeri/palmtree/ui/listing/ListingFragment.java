@@ -168,10 +168,10 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     }
 
     @Override
-    public void showError(boolean snack) {
+    public void showError(boolean snack, Throwable throwable) {
         refreshLayout.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
-        Snackbar.make(refreshLayout, R.string.error_page_load, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(refreshLayout, getString(R.string.error_page_load, throwable.getMessage()), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
