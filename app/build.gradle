@@ -1,6 +1,7 @@
 apply plugin: 'io.github.rockerhieu.versionberg'
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.getkeepsafe.dexcount'
 
@@ -73,22 +74,24 @@ dependencies {
     compile "com.android.support:design:$appcompatVersion"
 
     compile "com.google.dagger:dagger:$daggerVersion"
-    apt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger 2
 
     provided "com.google.auto.value:auto-value:$autovalueVersion"
-    apt "com.google.auto.value:auto-value:$autovalueVersion"
-    apt 'com.ryanharter.auto.value:auto-value-parcel:0.2.4-rc2'
+    kapt "com.google.auto.value:auto-value:$autovalueVersion"
+    kapt 'com.ryanharter.auto.value:auto-value-parcel:0.2.4-rc2'
 
     compile "net.grandcentrix.thirtyinch:thirtyinch:$thirtyinchVersion"
     compile "net.grandcentrix.thirtyinch:thirtyinch-rx:$thirtyinchVersion"
 
     compile "com.jakewharton:butterknife:$butterknifeVersion"
-    apt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+    kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
 
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
     compile 'io.reactivex:rxjava:1.2.0'
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -124,4 +127,8 @@ dependencies {
     // If you're wondering, this is a forked version with "fullscreen swipe" functionality
     // See: https://github.com/ikew0ng/SwipeBackLayout/pull/121
     compile project(':swipe-layout')
+}
+
+kapt {
+    generateStubs = true
 }
