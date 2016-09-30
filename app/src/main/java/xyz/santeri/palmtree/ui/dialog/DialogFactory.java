@@ -2,7 +2,6 @@ package xyz.santeri.palmtree.ui.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.text.Html;
@@ -13,8 +12,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 import timber.log.Timber;
 import xyz.santeri.palmtree.App;
@@ -27,11 +24,6 @@ import xyz.santeri.palmtree.ui.main.MainActivity;
  * @author Santeri Elo
  */
 public class DialogFactory extends DialogFragment {
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({DIALOG_CHANGELOG, DIALOG_LISTING_QUALITY, DIALOG_LICENSES, DIALOG_CONFIRM_EXIT, DIALOG_IMAGE_INFO})
-    public @interface DialogType {
-    }
-
     public static final int DIALOG_CHANGELOG = 0;
     public static final int DIALOG_LISTING_QUALITY = 1;
     public static final int DIALOG_LICENSES = 2;
