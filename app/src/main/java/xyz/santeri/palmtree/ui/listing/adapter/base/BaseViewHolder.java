@@ -8,13 +8,9 @@ import android.view.View;
  */
 
 public abstract class BaseViewHolder<M> extends RecyclerView.ViewHolder {
-    public static int TYPE_VIDEO = 1;
-
-    public static int TYPE_IMAGE = 2;
-
     public BaseViewHolder(View itemView) {
         super(itemView);
     }
 
-    public abstract void bind(RecyclerView.Adapter adapter, M item);
+    public abstract void bind(RecyclerView.Adapter adapter, M item, @HolderItemType int type);
 }
