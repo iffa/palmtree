@@ -30,13 +30,14 @@ import xyz.santeri.palmtree.ui.listing.adapter.base.HolderItemType;
 class ImageViewHolder extends BaseViewHolder<ImageDetails> {
     static final int LAYOUT_RES = R.layout.item_listing;
 
+    private boolean dataSaving = true;
     private final TextView title;
     private final TextView description;
     private final LabelImageView image;
     private final MaterialProgressBar progressBar;
     private final RequestManager requestManager;
 
-    ImageViewHolder(View itemView) {
+    private ImageViewHolder(View itemView) {
         super(itemView);
 
         title = (TextView) itemView.findViewById(R.id.title);
@@ -47,9 +48,19 @@ class ImageViewHolder extends BaseViewHolder<ImageDetails> {
         requestManager = Glide.with(itemView.getContext());
     }
 
+    ImageViewHolder(View itemView, boolean dataSaving) {
+        this(itemView);
+
+        this.dataSaving = dataSaving;
+
+        if (dataSaving) {
+            image.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void bind(RecyclerView.Adapter adapter, ImageDetails item, @HolderItemType int type) {
-        progressBar.setVisibility(View.VISIBLE);
         title.setText(item.title());
 
         if (item.description() == null) {
@@ -57,6 +68,12 @@ class ImageViewHolder extends BaseViewHolder<ImageDetails> {
         } else {
             description.setText(item.description());
             description.setVisibility(View.VISIBLE);
+        }
+
+        if (dataSaving) {
+            return;
+        } else {
+            progressBar.setVisibility(View.VISIBLE);
         }
 
         if (type == HolderItemType.TYPE_IMAGE) {

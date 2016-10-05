@@ -17,11 +17,9 @@ import xyz.santeri.palmtree.di.AppContext;
 public class PreferencesHelper {
     public static final String PREF_KEY_THEME = "pref_theme";
     public static final String PREF_KEY_CATEGORY = "pref_category";
+    public static final String PREF_KEY_SAVE_DATA = "pref_save_data";
     private static final String PREF_KEY_CHANGELOG = "pref_changelog";
     private static final String PREF_KEY_NSFW = "pref_nsfw";
-    private static final String PREF_KEY_SWIPE = "pref_swipe_back";
-    private static final String PREF_KEY_CLICK = "pref_click_back";
-    private static final String PREF_KEY_TOOLBAR = "pref_toolbar_hide";
     private static final String PREF_KEY_CONFIRM_EXIT = "pref_confirm_exit";
     private final SharedPreferences preferences;
 
@@ -36,6 +34,10 @@ public class PreferencesHelper {
 
     public int getTheme() {
         return Integer.parseInt(preferences.getString(PREF_KEY_THEME, "0"));
+    }
+
+    public boolean getDataSaving() {
+        return preferences.getBoolean(PREF_KEY_SAVE_DATA, false);
     }
 
     public boolean getShowNsfw() {

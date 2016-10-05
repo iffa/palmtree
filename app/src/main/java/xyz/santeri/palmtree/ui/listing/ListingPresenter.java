@@ -53,7 +53,7 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     @Override
     protected void onCreate() {
         super.onCreate();
-        listingAdapter = new ListingAdapter();
+        listingAdapter = new ListingAdapter(preferences.getDataSaving());
     }
 
     @Override

@@ -13,6 +13,12 @@ import xyz.santeri.palmtree.ui.listing.adapter.base.HolderItemType;
  * @author Santeri Elo
  */
 public class ListingAdapter extends BaseAdapter<ImageDetails> {
+    private final boolean dataSaving;
+
+    public ListingAdapter(boolean dataSaving) {
+        this.dataSaving = dataSaving;
+    }
+
     @Override
     public BaseViewHolder<ImageDetails> onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view;
@@ -20,7 +26,7 @@ public class ListingAdapter extends BaseAdapter<ImageDetails> {
 
         view = LayoutInflater.from(parent.getContext())
                 .inflate(ImageViewHolder.LAYOUT_RES, parent, false);
-        viewHolder = new ImageViewHolder(view);
+        viewHolder = new ImageViewHolder(view, dataSaving);
 
         return viewHolder;
     }
