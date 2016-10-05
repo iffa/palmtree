@@ -1,5 +1,8 @@
 package xyz.santeri.palmtree.data;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatDelegate;
 
 import javax.inject.Inject;
@@ -9,6 +12,7 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
+import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.base.DetailsService;
 import xyz.santeri.palmtree.base.ListingService;
 import xyz.santeri.palmtree.data.local.PreferencesHelper;
@@ -24,6 +28,7 @@ public class DataManager {
     private final ListingService listingService;
     private final DetailsService detailsService;
     private final PreferencesHelper preferences;
+    private final ConnectivityManager connectivityManager;
 
     @SuppressWarnings("RedundantCast") // Not redundant - won't compile without the cast
     private final Observable.Transformer schedulersTransformer =
@@ -32,10 +37,12 @@ public class DataManager {
 
 
     @Inject
-    DataManager(ListingService listingService, DetailsService detailsService, PreferencesHelper preferences) {
+    DataManager(ListingService listingService, DetailsService detailsService,
+                PreferencesHelper preferences, ConnectivityManager connectivityManager) {
         this.listingService = listingService;
         this.detailsService = detailsService;
         this.preferences = preferences;
+        this.connectivityManager = connectivityManager;
     }
 
     /**
@@ -76,6 +83,20 @@ public class DataManager {
         return String.format(SHARE_URL_TEMPLATE, imageDetails.id());
     }
 
+    /**
+     * @param throwable Error
+     * @return String resource
+     */
+    public
+    @StringRes
+    int getErrorMessage(Throwable throwable) {
+        if (isNetworkAvailable()) {
+            return R.string.error_page_load;
+        } else {
+            return R.string.error_internet_connection;
+        }
+    }
+
     public int getTheme() {
         switch (preferences.getTheme()) {
             case 0:
@@ -91,6 +112,11 @@ public class DataManager {
                 Timber.d("Current theme: system default");
                 return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
     @SuppressWarnings("unchecked")

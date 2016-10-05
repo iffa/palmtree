@@ -16,6 +16,7 @@ import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.DataManager;
 import xyz.santeri.palmtree.data.local.PreferencesHelper;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
+import xyz.santeri.palmtree.ui.dialog.DialogType;
 import xyz.santeri.palmtree.ui.main.MainActivity;
 
 /**
@@ -44,7 +45,7 @@ public class SettingsFragment extends XpPreferenceFragment implements SharedPref
 
         findPreference(PREF_KEY_LICENSES).setOnPreferenceClickListener(
                 preference -> {
-                    DialogFactory.newInstance(DialogFactory.DIALOG_LICENSES)
+                    DialogFactory.newInstance(DialogType.DIALOG_LICENSES)
                             .show(getFragmentManager(), "licenses_dialog");
                     return true;
                 });

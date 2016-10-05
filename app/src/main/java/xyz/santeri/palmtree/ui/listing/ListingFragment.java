@@ -3,6 +3,7 @@ package xyz.santeri.palmtree.ui.listing;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,6 @@ import net.grandcentrix.thirtyinch.TiFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import timber.log.Timber;
 import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.model.ImageDetails;
@@ -29,6 +29,7 @@ import xyz.santeri.palmtree.ui.base.EndlessScrollListener;
 import xyz.santeri.palmtree.ui.base.ItemClickSupport;
 import xyz.santeri.palmtree.ui.detail.DetailActivity;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
+import xyz.santeri.palmtree.ui.dialog.DialogType;
 import xyz.santeri.palmtree.util.DeviceUtils;
 
 /**
@@ -160,20 +161,20 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
 
     @Override
     public void showQualityInfo() {
-        DialogFactory.newInstance(DialogFactory.DIALOG_LISTING_QUALITY).show(getFragmentManager(), "listing_quality_dialog");
+        DialogFactory.newInstance(DialogType.DIALOG_LISTING_QUALITY).show(getFragmentManager(), "listing_quality_dialog");
     }
 
     @Override
     public void openDialogDetails(ImageDetails item) {
-        DialogFactory.newInstance(DialogFactory.DIALOG_IMAGE_INFO, item).show(getFragmentManager(), "details_dialog");
+        DialogFactory.newImageDialogInstance(item).show(getFragmentManager(), "details_dialog");
     }
 
     @Override
-    public void showError(boolean snack, int page) {
+    public void showError(int page, Throwable throwable, @StringRes int message) {
         refreshLayout.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
 
-        Snackbar snackbar = Snackbar.make(refreshLayout, getString(R.string.error_page_load), Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = Snackbar.make(refreshLayout, getString(message), Snackbar.LENGTH_INDEFINITE);
 
         snackbar.setAction(R.string.retry, view -> {
             snackbar.dismiss();
@@ -185,13 +186,10 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
             }
         });
 
-        snackbar.setCallback(new Snackbar.Callback() {
-            @Override
-            public void onDismissed(Snackbar snackbar, int event) {
-                super.onDismissed(snackbar, event);
-
-                Timber.d("Error snackbar dismissed");
-            }
+        snackbar.getView().setOnClickListener(v -> {
+            // Presenter should tell us to do this but it is not necessary for a one-liner
+            DialogFactory.newErrorDialogInstance(throwable.getMessage())
+                    .show(getFragmentManager(), "error_details_dialog");
         });
 
         snackbar.show();

@@ -2,6 +2,7 @@ package xyz.santeri.palmtree.di.module;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.ConnectivityManager;
 
 import javax.inject.Singleton;
 
@@ -35,6 +36,12 @@ public class AppModule {
     @AppContext
     Context provideContext() {
         return app;
+    }
+
+    @Provides
+    @Singleton
+    ConnectivityManager provideConnectivityManager(@AppContext Context context) {
+        return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
     @Provides

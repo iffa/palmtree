@@ -78,12 +78,7 @@
     </string-array>
 
     <!-- never-ending TODO: update changelog -->
-    <string name="changelog">
-        • Added new categories\n
-        • Image descriptions are now shown in the list\n
-        • Long click an image to see details quickly\n
-        • New customization options\n
-        • Fixed bugs and improved performance</string>
+    <string name="changelog">• Added new categories\n• Image descriptions are now shown in the list\n• Long click an image to see details quickly\n• New customization options\n• Fixed bugs and improved performance</string>
     <string name="dialog_confirm_exit">Confirm exit</string>
     <string name="dialog_confirm_exit_content">Are you sure you want to exit?</string>
     <string name="exit">Exit</string>
@@ -91,4 +86,7 @@
     <string name="dialog_image_info_content" formatted="false">Description:\n"%s"\n\nRating:\n"%s"\n\nNSFW:\n"%b"\n\nMetadata:\n"%s"</string>
     <string name="action_details">Details</string>
     <string name="retry">Retry</string>
+    <string name="dialog_error_content"><![CDATA[<b>Exception thrown:</b> %s<br><br>This should not happen. Sorry!]]></string>
+    <string name="dialog_error_title">Error details</string>
+    <string name="error_internet_connection">No internet connection</string>
 </resources>

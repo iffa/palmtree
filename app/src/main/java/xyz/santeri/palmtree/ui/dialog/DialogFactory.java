@@ -20,20 +20,28 @@ import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.ui.main.MainActivity;
 
+import static xyz.santeri.palmtree.ui.dialog.DialogType.DIALOG_CHANGELOG;
+import static xyz.santeri.palmtree.ui.dialog.DialogType.DIALOG_CONFIRM_EXIT;
+import static xyz.santeri.palmtree.ui.dialog.DialogType.DIALOG_ERROR_INFO;
+import static xyz.santeri.palmtree.ui.dialog.DialogType.DIALOG_IMAGE_INFO;
+import static xyz.santeri.palmtree.ui.dialog.DialogType.DIALOG_LICENSES;
+import static xyz.santeri.palmtree.ui.dialog.DialogType.DIALOG_LISTING_QUALITY;
+
 /**
  * @author Santeri Elo
  */
 public class DialogFactory extends DialogFragment {
-    public static final int DIALOG_CHANGELOG = 0;
-    public static final int DIALOG_LISTING_QUALITY = 1;
-    public static final int DIALOG_LICENSES = 2;
-    public static final int DIALOG_CONFIRM_EXIT = 3;
-    public static final int DIALOG_IMAGE_INFO = 4;
-
     private static final String ARG_DIALOG_TYPE = "dialog_type";
     private static final String ARG_IMAGE = "image";
+    private static final String ARG_ERROR = "error";
 
     public static DialogFactory newInstance(@DialogType int dialogType) {
+        if (dialogType == DialogType.DIALOG_IMAGE_INFO) {
+            throw new UnsupportedOperationException("Use constructor with ImageDetails if showing dialog of DIALOG_IMAGE_INFO type");
+        } else if (dialogType == DialogType.DIALOG_ERROR_INFO) {
+            throw new UnsupportedOperationException("Use constructor with Throwable if showing dialog of DIALOG_ERROR_INFO type");
+        }
+
         DialogFactory fragment = new DialogFactory();
 
         Bundle args = new Bundle();
@@ -44,12 +52,24 @@ public class DialogFactory extends DialogFragment {
         return fragment;
     }
 
-    public static DialogFactory newInstance(@DialogType int dialogType, ImageDetails imageDetails) {
+    public static DialogFactory newImageDialogInstance(ImageDetails imageDetails) {
         DialogFactory fragment = new DialogFactory();
 
         Bundle args = new Bundle();
-        args.putInt(ARG_DIALOG_TYPE, dialogType);
+        args.putInt(ARG_DIALOG_TYPE, DialogType.DIALOG_IMAGE_INFO);
         args.putParcelable(ARG_IMAGE, imageDetails);
+
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    public static DialogFactory newErrorDialogInstance(String errorMessage) {
+        DialogFactory fragment = new DialogFactory();
+
+        Bundle args = new Bundle();
+        args.putInt(ARG_DIALOG_TYPE, DialogType.DIALOG_ERROR_INFO);
+        args.putString(ARG_ERROR, errorMessage);
 
         fragment.setArguments(args);
 
@@ -110,6 +130,15 @@ public class DialogFactory extends DialogFragment {
                         .canceledOnTouchOutside(false)
                         .title(R.string.dialog_licenses_title)
                         .content(Html.fromHtml(buf.toString()))
+                        .positiveText(R.string.ok)
+                        .build();
+            case DIALOG_ERROR_INFO:
+                String errorMessage = getArguments().getString(ARG_ERROR);
+
+                return new MaterialDialog.Builder(getActivity())
+                        .canceledOnTouchOutside(false)
+                        .title(R.string.dialog_error_title)
+                        .content(Html.fromHtml(getString(R.string.dialog_error_content, errorMessage)))
                         .positiveText(R.string.ok)
                         .build();
             default:

@@ -10,7 +10,7 @@ import xyz.santeri.palmtree.data.model.ImageDetails;
  */
 interface ListingView extends TiView {
     @CallOnMainThread
-    void showError(boolean snack, int currentPage);
+    void showError(int currentPage, Throwable throwable, int message);
 
     @CallOnMainThread
     void startLoading(boolean swipeToRefresh);

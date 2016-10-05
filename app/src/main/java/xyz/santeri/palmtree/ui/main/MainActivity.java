@@ -20,6 +20,7 @@ import timber.log.Timber;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.model.ListingType;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
+import xyz.santeri.palmtree.ui.dialog.DialogType;
 import xyz.santeri.palmtree.ui.listing.ListingFragment;
 import xyz.santeri.palmtree.ui.settings.SettingsActivity;
 
@@ -137,7 +138,7 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
     @Override
     public void onBackPressed() {
         if (getPresenter().shouldConfirmExit()) {
-            DialogFactory.newInstance(DialogFactory.DIALOG_CONFIRM_EXIT).show(getSupportFragmentManager(), "confirm_exit_dialog");
+            DialogFactory.newInstance(DialogType.DIALOG_CONFIRM_EXIT).show(getSupportFragmentManager(), "confirm_exit_dialog");
         } else {
             super.onBackPressed();
         }
@@ -158,7 +159,7 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
     public void showUpdateInfo() {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        DialogFactory.newInstance(DialogFactory.DIALOG_CHANGELOG).show(fragmentManager, "changelog_dialog");
+        DialogFactory.newInstance(DialogType.DIALOG_CHANGELOG).show(fragmentManager, "changelog_dialog");
     }
 
     @Override

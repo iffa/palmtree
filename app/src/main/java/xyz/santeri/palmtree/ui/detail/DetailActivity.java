@@ -220,7 +220,7 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
 
     @Override
     public void showDetailsDialog(ImageDetails imageDetails) {
-        DialogFactory.newInstance(DialogFactory.DIALOG_IMAGE_INFO, imageDetails)
+        DialogFactory.newImageDialogInstance(imageDetails)
                 .show(getSupportFragmentManager(), "details_dialog");
     }
 
