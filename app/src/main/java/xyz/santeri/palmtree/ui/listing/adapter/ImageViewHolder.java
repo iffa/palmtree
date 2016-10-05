@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -31,6 +32,7 @@ class ImageViewHolder extends BaseViewHolder<ImageDetails> {
     static final int LAYOUT_RES = R.layout.item_listing;
 
     private boolean dataSaving = true;
+    private final ViewGroup imageFrame;
     private final TextView title;
     private final TextView description;
     private final LabelImageView image;
@@ -44,6 +46,7 @@ class ImageViewHolder extends BaseViewHolder<ImageDetails> {
         description = (TextView) itemView.findViewById(R.id.description);
         image = (LabelImageView) itemView.findViewById(R.id.image);
         progressBar = (MaterialProgressBar) itemView.findViewById(R.id.progress);
+        imageFrame = (ViewGroup) itemView.findViewById(R.id.image_frame);
 
         requestManager = Glide.with(itemView.getContext());
     }
@@ -54,8 +57,7 @@ class ImageViewHolder extends BaseViewHolder<ImageDetails> {
         this.dataSaving = dataSaving;
 
         if (dataSaving) {
-            image.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
+            imageFrame.setVisibility(View.GONE);
         }
     }
 
@@ -70,10 +72,8 @@ class ImageViewHolder extends BaseViewHolder<ImageDetails> {
             description.setVisibility(View.VISIBLE);
         }
 
-        if (dataSaving) {
+        if (dataSaving) { // Goodbye
             return;
-        } else {
-            progressBar.setVisibility(View.VISIBLE);
         }
 
         if (type == HolderItemType.TYPE_IMAGE) {

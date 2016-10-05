@@ -49,7 +49,7 @@
     <string name="pref_rate">Rate the app</string>
     <string name="pref_rate_summary">Rate the app on the Play store.</string>
     <string name="pref_save_data">Save data</string>
-    <string name="pref_save_data_summary">Save data by downloading lower quality preview images.</string>
+    <string name="pref_save_data_summary">Save data by not downloading preview images.</string>
     <string name="action_list_random">Random</string>
     <string-array name="pref_themes">
         <item>Light (day)</item>

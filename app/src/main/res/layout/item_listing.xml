@@ -31,6 +31,7 @@
             tools:text="Alaska on suurempi kuin luuletkaan" />
 
         <FrameLayout
+            android:id="@+id/image_frame"
             android:layout_width="match_parent"
             android:layout_height="192dp">
 
