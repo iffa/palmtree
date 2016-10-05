@@ -110,7 +110,8 @@ public class DialogFactory extends DialogFragment {
                 assert image != null;
                 return new MaterialDialog.Builder(getActivity())
                         .title(image.title())
-                        .content(getString(R.string.dialog_image_info_content, image.description(), image.rating(), image.nsfw(), image.metadata()))
+                        .content(Html.fromHtml(getString(R.string.dialog_image_info_content,
+                                image.description(), image.rating(), image.nsfw(), image.metadata())))
                         .positiveText(R.string.ok)
                         .build();
             case DIALOG_LICENSES:
