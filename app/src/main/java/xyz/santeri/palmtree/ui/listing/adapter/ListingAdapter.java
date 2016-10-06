@@ -14,9 +14,11 @@ import xyz.santeri.palmtree.ui.listing.adapter.base.HolderItemType;
  */
 public class ListingAdapter extends BaseAdapter<ImageDetails> {
     private final boolean dataSaving;
+    private final boolean fullPreviews;
 
-    public ListingAdapter(boolean dataSaving) {
+    public ListingAdapter(boolean dataSaving, boolean fullPreviews) {
         this.dataSaving = dataSaving;
+        this.fullPreviews = fullPreviews;
     }
 
     @Override
@@ -26,7 +28,7 @@ public class ListingAdapter extends BaseAdapter<ImageDetails> {
 
         view = LayoutInflater.from(parent.getContext())
                 .inflate(ImageViewHolder.LAYOUT_RES, parent, false);
-        viewHolder = new ImageViewHolder(view, dataSaving);
+        viewHolder = new ImageViewHolder(view, dataSaving, fullPreviews);
 
         return viewHolder;
     }

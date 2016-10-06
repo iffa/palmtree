@@ -53,7 +53,7 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     @Override
     protected void onCreate() {
         super.onCreate();
-        listingAdapter = new ListingAdapter(preferences.getDataSaving());
+        listingAdapter = new ListingAdapter(preferences.getDataSavingEnabled(), preferences.getFullPreviewEnabled());
     }
 
     @Override
@@ -125,7 +125,7 @@ public class ListingPresenter extends TiPresenter<ListingView> {
         subscriptionHelper.manageSubscription(
                 dataManager.getListing(listingType, page)
                         .filter(image -> {
-                            if (preferences.getShowNsfw()) return true;
+                            if (preferences.getShowNsfwEnabled()) return true;
 
                             if (image.nsfw()) {
                                 Timber.d("Not showing NSFW image as current settings don't allow it");

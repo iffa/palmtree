@@ -15,12 +15,13 @@ import xyz.santeri.palmtree.di.AppContext;
  */
 @Singleton
 public class PreferencesHelper {
-    public static final String PREF_KEY_THEME = "pref_theme";
-    public static final String PREF_KEY_CATEGORY = "pref_category";
-    public static final String PREF_KEY_SAVE_DATA = "pref_save_data";
+    private static final String PREF_KEY_THEME = "pref_theme";
+    private static final String PREF_KEY_CATEGORY = "pref_category";
+    private static final String PREF_KEY_SAVE_DATA = "pref_save_data";
     private static final String PREF_KEY_CHANGELOG = "pref_changelog";
     private static final String PREF_KEY_NSFW = "pref_show_nsfw";
     private static final String PREF_KEY_CONFIRM_EXIT = "pref_confirm_exit";
+    private static final String PREF_KEY_FULL_PREVIEW = "pref_full_preview";
     private final SharedPreferences preferences;
 
     @Inject
@@ -36,11 +37,15 @@ public class PreferencesHelper {
         return Integer.parseInt(preferences.getString(PREF_KEY_THEME, "0"));
     }
 
-    public boolean getDataSaving() {
+    public boolean getDataSavingEnabled() {
         return preferences.getBoolean(PREF_KEY_SAVE_DATA, false);
     }
 
-    public boolean getShowNsfw() {
+    public boolean getFullPreviewEnabled() {
+        return preferences.getBoolean(PREF_KEY_FULL_PREVIEW, false);
+    }
+
+    public boolean getShowNsfwEnabled() {
         return preferences.getBoolean(PREF_KEY_NSFW, false);
     }
 
@@ -61,11 +66,11 @@ public class PreferencesHelper {
         }
     }
 
-    public boolean getShowChangelog() {
+    public boolean getShowChangelogEnabled() {
         return preferences.getBoolean(PREF_KEY_CHANGELOG, true);
     }
 
-    public boolean getConfirmExit() {
+    public boolean getConfirmExitEnabled() {
         return preferences.getBoolean(PREF_KEY_CONFIRM_EXIT, false);
     }
 }
