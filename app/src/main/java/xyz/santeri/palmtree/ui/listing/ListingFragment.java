@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +29,7 @@ import xyz.santeri.palmtree.ui.base.ItemClickSupport;
 import xyz.santeri.palmtree.ui.detail.DetailActivity;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
 import xyz.santeri.palmtree.ui.dialog.DialogType;
+import xyz.santeri.palmtree.ui.dialog.SnackbarFactory;
 import xyz.santeri.palmtree.util.DeviceUtils;
 
 /**
@@ -174,25 +174,18 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
         refreshLayout.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
 
-        Snackbar snackbar = Snackbar.make(refreshLayout, getString(message), Snackbar.LENGTH_INDEFINITE);
-
-        snackbar.setAction(R.string.retry, view -> {
-            snackbar.dismiss();
-
-            if (page == 1) {
-                getPresenter().onRefresh();
-            } else {
-                getPresenter().load(page);
-            }
-        });
-
-        snackbar.getView().setOnClickListener(v -> {
-            // Presenter should tell us to do this but it is not necessary for a one-liner
-            DialogFactory.newErrorDialogInstance(throwable.getMessage())
-                    .show(getFragmentManager(), "error_details_dialog");
-        });
-
-        snackbar.show();
+        SnackbarFactory.createErrorSnackbar(refreshLayout, true, message,
+                v -> {
+                    if (page == 1) {
+                        getPresenter().onRefresh();
+                    } else {
+                        getPresenter().load(page);
+                    }
+                }, v -> {
+                    // Presenter should tell us to do this but it is not necessary for a one-liner
+                    DialogFactory.newErrorDialogInstance(throwable.getMessage())
+                            .show(getFragmentManager(), "error_details_dialog");
+                }).show();
     }
 
     @Override

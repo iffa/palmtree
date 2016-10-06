@@ -89,9 +89,26 @@ public class DataManager {
      */
     public
     @StringRes
-    int getErrorMessage(Throwable throwable) {
+    int getListingError(Throwable throwable) {
         if (isNetworkAvailable()) {
             return R.string.error_page_load;
+        } else {
+            return R.string.error_internet_connection;
+        }
+    }
+
+    /**
+     * @param throwable Error
+     * @return String resource
+     */
+    public
+    @StringRes
+    int getDetailError(Throwable throwable) {
+        if (isNetworkAvailable()) {
+            if (throwable.getMessage().contains("Only images or videos are supported")) {
+                return R.string.error_unsupported;
+            }
+            return R.string.error_detail_load;
         } else {
             return R.string.error_internet_connection;
         }

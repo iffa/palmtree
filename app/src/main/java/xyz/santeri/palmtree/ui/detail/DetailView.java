@@ -1,5 +1,7 @@
 package xyz.santeri.palmtree.ui.detail;
 
+import android.support.annotation.StringRes;
+
 import net.grandcentrix.thirtyinch.TiView;
 import net.grandcentrix.thirtyinch.callonmainthread.CallOnMainThread;
 
@@ -23,4 +25,7 @@ interface DetailView extends TiView {
 
     @CallOnMainThread
     void showDetailsDialog(ImageDetails imageDetails);
+
+    @CallOnMainThread
+    void showError(@StringRes int errorMessage, Throwable throwable);
 }

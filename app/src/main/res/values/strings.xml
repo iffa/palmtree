@@ -89,4 +89,6 @@
     <string name="dialog_error_content"><![CDATA[<b>Exception thrown:</b> %s<br><br>This should not happen. Sorry!]]></string>
     <string name="dialog_error_title">Error details</string>
     <string name="error_internet_connection">No internet connection</string>
+    <string name="error_detail_load">Failed to load details</string>
+    <string name="error_unsupported">Only images or videos are supported</string>
 </resources>
