@@ -90,6 +90,6 @@ public class SettingsFragment extends XpPreferenceFragment implements SharedPref
             //noinspection WrongConstant
             AppCompatDelegate.setDefaultNightMode(dataManager.getTheme());
             startActivity(MainActivity.getStartIntent(getContext(), true, false));
-        });
+        }).show();
     }
 }
