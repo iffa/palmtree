@@ -33,7 +33,7 @@ class SnackbarFactory {
                                 dialogListener: View.OnClickListener): Snackbar {
             val snackbar = Snackbar.make(
                     view,
-                    view.context.getString(message),
+                    message,
                     Snackbar.LENGTH_INDEFINITE)
 
             if (retryAction) {
@@ -41,6 +41,19 @@ class SnackbarFactory {
             }
 
             snackbar.view.setOnClickListener(dialogListener)
+
+            return snackbar
+        }
+
+        @JvmStatic
+        fun createRestartSnackbar(view: View,
+                                  actionListener: View.OnClickListener): Snackbar {
+            val snackbar = Snackbar.make(
+                    view,
+                    R.string.pref_restart_message,
+                    Snackbar.LENGTH_INDEFINITE)
+
+            snackbar.setAction(R.string.ok, actionListener)
 
             return snackbar
         }

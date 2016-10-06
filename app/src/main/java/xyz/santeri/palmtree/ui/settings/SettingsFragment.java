@@ -14,9 +14,9 @@ import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.BuildConfig;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.data.DataManager;
-import xyz.santeri.palmtree.data.local.PreferencesHelper;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
 import xyz.santeri.palmtree.ui.dialog.DialogType;
+import xyz.santeri.palmtree.ui.dialog.SnackbarFactory;
 import xyz.santeri.palmtree.ui.main.MainActivity;
 
 /**
@@ -85,12 +85,11 @@ public class SettingsFragment extends XpPreferenceFragment implements SharedPref
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(PreferencesHelper.PREF_KEY_THEME)
-                || key.equals(PreferencesHelper.PREF_KEY_CATEGORY)
-                || key.equals(PreferencesHelper.PREF_KEY_SAVE_DATA)) {
+        SnackbarFactory.createRestartSnackbar(getListView(), view -> {
+            // The constants are correct, Lint is just ignorant
             //noinspection WrongConstant
             AppCompatDelegate.setDefaultNightMode(dataManager.getTheme());
             startActivity(MainActivity.getStartIntent(getContext(), true, false));
-        }
+        });
     }
 }

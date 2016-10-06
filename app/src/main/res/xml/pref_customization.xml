@@ -27,5 +27,14 @@
             android:title="@string/pref_category"
             app:asp_tint="?android:textColorPrimary"
             app:asp_tintEnabled="true" />
+
+        <CheckBoxPreference
+            android:key="pref_full_preview"
+            android:title="@string/pref_full_preview"
+            android:summary="@string/pref_full_preview_summary"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_pref_full_preview"
+            app:asp_tint="?android:textColorPrimary"
+            app:asp_tintEnabled="true" />
     </PreferenceCategory>
 </PreferenceScreen>
