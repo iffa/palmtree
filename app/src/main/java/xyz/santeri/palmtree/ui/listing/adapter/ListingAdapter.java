@@ -27,8 +27,8 @@ public class ListingAdapter extends BaseAdapter<ImageDetails> {
         final BaseViewHolder<ImageDetails> viewHolder;
 
         view = LayoutInflater.from(parent.getContext())
-                .inflate(ImageViewHolder.LAYOUT_RES, parent, false);
-        viewHolder = new ImageViewHolder(view, dataSaving, fullPreviews);
+                .inflate(ListingViewHolder.LAYOUT_RES, parent, false);
+        viewHolder = new ListingViewHolder(view, dataSaving, fullPreviews);
 
         return viewHolder;
     }

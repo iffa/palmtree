@@ -33,7 +33,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 /**
  * @author Santeri Elo
  */
-class ImageViewHolder extends BaseViewHolder<ImageDetails> {
+class ListingViewHolder extends BaseViewHolder<ImageDetails> {
     static final int LAYOUT_RES = R.layout.item_listing;
 
     private boolean dataSaving;
@@ -45,7 +45,7 @@ class ImageViewHolder extends BaseViewHolder<ImageDetails> {
     private final MaterialProgressBar progressBar;
     private final RequestManager requestManager;
 
-    private ImageViewHolder(View itemView) {
+    private ListingViewHolder(View itemView) {
         super(itemView);
 
         title = (TextView) itemView.findViewById(R.id.title);
@@ -57,7 +57,7 @@ class ImageViewHolder extends BaseViewHolder<ImageDetails> {
         requestManager = Glide.with(itemView.getContext());
     }
 
-    ImageViewHolder(View itemView, boolean dataSaving, boolean fullPreviews) {
+    ListingViewHolder(View itemView, boolean dataSaving, boolean fullPreviews) {
         this(itemView);
 
         this.dataSaving = dataSaving;
