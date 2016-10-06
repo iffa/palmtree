@@ -4,11 +4,15 @@ import android.app.Application;
 import android.content.Context;
 import android.support.v7.app.AppCompatDelegate;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import javax.inject.Inject;
 
+import io.fabric.sdk.android.Fabric;
 import io.github.prashantsolanki3.shoot.Shoot;
 import timber.log.Timber;
 import xyz.santeri.palmtree.data.DataManager;
@@ -39,6 +43,12 @@ public class App extends Application {
             return;
         }
         refWatcher = LeakCanary.install(this);
+
+        Crashlytics crashlytics = new Crashlytics.Builder()
+                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+                .build();
+
+        Fabric.with(this, crashlytics, new Answers());
 
         Timber.plant(new Timber.DebugTree());
 

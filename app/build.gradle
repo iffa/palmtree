@@ -33,6 +33,8 @@ android {
 
         debug {
             applicationIdSuffix '.debug'
+
+            ext.enableCrashlytics = false
         }
     }
 
@@ -127,6 +129,18 @@ dependencies {
     // If you're wondering, this is a forked version with "fullscreen swipe" functionality
     // See: https://github.com/ikew0ng/SwipeBackLayout/pull/121
     compile project(':swipe-layout')
+
+    ///
+    /// Analytics, crash reporting etc.
+    ///
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
+
+    compile('com.crashlytics.sdk.android:answers:1.3.10@aar') {
+        transitive = true;
+    }
 }
 
 kapt {
