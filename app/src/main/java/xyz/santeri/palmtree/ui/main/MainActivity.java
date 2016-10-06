@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import rx.Observable;
 import timber.log.Timber;
 import xyz.santeri.palmtree.R;
-import xyz.santeri.palmtree.data.model.ListingType;
+import xyz.santeri.palmtree.base.ListingType;
 import xyz.santeri.palmtree.ui.dialog.DialogFactory;
 import xyz.santeri.palmtree.ui.dialog.DialogType;
 import xyz.santeri.palmtree.ui.listing.ListingFragment;

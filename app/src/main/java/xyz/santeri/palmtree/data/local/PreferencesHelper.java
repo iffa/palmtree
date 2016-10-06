@@ -7,7 +7,7 @@ import android.support.v7.preference.PreferenceManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import xyz.santeri.palmtree.data.model.ListingType;
+import xyz.santeri.palmtree.base.ListingType;
 import xyz.santeri.palmtree.di.AppContext;
 
 /**

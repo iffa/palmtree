@@ -4,7 +4,7 @@ import net.grandcentrix.thirtyinch.TiView;
 import net.grandcentrix.thirtyinch.callonmainthread.CallOnMainThread;
 
 import rx.Observable;
-import xyz.santeri.palmtree.data.model.ListingType;
+import xyz.santeri.palmtree.base.ListingType;
 
 /**
  * @author Santeri Elo

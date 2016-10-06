@@ -1,5 +1,7 @@
 package xyz.santeri.palmtree.data.remote;
 
+import android.support.annotation.NonNull;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,9 +11,9 @@ import java.io.IOException;
 
 import rx.Observable;
 import xyz.santeri.palmtree.base.ListingService;
+import xyz.santeri.palmtree.base.ListingType;
 import xyz.santeri.palmtree.data.model.ImageDetails;
 import xyz.santeri.palmtree.data.model.ImageType;
-import xyz.santeri.palmtree.data.model.ListingType;
 
 /**
  * @author Santeri Elo
@@ -23,8 +25,9 @@ public class JsoupListingService implements ListingService {
     private static final String LATEST_ALL_URL = "http://naamapalmu.com/filelist/all/latest/table/%s";
     private static final String RANDOM_URL = "http://naamapalmu.com/filelist/all/random/table/%s";
 
+    @NonNull
     @Override
-    public Observable<ImageDetails> getListing(ListingType type, int pageNumber) {
+    public Observable<ImageDetails> getListing(@NonNull ListingType type, int pageNumber) {
         return Observable.create(subscriber -> {
             Document doc = null;
 
@@ -87,6 +90,8 @@ public class JsoupListingService implements ListingService {
                     } else if (file.select("video > source").size() > 0) {
                         fileUrl = "http:" + file.select("video > source").first().attr("src");
                         imageType = ImageType.VIDEO;
+                    } else {
+                        throw new UnsupportedOperationException("Only images or videos are supported");
                     }
 
                     id = Integer.parseInt(file.select("p.filetitle > a").first().attr("href").split("/")[4]);

@@ -13,8 +13,8 @@ import io.github.prashantsolanki3.shoot.Shoot;
 import io.github.prashantsolanki3.shoot.listener.OnShootListener;
 import io.github.prashantsolanki3.shoot.utils.Scope;
 import xyz.santeri.palmtree.App;
+import xyz.santeri.palmtree.base.ListingType;
 import xyz.santeri.palmtree.data.local.PreferencesHelper;
-import xyz.santeri.palmtree.data.model.ListingType;
 import xyz.santeri.palmtree.ui.base.event.ListingTypeChangeEvent;
 import xyz.santeri.palmtree.ui.base.event.ScrollToTopEvent;
 

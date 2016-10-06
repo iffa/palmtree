@@ -1,6 +1,6 @@
 package xyz.santeri.palmtree.ui.base.event;
 
-import xyz.santeri.palmtree.data.model.ListingType;
+import xyz.santeri.palmtree.base.ListingType;
 
 /**
  * Called when the user switches from a {@link ListingType} to another.

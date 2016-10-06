@@ -15,9 +15,9 @@ import timber.log.Timber;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.base.DetailsService;
 import xyz.santeri.palmtree.base.ListingService;
+import xyz.santeri.palmtree.base.ListingType;
 import xyz.santeri.palmtree.data.local.PreferencesHelper;
 import xyz.santeri.palmtree.data.model.ImageDetails;
-import xyz.santeri.palmtree.data.model.ListingType;
 
 /**
  * @author Santeri Elo
