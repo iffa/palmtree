@@ -61,7 +61,6 @@ public class DetailPresenter extends TiPresenter<DetailView> {
                     getView().showImage(item);
                 }, throwable -> {
                     getView().showError(dataManager.getDetailError(throwable), throwable);
-                    // TODO: throw error
                 });
     }
 
