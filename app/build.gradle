@@ -69,6 +69,7 @@ dependencies {
     def thirtyinchVersion = '0.7.1'
     def butterknifeVersion = '8.4.0'
     def leakcanaryVersion = '1.5'
+    def toroVersion = '2.0.0-SNAPSHOT'
 
     compile "com.android.support:appcompat-v7:$appcompatVersion"
     compile "com.android.support:recyclerview-v7:$appcompatVersion"
@@ -92,6 +93,10 @@ dependencies {
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
+
+    compile "im.ene.lab:toro:$toroVersion"
+    compile "im.ene.lab:toro-player:$toroVersion"
+    compile "im.ene.lab:toro-ext:$toroVersion"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 

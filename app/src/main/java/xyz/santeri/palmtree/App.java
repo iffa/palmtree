@@ -12,6 +12,7 @@ import com.squareup.leakcanary.RefWatcher;
 
 import javax.inject.Inject;
 
+import im.ene.lab.toro.Toro;
 import io.fabric.sdk.android.Fabric;
 import io.github.prashantsolanki3.shoot.Shoot;
 import timber.log.Timber;
@@ -53,6 +54,8 @@ public class App extends Application {
         Timber.plant(new Timber.DebugTree());
 
         Shoot.with(this);
+
+        Toro.init(this);
 
         //noinspection WrongConstant
         AppCompatDelegate.setDefaultNightMode(dataManager.getTheme());

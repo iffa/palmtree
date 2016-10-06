@@ -19,6 +19,7 @@ import net.grandcentrix.thirtyinch.TiFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import im.ene.lab.toro.Toro;
 import xyz.santeri.palmtree.App;
 import xyz.santeri.palmtree.R;
 import xyz.santeri.palmtree.base.ListingType;
@@ -125,6 +126,7 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
         super.onPause();
 
         getPresenter().putRecyclerState(layoutManager.onSaveInstanceState());
+        Toro.unregister(recyclerView);
     }
 
     @Override
@@ -134,6 +136,8 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
         if (getPresenter().getRecyclerState() != null) {
             layoutManager.onRestoreInstanceState(getPresenter().getRecyclerState());
         }
+
+        Toro.register(recyclerView);
     }
 
     @Override
