@@ -7,7 +7,7 @@ apply plugin: 'com.getkeepsafe.dexcount'
 
 versionberg {
     major 0
-    minor 2
+    minor 3
     nameTemplate '${major}.${minor}.${commitCount}.${commitSha}'
     codeTemplate '(((${major} * 100) + ${minor}) * 100) * 100000 + ${build}'
 }
