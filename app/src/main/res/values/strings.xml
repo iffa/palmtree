@@ -3,6 +3,7 @@
     <string name="app_name_launcher">Palmtree</string>
     <string name="activity_main_title">Palmtree - %s</string>
 
+    <string name="leak_canary_display_activity_label">Palmtree (leaks)</string>
     <string name="error_page_load">Failed to load page, try again</string>
     <string name="badge_gif" translatable="false">GIF</string>
     <string name="action_share">Share</string>
