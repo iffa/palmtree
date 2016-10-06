@@ -19,7 +19,7 @@ public class PreferencesHelper {
     public static final String PREF_KEY_CATEGORY = "pref_category";
     public static final String PREF_KEY_SAVE_DATA = "pref_save_data";
     private static final String PREF_KEY_CHANGELOG = "pref_changelog";
-    private static final String PREF_KEY_NSFW = "pref_nsfw";
+    private static final String PREF_KEY_NSFW = "pref_show_nsfw";
     private static final String PREF_KEY_CONFIRM_EXIT = "pref_confirm_exit";
     private final SharedPreferences preferences;
 
