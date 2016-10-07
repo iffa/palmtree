@@ -136,14 +136,21 @@ class ListingViewHolder extends BaseViewHolder<ImageDetails> implements ToroPlay
 
             load.listener(new RequestListener<String, GlideDrawable>() {
                 @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                public boolean onException(Exception e,
+                                           String model,
+                                           Target<GlideDrawable> target,
+                                           boolean isFirstResource) {
                     Timber.e(e, "Failed to load image");
                     progressBar.setVisibility(View.GONE);
                     return false;
                 }
 
                 @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                public boolean onResourceReady(GlideDrawable resource,
+                                               String model,
+                                               Target<GlideDrawable> target,
+                                               boolean isFromMemoryCache,
+                                               boolean isFirstResource) {
                     progressBar.setVisibility(View.GONE);
                     return false;
                 }
@@ -151,7 +158,8 @@ class ListingViewHolder extends BaseViewHolder<ImageDetails> implements ToroPlay
         } else {
             if (fullPreviews) {
                 video.setVisibility(View.VISIBLE);
-                this.videoPlayer.setMedia(new ExoVideo(Uri.parse(item.fileUrl()), String.valueOf(item.id())));
+                videoPlayer.setMedia(
+                        new ExoVideo(Uri.parse(item.fileUrl()), String.valueOf(item.id())));
             } else {
                 video.setVisibility(View.GONE);
                 image.setLabelVisual(true);

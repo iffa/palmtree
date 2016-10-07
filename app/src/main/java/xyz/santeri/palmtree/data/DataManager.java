@@ -87,9 +87,8 @@ public class DataManager {
      * @param throwable Error
      * @return String resource
      */
-    public
     @StringRes
-    int getListingError(Throwable throwable) {
+    public int getListingError(Throwable throwable) {
         if (isNetworkAvailable()) {
             return R.string.error_page_load;
         } else {
@@ -101,9 +100,8 @@ public class DataManager {
      * @param throwable Error
      * @return String resource
      */
-    public
     @StringRes
-    int getDetailError(Throwable throwable) {
+    public int getDetailError(Throwable throwable) {
         if (isNetworkAvailable()) {
             if (throwable.getMessage().contains("Only images or videos are supported")) {
                 return R.string.error_unsupported;
@@ -114,6 +112,7 @@ public class DataManager {
         }
     }
 
+    @AppCompatDelegate.NightMode
     public int getTheme() {
         switch (preferences.getTheme()) {
             case 0:

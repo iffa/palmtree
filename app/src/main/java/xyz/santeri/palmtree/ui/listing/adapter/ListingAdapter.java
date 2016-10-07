@@ -34,9 +34,8 @@ public class ListingAdapter extends BaseAdapter<ImageDetails> {
     }
 
     @Override
-    public
     @HolderItemType
-    int getItemViewType(int position) {
+    public int getItemViewType(int position) {
         switch (items.get(position).type()) {
             case IMAGE:
                 return HolderItemType.TYPE_IMAGE;

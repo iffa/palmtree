@@ -1,7 +1,11 @@
 apply plugin: 'io.github.rockerhieu.versionberg'
 apply plugin: 'com.android.application'
+
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
+apply from: '../config/quality/quality.gradle'
+
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.getkeepsafe.dexcount'
 

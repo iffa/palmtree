@@ -5,8 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-import timber.log.Timber;
-
 /**
  * @author Santeri Elo
  */
@@ -17,12 +15,10 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
     private static final int startingPageIndex = 1;
     private static final int visibleThreshold = 5;
 
-    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView.LayoutManager layoutManager;
 
     protected EndlessScrollListener(LinearLayoutManager layoutManager) {
-        this.mLayoutManager = layoutManager;
-
-        Timber.d("Created EndlessSCrollListener");
+        this.layoutManager = layoutManager;
     }
 
     private int getLastVisibleItem(int[] lastVisibleItemPositions) {
@@ -40,15 +36,18 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
     @Override
     public void onScrolled(RecyclerView view, int dx, int dy) {
         int lastVisibleItemPosition = 0;
-        int totalItemCount = mLayoutManager.getItemCount();
+        int totalItemCount = layoutManager.getItemCount();
 
-        if (mLayoutManager instanceof StaggeredGridLayoutManager) {
-            int[] lastVisibleItemPositions = ((StaggeredGridLayoutManager) mLayoutManager).findLastVisibleItemPositions(null);
+        if (layoutManager instanceof StaggeredGridLayoutManager) {
+            int[] lastVisibleItemPositions = ((StaggeredGridLayoutManager) layoutManager)
+                    .findLastVisibleItemPositions(null);
             lastVisibleItemPosition = getLastVisibleItem(lastVisibleItemPositions);
-        } else if (mLayoutManager instanceof LinearLayoutManager) {
-            lastVisibleItemPosition = ((LinearLayoutManager) mLayoutManager).findLastVisibleItemPosition();
-        } else if (mLayoutManager instanceof GridLayoutManager) {
-            lastVisibleItemPosition = ((GridLayoutManager) mLayoutManager).findLastVisibleItemPosition();
+        } else if (layoutManager instanceof LinearLayoutManager) {
+            lastVisibleItemPosition = ((LinearLayoutManager) layoutManager)
+                    .findLastVisibleItemPosition();
+        } else if (layoutManager instanceof GridLayoutManager) {
+            lastVisibleItemPosition = ((GridLayoutManager) layoutManager)
+                    .findLastVisibleItemPosition();
         }
 
         if (totalItemCount < previousTotalItemCount) {
@@ -75,7 +74,5 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
-
-        Timber.d("Set current page as %s", currentPage);
     }
 }

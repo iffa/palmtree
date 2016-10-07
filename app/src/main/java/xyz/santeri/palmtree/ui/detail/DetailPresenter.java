@@ -23,7 +23,7 @@ public class DetailPresenter extends TiPresenter<DetailView> {
     DataManager dataManager;
 
     DetailPresenter(Context context) {
-        App.get(context).component().inject(this);
+        App.get(context).getComponent().inject(this);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class DetailPresenter extends TiPresenter<DetailView> {
         // Show a swipe hint to the user when first starting
         Shoot.once(App.SHOOT_DETAILS_SWIPE, new OnShootListener() {
             @Override
-            public void onExecute(@Scope int scope, String TAG, int iterationCount) {
+            public void onExecute(@Scope int scope, String tag, int iterationCount) {
                 getView().showSwipeHint();
             }
         });

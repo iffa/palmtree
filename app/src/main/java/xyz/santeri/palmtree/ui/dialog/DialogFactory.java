@@ -30,15 +30,16 @@ import static xyz.santeri.palmtree.ui.dialog.DialogType.DIALOG_LISTING_QUALITY;
 /**
  * @author Santeri Elo
  */
+@SuppressWarnings("deprecation")
 public class DialogFactory extends DialogFragment {
     private static final String ARG_DIALOG_TYPE = "dialog_type";
     private static final String ARG_IMAGE = "image";
     private static final String ARG_ERROR = "error";
 
     public static DialogFactory newInstance(@DialogType int dialogType) {
-        if (dialogType == DialogType.DIALOG_IMAGE_INFO) {
+        if (dialogType == DIALOG_IMAGE_INFO) {
             throw new UnsupportedOperationException("Use constructor with ImageDetails if showing dialog of DIALOG_IMAGE_INFO type");
-        } else if (dialogType == DialogType.DIALOG_ERROR_INFO) {
+        } else if (dialogType == DIALOG_ERROR_INFO) {
             throw new UnsupportedOperationException("Use constructor with Throwable if showing dialog of DIALOG_ERROR_INFO type");
         }
 
@@ -56,7 +57,7 @@ public class DialogFactory extends DialogFragment {
         DialogFactory fragment = new DialogFactory();
 
         Bundle args = new Bundle();
-        args.putInt(ARG_DIALOG_TYPE, DialogType.DIALOG_IMAGE_INFO);
+        args.putInt(ARG_DIALOG_TYPE, DIALOG_IMAGE_INFO);
         args.putParcelable(ARG_IMAGE, imageDetails);
 
         fragment.setArguments(args);
@@ -68,7 +69,7 @@ public class DialogFactory extends DialogFragment {
         DialogFactory fragment = new DialogFactory();
 
         Bundle args = new Bundle();
-        args.putInt(ARG_DIALOG_TYPE, DialogType.DIALOG_ERROR_INFO);
+        args.putInt(ARG_DIALOG_TYPE, DIALOG_ERROR_INFO);
         args.putString(ARG_ERROR, errorMessage);
 
         fragment.setArguments(args);
@@ -97,12 +98,15 @@ public class DialogFactory extends DialogFragment {
                         .positiveText(R.string.ok)
                         .build();
             case DIALOG_CONFIRM_EXIT:
+                //noinspection CodeBlock2Expr
                 return new MaterialDialog.Builder(getActivity())
                         .title(R.string.dialog_confirm_exit)
                         .content(R.string.dialog_confirm_exit_content)
                         .positiveText(R.string.exit)
                         .negativeText(R.string.cancel)
-                        .onPositive((dialog, which) -> startActivity(MainActivity.getStartIntent(getContext(), true, true)))
+                        .onPositive((dialog, which) -> {
+                            startActivity(MainActivity.getStartIntent(getContext(), true, true));
+                        })
                         .build();
             case DIALOG_IMAGE_INFO:
                 ImageDetails image = getArguments().getParcelable(ARG_IMAGE);
@@ -111,7 +115,8 @@ public class DialogFactory extends DialogFragment {
                 return new MaterialDialog.Builder(getActivity())
                         .title(image.title())
                         .content(Html.fromHtml(getString(R.string.dialog_image_info_content,
-                                image.description(), image.rating(), image.nsfw(), image.metadata())))
+                                image.description(), image.rating(),
+                                image.nsfw(), image.metadata())))
                         .positiveText(R.string.ok)
                         .build();
             case DIALOG_LICENSES:
@@ -120,8 +125,9 @@ public class DialogFactory extends DialogFragment {
                     InputStream json = getActivity().getAssets().open("licenses.html");
                     BufferedReader in = new BufferedReader(new InputStreamReader(json, "UTF-8"));
                     String str;
-                    while ((str = in.readLine()) != null)
+                    while ((str = in.readLine()) != null) {
                         buf.append(str);
+                    }
                     in.close();
                 } catch (IOException e) {
                     Timber.e(e, "Failed to load licenses.html");
@@ -139,7 +145,8 @@ public class DialogFactory extends DialogFragment {
                 return new MaterialDialog.Builder(getActivity())
                         .canceledOnTouchOutside(false)
                         .title(R.string.dialog_error_title)
-                        .content(Html.fromHtml(getString(R.string.dialog_error_content, errorMessage)))
+                        .content(Html.fromHtml(
+                                getString(R.string.dialog_error_content, errorMessage)))
                         .positiveText(R.string.ok)
                         .build();
             default:
@@ -151,6 +158,6 @@ public class DialogFactory extends DialogFragment {
     public void onDestroy() {
         super.onDestroy();
 
-        App.get(getContext()).refWatcher().watch(this);
+        App.get(getContext()).getRefWatcher().watch(this);
     }
 }

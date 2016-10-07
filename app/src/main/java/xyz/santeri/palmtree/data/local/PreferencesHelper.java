@@ -37,15 +37,15 @@ public class PreferencesHelper {
         return Integer.parseInt(preferences.getString(PREF_KEY_THEME, "0"));
     }
 
-    public boolean getDataSavingEnabled() {
+    public boolean isDataSavingEnabled() {
         return preferences.getBoolean(PREF_KEY_SAVE_DATA, false);
     }
 
-    public boolean getFullPreviewEnabled() {
+    public boolean isFullPreviewEnabled() {
         return preferences.getBoolean(PREF_KEY_FULL_PREVIEW, false);
     }
 
-    public boolean getShowNsfwEnabled() {
+    public boolean isShowNsfwEnabled() {
         return preferences.getBoolean(PREF_KEY_NSFW, false);
     }
 
@@ -66,11 +66,11 @@ public class PreferencesHelper {
         }
     }
 
-    public boolean getShowChangelogEnabled() {
+    public boolean isChangelogEnabled() {
         return preferences.getBoolean(PREF_KEY_CHANGELOG, true);
     }
 
-    public boolean getConfirmExitEnabled() {
+    public boolean isConfirmExitEnabled() {
         return preferences.getBoolean(PREF_KEY_CONFIRM_EXIT, false);
     }
 }

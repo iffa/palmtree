@@ -38,7 +38,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        component().inject(this);
+        getComponent().inject(this);
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
@@ -61,7 +61,7 @@ public class App extends Application {
         AppCompatDelegate.setDefaultNightMode(dataManager.getTheme());
     }
 
-    public RefWatcher refWatcher() {
+    public RefWatcher getRefWatcher() {
         return refWatcher;
     }
 
@@ -69,7 +69,7 @@ public class App extends Application {
         return (App) context.getApplicationContext();
     }
 
-    public AppComponent component() {
+    public AppComponent getComponent() {
         if (component == null) {
             component = DaggerAppComponent.builder()
                     .appModule(new AppModule(this))

@@ -22,14 +22,15 @@ import xyz.santeri.palmtree.ui.base.event.ScrollToTopEvent;
  * @author Santeri Elo
  */
 public class MainPresenter extends TiPresenter<MainView> {
-    private RxTiPresenterSubscriptionHandler subscriptionHelper = new RxTiPresenterSubscriptionHandler(this);
+    private RxTiPresenterSubscriptionHandler subscriptionHelper =
+            new RxTiPresenterSubscriptionHandler(this);
     private ListingType currentCategory;
 
     @Inject
     PreferencesHelper preferencesHelper;
 
     MainPresenter(Context context) {
-        App.get(context).component().inject(this);
+        App.get(context).getComponent().inject(this);
     }
 
     @Override
@@ -49,8 +50,8 @@ public class MainPresenter extends TiPresenter<MainView> {
 
         Shoot.once(Shoot.APP_VERSION, App.SHOOT_UPDATE_TAG, new OnShootListener() {
             @Override
-            public void onExecute(@Scope int scope, String TAG, int iterationCount) {
-                if (preferencesHelper.getShowChangelogEnabled()) {
+            public void onExecute(@Scope int scope, String tag, int iterationCount) {
+                if (preferencesHelper.isChangelogEnabled()) {
                     getView().showUpdateInfo();
                 }
             }
@@ -58,7 +59,7 @@ public class MainPresenter extends TiPresenter<MainView> {
     }
 
     boolean shouldConfirmExit() {
-        return preferencesHelper.getConfirmExitEnabled();
+        return preferencesHelper.isConfirmExitEnabled();
     }
 
     void onListingTypeChange(ListingType type) {

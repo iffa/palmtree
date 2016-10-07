@@ -22,7 +22,8 @@ import xyz.santeri.palmtree.ui.main.MainActivity;
 /**
  * @author Santeri Elo
  */
-public class SettingsFragment extends XpPreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends XpPreferenceFragment
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String PREF_KEY_VERSION = "pref_version";
     private static final String PREF_KEY_LICENSES = "pref_licenses";
 
@@ -58,27 +59,29 @@ public class SettingsFragment extends XpPreferenceFragment implements SharedPref
     @Override
     public void onResume() {
         super.onResume();
-        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        App.get(getContext()).refWatcher().watch(this);
+        App.get(getContext()).getRefWatcher().watch(this);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        App.get(getContext()).component().inject(this);
+        App.get(getContext()).getComponent().inject(this);
 
         getListView().setFocusable(false);
     }

@@ -35,9 +35,10 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     private final String KEY_RECYCLER_STATE = "recycler_state";
     private Bundle recyclerState = new Bundle();
     private ListingAdapter listingAdapter;
-    private RxTiPresenterSubscriptionHandler subscriptionHelper = new RxTiPresenterSubscriptionHandler(this);
     private int currentPage;
     private ListingType listingType;
+    private RxTiPresenterSubscriptionHandler subscriptionHelper =
+            new RxTiPresenterSubscriptionHandler(this);
 
     @Inject
     DataManager dataManager;
@@ -46,14 +47,15 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     PreferencesHelper preferences;
 
     ListingPresenter(Context context, ListingType listingType) {
-        App.get(context).component().inject(this);
+        App.get(context).getComponent().inject(this);
         this.listingType = listingType;
     }
 
     @Override
     protected void onCreate() {
         super.onCreate();
-        listingAdapter = new ListingAdapter(preferences.getDataSavingEnabled(), preferences.getFullPreviewEnabled());
+        listingAdapter = new ListingAdapter(preferences.isDataSavingEnabled(),
+                preferences.isFullPreviewEnabled());
     }
 
     @Override
@@ -87,7 +89,8 @@ public class ListingPresenter extends TiPresenter<ListingView> {
 
     @Subscribe
     public void onListingTypeChangeEvent(ListingTypeChangeEvent event) {
-        Timber.d("Changing listing type from %s to %s", listingType.name(), event.getListingType().name());
+        Timber.d("Changing listing type from %s to %s",
+                listingType.name(), event.getListingType().name());
         listingType = event.getListingType();
         onRefresh();
     }
@@ -103,7 +106,7 @@ public class ListingPresenter extends TiPresenter<ListingView> {
                 || listingType == ListingType.LATEST_ALL || listingType == ListingType.RANDOM) {
             Shoot.once(App.SHOOT_LISTING_QUALITY, new OnShootListener() {
                 @Override
-                public void onExecute(@Scope int scope, String TAG, int iterationCount) {
+                public void onExecute(@Scope int scope, String tag, int iterationCount) {
                     Timber.d("Showing listing quality info");
                     getView().showQualityInfo();
                 }
@@ -123,24 +126,23 @@ public class ListingPresenter extends TiPresenter<ListingView> {
         currentPage = page;
 
         subscriptionHelper.manageSubscription(
-                dataManager.getListing(listingType, page)
-                        .filter(image -> {
-                            if (preferences.getShowNsfwEnabled()) return true;
+                dataManager.getListing(listingType, page).filter(image -> {
+                    if (preferences.isShowNsfwEnabled()) return true;
 
-                            if (image.nsfw()) {
-                                Timber.d("Not showing NSFW image as current settings don't allow it");
-                                return false;
-                            } else {
-                                return true;
-                            }
-                        })
-                        .subscribe(
-                                item -> listingAdapter.addItem(item),
-                                throwable -> {
-                                    Timber.e(throwable, "Failed to load %s page %s", listingType, page);
-                                    getView().showError(page, throwable, dataManager.getListingError(throwable));
-                                },
-                                () -> getView().finishLoading()));
+                    if (image.nsfw()) {
+                        Timber.d("Not showing NSFW image as current settings don't allow it");
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }).subscribe(
+                        item -> listingAdapter.addItem(item),
+                        throwable -> {
+                            Timber.e(throwable, "Failed to load %s page %s", listingType, page);
+                            getView().showError(page, throwable,
+                                    dataManager.getListingError(throwable));
+                        },
+                        () -> getView().finishLoading()));
     }
 
     void onItemClick(int position) {

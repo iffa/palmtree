@@ -58,7 +58,8 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.content, ListingFragment.newInstance(getPresenter().getCurrentCategory()))
+                    .replace(R.id.content,
+                            ListingFragment.newInstance(getPresenter().getCurrentCategory()))
                     .commit();
         }
 
@@ -138,7 +139,8 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
     @Override
     public void onBackPressed() {
         if (getPresenter().shouldConfirmExit()) {
-            DialogFactory.newInstance(DialogType.DIALOG_CONFIRM_EXIT).show(getSupportFragmentManager(), "confirm_exit_dialog");
+            DialogFactory.newInstance(DialogType.DIALOG_CONFIRM_EXIT)
+                    .show(getSupportFragmentManager(), "confirm_exit_dialog");
         } else {
             super.onBackPressed();
         }
@@ -159,7 +161,8 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
     public void showUpdateInfo() {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        DialogFactory.newInstance(DialogType.DIALOG_CHANGELOG).show(fragmentManager, "changelog_dialog");
+        DialogFactory.newInstance(DialogType.DIALOG_CHANGELOG)
+                .show(fragmentManager, "changelog_dialog");
     }
 
     @Override
@@ -168,19 +171,24 @@ public class MainActivity extends TiActivity<MainPresenter, MainView> implements
         assert getSupportActionBar() != null;
         switch (listingType) {
             case FRONT_PAGE:
-                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.frontpage)));
+                getSupportActionBar().setTitle(
+                        getString(R.string.activity_main_title, getString(R.string.frontpage)));
                 break;
             case LATEST_IMAGES:
-                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.latest_images)));
+                getSupportActionBar().setTitle(
+                        getString(R.string.activity_main_title, getString(R.string.latest_images)));
                 break;
             case LATEST_VIDEOS:
-                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.latest_videos)));
+                getSupportActionBar().setTitle(
+                        getString(R.string.activity_main_title, getString(R.string.latest_videos)));
                 break;
             case LATEST_ALL:
-                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.latest_all)));
+                getSupportActionBar().setTitle(
+                        getString(R.string.activity_main_title, getString(R.string.latest_all)));
                 break;
             case RANDOM:
-                getSupportActionBar().setTitle(getString(R.string.activity_main_title, getString(R.string.random)));
+                getSupportActionBar().setTitle(
+                        getString(R.string.activity_main_title, getString(R.string.random)));
                 break;
         }
     }

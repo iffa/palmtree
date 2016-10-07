@@ -94,15 +94,18 @@ public class JsoupListingService implements ListingService {
                         throw new UnsupportedOperationException("Only images or videos are supported");
                     }
 
-                    id = Integer.parseInt(file.select("p.filetitle > a").first().attr("href").split("/")[4]);
+                    id = Integer.parseInt(file.select("p.filetitle > a")
+                            .first().attr("href").split("/")[4]);
 
                     rating = file.select("div.listingcomments > span").first().text();
 
-                    ImageDetails imageDetails = ImageDetails.create(id, fileUrl, imageType, nsfw, title, rating, description, null);
+                    ImageDetails imageDetails = ImageDetails.create(
+                            id, fileUrl, imageType, nsfw, title, rating, description, null);
                     subscriber.onNext(imageDetails);
                 }
             } else {
-                Elements files = doc.select("table.filelist > tbody").first().getElementsByTag("td");
+                Elements files = doc.select("table.filelist > tbody")
+                        .first().getElementsByTag("td");
 
                 for (Element file : files) {
                     int id;
@@ -120,7 +123,8 @@ public class JsoupListingService implements ListingService {
 
                     id = Integer.parseInt(file.select("a").first().attr("href").split("/")[4]);
 
-                    ImageDetails image = ImageDetails.create(id, thumbnailUrl, ImageType.UNDEFINED, nsfw, title, null, null, null);
+                    ImageDetails image = ImageDetails.create(
+                            id, thumbnailUrl, ImageType.UNDEFINED, nsfw, title, null, null, null);
                     subscriber.onNext(image);
                 }
             }

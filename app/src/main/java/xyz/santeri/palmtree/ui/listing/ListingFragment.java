@@ -65,7 +65,8 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_frontpage, container, false);
         unbinder = ButterKnife.bind(this, view);
 
@@ -83,7 +84,7 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        refreshLayout.setColorSchemeResources(R.color.accent, R.color.primary, R.color.primary_dark);
+        refreshLayout.setColorSchemeResources(R.color.accent, R.color.primary);
 
         refreshLayout.setOnRefreshListener(this);
 
@@ -144,13 +145,14 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     public void onDestroy() {
         super.onDestroy();
 
-        App.get(getContext()).refWatcher().watch(this);
+        App.get(getContext()).getRefWatcher().watch(this);
     }
 
     @NonNull
     @Override
     public ListingPresenter providePresenter() {
-        return new ListingPresenter(getContext(), (ListingType) getArguments().getSerializable(ARG_CATEGORY));
+        return new ListingPresenter(getContext(),
+                (ListingType) getArguments().getSerializable(ARG_CATEGORY));
     }
 
     @Override
@@ -165,12 +167,14 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
 
     @Override
     public void showQualityInfo() {
-        DialogFactory.newInstance(DialogType.DIALOG_LISTING_QUALITY).show(getFragmentManager(), "listing_quality_dialog");
+        DialogFactory.newInstance(DialogType.DIALOG_LISTING_QUALITY)
+                .show(getFragmentManager(), "listing_quality_dialog");
     }
 
     @Override
     public void openDialogDetails(ImageDetails item) {
-        DialogFactory.newImageDialogInstance(item).show(getFragmentManager(), "details_dialog");
+        DialogFactory.newImageDialogInstance(item)
+                .show(getFragmentManager(), "details_dialog");
     }
 
     @Override

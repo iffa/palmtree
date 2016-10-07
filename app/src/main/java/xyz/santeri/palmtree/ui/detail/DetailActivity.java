@@ -184,21 +184,25 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
             videoView.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
 
-            Glide.with(this).load(imageDetails.fileUrl()).asBitmap().into(new SimpleTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                    if (resource.isRecycled()) {
-                        Timber.w("Trying to use a recycled Bitmap");
-                        return;
-                    }
+            Glide.with(this).load(imageDetails.fileUrl())
+                    .asBitmap()
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(
+                                Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            if (resource.isRecycled()) {
+                                Timber.w("Trying to use a recycled Bitmap");
+                                return;
+                            }
 
-                    progressBar.setVisibility(View.GONE);
-                    ObjectAnimator fadeAltAnim = ObjectAnimator.ofFloat(imageView, View.ALPHA, 0, 1);
-                    fadeAltAnim.start();
+                            progressBar.setVisibility(View.GONE);
+                            ObjectAnimator fadeAltAnim =
+                                    ObjectAnimator.ofFloat(imageView, View.ALPHA, 0, 1);
+                            fadeAltAnim.start();
 
-                    imageView.setImage(ImageSource.bitmap(resource));
-                }
-            });
+                            imageView.setImage(ImageSource.bitmap(resource));
+                        }
+                    });
         } else {
             videoView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.GONE);
@@ -212,7 +216,8 @@ public class DetailActivity extends TiActivity<DetailPresenter, DetailView>
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareUrl);
-        startActivity(Intent.createChooser(shareIntent, getResources().getString(R.string.action_share_title)));
+        startActivity(Intent.createChooser(
+                shareIntent, getResources().getString(R.string.action_share_title)));
     }
 
     @Override

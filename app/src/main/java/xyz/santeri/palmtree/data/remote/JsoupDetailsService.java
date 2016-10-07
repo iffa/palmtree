@@ -1,5 +1,7 @@
 package xyz.santeri.palmtree.data.remote;
 
+import android.support.annotation.NonNull;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,23 +20,25 @@ import xyz.santeri.palmtree.data.model.ImageType;
 public class JsoupDetailsService implements DetailsService {
     private static final String DETAILS_URL = "http://naamapalmu.com/file/%s";
 
+    @NonNull
     @Override
-    public Observable<ImageDetails> getImageDetails(int imageNumber) {
+    public Observable<ImageDetails> getImageDetails(int id) {
         return Observable.create(subscriber -> {
             Document doc = null;
 
             try {
-                doc = Jsoup.connect(String.format(DETAILS_URL, imageNumber)).get();
+                doc = Jsoup.connect(String.format(DETAILS_URL, id)).get();
             } catch (IOException e) {
                 subscriber.onError(e);
             } finally {
-                if (doc == null || doc.select(String.format("div#hiddenfile-%s", imageNumber)).get(0) == null) {
+                if (doc == null ||
+                        doc.select(String.format("div#hiddenfile-%s", id)).get(0) == null) {
                     subscriber.onError(new NullPointerException("Document is invalid"));
                 }
             }
 
             assert doc != null;
-            Element file = doc.select(String.format("div#hiddenfile-%s", imageNumber)).first();
+            Element file = doc.select(String.format("div#hiddenfile-%s", id)).first();
             Element details = doc.select("div.fileinfo").first();
 
             boolean nsfw = false;
@@ -67,9 +71,13 @@ public class JsoupDetailsService implements DetailsService {
 
             metadata = details.select("div.infotext").first().text();
 
-            rating = details.select(String.format("div.right > span#votecount-%s", imageNumber)).first().text();
+            rating = details
+                    .select(String.format("div.right > span#votecount-%s", id))
+                    .first()
+                    .text();
 
-            ImageDetails imageDetails = ImageDetails.create(imageNumber, fileUrl, imageType, nsfw, title, rating, description, metadata);
+            ImageDetails imageDetails = ImageDetails.create(
+                    id, fileUrl, imageType, nsfw, title, rating, description, metadata);
 
             subscriber.onNext(imageDetails);
             subscriber.onCompleted();

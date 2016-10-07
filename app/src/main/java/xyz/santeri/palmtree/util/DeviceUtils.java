@@ -10,8 +10,8 @@ import android.view.WindowManager;
  */
 public class DeviceUtils {
     public static int getScreenHeight(Context context) {
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = windowManager.getDefaultDisplay();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         return size.y;
