@@ -12,14 +12,6 @@
     <string name="pref_full_preview">Full preview images</string>
     <string name="pref_full_preview_summary">Show full preview images. Note: this feature is experimental.</string>
 
-    <string name="pref_swipe_back">Swipe to return</string>
-    <string name="pref_swipe_back_summary">Swipe to return from detail view or settings.</string>
-
-    <string name="pref_click_back_summary">Click to return from detail view.</string>
-    <string name="pref_click_back">Click to return</string>
-    <string name="pref_toolbar_hide">Autohide toolbar</string>
-    <string name="pref_toolbar_hide_summary">Hide the toolbar when scrolling.</string>
-
     <string name="pref_changelog">Show changelog</string>
     <string name="pref_changelog_summary">Show changelog after app update.</string>
 
