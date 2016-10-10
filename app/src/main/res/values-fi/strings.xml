@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Palmtree</string>
+    <string name="action_details">Tiedot</string>
+    <string name="action_list">Listaus</string>
+    <string name="action_list_all">Viimeisimmät (kaikki)</string>
+    <string name="action_list_frontpage">Etusivu</string>
+    <string name="action_list_images">Viimeisimmät kuvat</string>
+    <string name="action_list_random">Satunnainen</string>
+    <string name="action_list_videos">Viimeisimmät videot</string>
+    <string name="action_settings">Asetukset</string>
+    <string name="action_share">Jaa</string>
+    <string name="action_share_title">Jaa linkki käyttäen</string>
+    <string name="cancel">Peruuta</string>
+    <string name="changelog_title">Uutta versiossa %s</string>
+    <string name="content_description">Hauska kuva/video</string>
+    <string name="dialog_confirm_exit">Vahvista poistuminen</string>
+    <string name="dialog_confirm_exit_content">Haluatko varmasti poistua?</string>
+    <string name="dialog_error_content"><![CDATA[<b>Virhe:</b> %s<br><br>Näin ei pitäisi käydä. Sori!]]></string>
+    <string name="dialog_error_title">Virhetiedot</string>
+    <string name="dialog_licenses_title">Lisenssit</string>
+    <string name="dialog_listing_quality_content">Huomioithan, että latausmetodin takia esikatselukuvat ovat huonolaatuisia viimeisimmät (kaikki)- ja viimeisimmät videot -kategorioissa.</string>
+    <string name="dialog_listing_quality_title">Esikatselun laatu</string>
+    <string name="error_detail_load">Tietojen lataus epäonnistui</string>
+    <string name="error_image_load">Kuvan lataus epäonnistui</string>
+    <string name="error_internet_connection">Ei internet-yhteyttä</string>
+    <string name="error_page_load">Sivun lataus epäonnistui, yritä uudelleen</string>
+    <string name="error_unsupported">Vain kuvat ja videot ovat tuettuja</string>
+    <string name="exit">Poistu</string>
+    <string name="frontpage">etusivu</string>
+    <string name="hint_swipe">Vinkki: pyyhkäise oikealle poistuaksesi nopeasti!</string>
+    <string name="latest_all">viimeisimmät (kaikk</string>
+    <string name="latest_images">viimeisimmät kuvat</string>
+    <string name="latest_videos">viimeisimmät videot</string>
+    <string name="leak_canary_display_activity_label">Palmtree (vuodot)</string>
+    <string name="random">satunnainen</string>
+    <string name="retry">Yritä uudelleen</string>
+    <string name="pref_category">Oletuskategoria</string>
+    <string name="dialog_image_info_content" formatted="false"><![CDATA[<b>Kuvaus:</b><br>%s<br><br><b>Arvostelu:</b><br>%s<br><br><b>NSFW:</b><br>%b<br><br><b>Muut tiedot:</b><br>%s]]></string>
+    <string name="pref_category_summary">Vaihda oletuskategoriaa.</string>
+    <string name="pref_changelog">Näytä muutosloki</string>
+    <string name="pref_changelog_summary">Näytä muutosloki päivityksen jälkeen.</string>
+    <string name="pref_confirm_exit">Vahvista poistuminen</string>
+    <string name="pref_customization">Kustomisaatio</string>
+    <string name="pref_feedback">Anna palautetta</string>
+    <string name="pref_feedback_summary">Ilmoita bugeista ja ehdota uusia ominaisuuksia.</string>
+    <string name="pref_full_preview">Täyskokoiset esikatselukuvat</string>
+    <string name="pref_full_preview_summary">Näytä täyskokoiset esikatselukuvat. Huom: ominaisuus on kokeellinen.</string>
+    <string name="pref_general">Yleiset</string>
+    <string name="pref_licenses">Lisenssit</string>
+    <string name="pref_licenses_summary">Kolmansien osapuolien kirjastojen lisenssit.</string>
+    <string name="pref_other">Muuta</string>
+    <string name="pref_rate">Arvostele sovellus</string>
+    <string name="pref_rate_summary">Arvostele sovellus Play-kaupassa.</string>
+    <string name="pref_restart_message">Käynnistä uudelleen ottaaksesi muutokset käyttöön</string>
+    <string name="pref_save_data">Säästä dataa</string>
+    <string name="pref_save_data_summary">Säästä dataa jättämällä esikatselukuvat lataamatta.</string>
+    <string name="pref_show_nsfw">Näytä NSFW-sisältö</string>
+    <string name="pref_theme">Teema</string>
+    <string name="pref_theme_summary">Vaihda sovelluksen teemaa.</string>
+
+    <string name="changelog">• Korjattu bugeja ja paranneltu suorituskykyä</string>
+</resources>

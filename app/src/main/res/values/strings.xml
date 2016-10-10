@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Palmtree</string>
-    <string name="activity_main_title">Palmtree - %s</string>
+    <string name="activity_main_title" translatable="false">Palmtree - %s</string>
 
     <string name="leak_canary_display_activity_label">Palmtree (leaks)</string>
     <string name="error_page_load">Failed to load page, try again</string>
