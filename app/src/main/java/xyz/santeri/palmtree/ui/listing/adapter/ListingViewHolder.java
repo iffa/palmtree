@@ -56,6 +56,7 @@ class ListingViewHolder extends BaseViewHolder<ImageDetails> implements ToroPlay
     private final ViewGroup imageFrame;
     private final TextView title;
     private final TextView description;
+    private final TextView error;
     private final LabelImageView image;
     private final ToroVideoView video;
     private final MaterialProgressBar progressBar;
@@ -71,6 +72,7 @@ class ListingViewHolder extends BaseViewHolder<ImageDetails> implements ToroPlay
         video = (ToroVideoView) itemView.findViewById(R.id.video);
         progressBar = (MaterialProgressBar) itemView.findViewById(R.id.progress);
         imageFrame = (ViewGroup) itemView.findViewById(R.id.image_frame);
+        error = (TextView) itemView.findViewById(R.id.error);
 
         requestManager = Glide.with(itemView.getContext());
 
@@ -109,6 +111,7 @@ class ListingViewHolder extends BaseViewHolder<ImageDetails> implements ToroPlay
     @Override
     public void bind(RecyclerView.Adapter adapter, ImageDetails item, @HolderItemType int type) {
         title.setText(item.title());
+        error.setVisibility(View.GONE);
 
         if (item.description() == null) {
             description.setVisibility(View.GONE);
@@ -142,6 +145,7 @@ class ListingViewHolder extends BaseViewHolder<ImageDetails> implements ToroPlay
                                            boolean isFirstResource) {
                     Timber.e(e, "Failed to load image");
                     progressBar.setVisibility(View.GONE);
+                    error.setVisibility(View.VISIBLE);
                     return false;
                 }
 
@@ -158,6 +162,7 @@ class ListingViewHolder extends BaseViewHolder<ImageDetails> implements ToroPlay
         } else {
             if (fullPreviews) {
                 video.setVisibility(View.VISIBLE);
+                image.setLabelVisual(true);
                 videoPlayer.setMedia(
                         new ExoVideo(Uri.parse(item.fileUrl()), String.valueOf(item.id())));
             } else {

@@ -63,6 +63,17 @@
                 android:layout_gravity="bottom"
                 android:indeterminate="true"
                 app:mpb_progressStyle="horizontal" />
+
+            <TextView
+                android:gravity="center_horizontal"
+                android:textColor="?android:textColorSecondary"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:text="@string/error_image_load"
+                android:padding="8dp"
+                android:id="@+id/error"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </FrameLayout>
 
         <TextView
