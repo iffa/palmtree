@@ -23,6 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:indeterminate="true"
-        android:tint="@color/primary"
-        app:mpb_progressStyle="horizontal" />
+        app:mpb_progressStyle="horizontal"
+        app:mpb_progressTint="@color/primary" />
 </FrameLayout>
