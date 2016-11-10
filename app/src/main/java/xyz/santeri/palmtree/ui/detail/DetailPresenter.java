@@ -1,6 +1,7 @@
 package xyz.santeri.palmtree.ui.detail;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import net.grandcentrix.thirtyinch.TiPresenter;
 
@@ -27,50 +28,50 @@ public class DetailPresenter extends TiPresenter<DetailView> {
     }
 
     @Override
-    protected void onWakeUp() {
-        super.onWakeUp();
+    protected void onAttachView(@NonNull DetailView view) {
+        super.onAttachView(view);
 
-        getView().showLoading();
+        view.showLoading();
 
         // Show a swipe hint to the user when first starting
         Shoot.once(App.SHOOT_DETAILS_SWIPE, new OnShootListener() {
             @Override
             public void onExecute(@Scope int scope, String tag, int iterationCount) {
-                getView().showSwipeHint();
+                view.showSwipeHint();
             }
         });
     }
 
     void load(ImageDetails imageDetails) {
         if (imageDetails != null) {
-            getView().showImage(imageDetails);
+            if (getView() != null) getView().showImage(imageDetails);
         }
 
         this.imageDetails = imageDetails;
-        getView().showImage(imageDetails);
+        if (getView() != null) getView().showImage(imageDetails);
     }
 
     void load(int fileId) {
         if (imageDetails != null) {
-            getView().showImage(imageDetails);
+            if (getView() != null) getView().showImage(imageDetails);
         }
 
         dataManager.getImageDetails(fileId).subscribe(
                 item -> {
                     this.imageDetails = item;
-                    getView().showImage(item);
+                    if (getView() != null) getView().showImage(item);
                 }, throwable -> {
-                    getView().showError(dataManager.getDetailError(throwable), throwable);
+                    if (getView() != null) getView().showError(dataManager.getDetailError(throwable), throwable);
                 });
     }
 
     void onShareClicked() {
-        getView().startShareIntent(dataManager.getShareUrl(imageDetails));
+        if (getView() != null) getView().startShareIntent(dataManager.getShareUrl(imageDetails));
     }
 
     void onDetailsClicked() {
         if (imageDetails != null) {
-            getView().showDetailsDialog(imageDetails);
+            if (getView() != null) getView().showDetailsDialog(imageDetails);
         }
     }
 }

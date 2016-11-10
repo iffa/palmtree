@@ -40,13 +40,13 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
         implements ListingView, SwipeRefreshLayout.OnRefreshListener {
     private Unbinder unbinder;
     private EndlessScrollListener scrollListener;
+    private EfficientLinearLayoutManager layoutManager;
 
     @BindView(R.id.refresh)
     SwipeRefreshLayout refreshLayout;
 
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
-    EfficientLinearLayoutManager layoutManager;
 
     @BindView(R.id.progress)
     ProgressBar progressBar;
@@ -76,7 +76,6 @@ public class ListingFragment extends TiFragment<ListingPresenter, ListingView>
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
         unbinder.unbind();
     }
 

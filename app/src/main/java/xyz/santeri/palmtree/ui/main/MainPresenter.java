@@ -1,6 +1,7 @@
 package xyz.santeri.palmtree.ui.main;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.rx.RxTiPresenterSubscriptionHandler;
@@ -41,10 +42,10 @@ public class MainPresenter extends TiPresenter<MainView> {
     }
 
     @Override
-    protected void onWakeUp() {
-        super.onWakeUp();
+    protected void onAttachView(@NonNull MainView view) {
+        super.onAttachView(view);
 
-        subscriptionHelper.manageViewSubscription(getView().onToolbarClick().subscribe(aVoid -> {
+        subscriptionHelper.manageViewSubscription(view.onToolbarClick().subscribe(aVoid -> {
             EventBus.getDefault().post(new ScrollToTopEvent());
         }));
 
@@ -52,7 +53,7 @@ public class MainPresenter extends TiPresenter<MainView> {
             @Override
             public void onExecute(@Scope int scope, String tag, int iterationCount) {
                 if (preferencesHelper.isChangelogEnabled()) {
-                    getView().showUpdateInfo();
+                    view.showUpdateInfo();
                 }
             }
         });

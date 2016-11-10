@@ -59,15 +59,15 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     }
 
     @Override
-    protected void onWakeUp() {
-        super.onWakeUp();
+    protected void onAttachView(@NonNull ListingView view) {
+        super.onAttachView(view);
 
         EventBus.getDefault().register(this);
 
         if (listingAdapter.getItemCount() > 0) {
             Timber.d("Already have items in adapter (configuration change?)");
 
-            getView().restoreCurrentPage(currentPage);
+            view.restoreCurrentPage(currentPage);
         } else {
             Timber.d("No existing data, loading fresh from page 1");
 
@@ -76,15 +76,15 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     }
 
     @Override
-    protected void onSleep() {
-        super.onSleep();
+    protected void onDetachView() {
+        super.onDetachView();
 
         EventBus.getDefault().unregister(this);
     }
 
     @Subscribe
     public void onScrollToTopEvent(ScrollToTopEvent event) {
-        getView().scrollToTop();
+        if (getView() != null) getView().scrollToTop();
     }
 
     @Subscribe
@@ -100,7 +100,8 @@ public class ListingPresenter extends TiPresenter<ListingView> {
 
         listingAdapter.clear();
         recyclerState.clear();
-        getView().restoreCurrentPage(1);
+
+        if (getView() != null) getView().restoreCurrentPage(1);
 
         if (listingType == ListingType.LATEST_VIDEOS
                 || listingType == ListingType.LATEST_ALL || listingType == ListingType.RANDOM) {
@@ -108,7 +109,7 @@ public class ListingPresenter extends TiPresenter<ListingView> {
                 @Override
                 public void onExecute(@Scope int scope, String tag, int iterationCount) {
                     Timber.d("Showing listing quality info");
-                    getView().showQualityInfo();
+                    if (getView() != null) getView().showQualityInfo();
                 }
             });
         }
@@ -118,9 +119,9 @@ public class ListingPresenter extends TiPresenter<ListingView> {
 
     void load(int page) {
         if (page == 1) {
-            getView().startLoading(true);
+            if (getView() != null) getView().startLoading(true);
         } else {
-            getView().startLoading(false);
+            if (getView() != null) getView().startLoading(false);
         }
 
         currentPage = page;
@@ -146,7 +147,7 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     }
 
     void onItemClick(int position) {
-        getView().openDetails(listingAdapter.getItemAt(position));
+        if (getView() != null) getView().openDetails(listingAdapter.getItemAt(position));
     }
 
     void putRecyclerState(@NonNull Parcelable state) {
@@ -163,6 +164,6 @@ public class ListingPresenter extends TiPresenter<ListingView> {
     }
 
     void onItemLongClick(int position) {
-        getView().openDialogDetails(listingAdapter.getItemAt(position));
+        if (getView() != null) getView().openDialogDetails(listingAdapter.getItemAt(position));
     }
 }
