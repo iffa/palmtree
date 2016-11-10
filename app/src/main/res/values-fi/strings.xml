@@ -57,6 +57,11 @@
     <string name="pref_save_data_summary">Säästä dataa jättämällä esikatselukuvat lataamatta.</string>
     <string name="pref_show_nsfw">Näytä NSFW-sisältö</string>
     <string name="pref_theme">Teema</string>
+    <string-array name="pref_themes">
+        <item>Vaalea (päivä)</item>
+        <item>Tumma (yö)</item>
+        <item>Automaattinen</item>
+    </string-array>
     <string name="pref_theme_summary">Vaihda sovelluksen teemaa.</string>
 
     <string name="changelog">• Korjattu bugeja ja paranneltu suorituskykyä</string>
