@@ -13,19 +13,19 @@ apply plugin: 'com.getkeepsafe.dexcount'
 
 versionberg {
     major 0
-    minor 3
+    minor 4
     nameTemplate '${major}.${minor}.${commitCount}.${commitSha}'
     codeTemplate '(((${major} * 100) + ${minor}) * 100) * 100000 + ${build}'
 }
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.3"
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "xyz.santeri.palmtree"
         minSdkVersion 19
-        targetSdkVersion 24
+        targetSdkVersion 25
 
         versionCode versionberg.code
         versionName versionberg.name
@@ -41,15 +41,6 @@ android {
             applicationIdSuffix '.debug'
 
             ext.enableCrashlytics = false
-        }
-    }
-
-    productFlavors {
-        dev { // A higher minimum SDK version gives build times a nice boost
-            minSdkVersion 21
-        }
-        publish {
-            minSdkVersion 19
         }
     }
 
@@ -69,13 +60,13 @@ android {
 }
 
 dependencies {
-    def appcompatVersion = '24.2.1'
+    def appcompatVersion = '25.0.0'
     def daggerVersion = '2.7'
-    def autovalueVersion = '1.3'
-    def thirtyinchVersion = '0.7.1'
+    def autovalueVersion = '1.4-rc1'
+    def thirtyinchVersion = '0.8.0-rc1'
     def butterknifeVersion = '8.4.0'
     def leakcanaryVersion = '1.5'
-    def toroVersion = '2.0.0-SNAPSHOT'
+    def toroVersion = '2.0.0-SNAPSHOT' // TODO: Should probably update (new version has API changes)
 
     compile "com.android.support:appcompat-v7:$appcompatVersion"
     compile "com.android.support:recyclerview-v7:$appcompatVersion"
@@ -106,11 +97,11 @@ dependencies {
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
-    compile 'io.reactivex:rxjava:1.2.1'
+    compile 'io.reactivex:rxjava:1.2.2'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 
-    compile 'org.jsoup:jsoup:1.9.2'
+    compile 'org.jsoup:jsoup:1.10.1'
 
     compile 'com.jakewharton.timber:timber:4.3.1'
 
@@ -123,19 +114,19 @@ dependencies {
     ///
 
     compile "com.mikepenz:materialize:1.0.0@aar"
-    compile 'me.zhanghai.android.materialprogressbar:library:1.1.7'
-    compile 'com.afollestad.material-dialogs:core:0.9.0.2'
+    compile 'me.zhanghai.android.materialprogressbar:library:1.3.0'
+    compile 'com.afollestad.material-dialogs:core:0.9.1.0'
     compile 'net.xpece.android:support-preference:1.0.3'
 
     compile "com.mikepenz:itemanimators:0.5.0@aar"
-    compile "com.andkulikov:transitionseverywhere:1.6.9"
+    compile "com.andkulikov:transitionseverywhere:1.7.0"
 
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.devbrackets.android:exomedia:3.0.5'
-    compile "com.davemorrissey.labs:subsampling-scale-image-view:3.5.0"
+    compile 'com.devbrackets.android:exomedia:3.1.0'
+    compile "com.davemorrissey.labs:subsampling-scale-image-view:3.6.0"
     compile 'com.github.linger1216:labelview:v1.1.1'
 
-    compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.11'
+    compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.11' // TODO: Wait for fix to issue with arm64 https://github.com/wseemann/FFmpegMediaMetadataRetriever/issues/124
 
     // If you're wondering, this is a forked version with "fullscreen swipe" functionality
     // See: https://github.com/ikew0ng/SwipeBackLayout/pull/121
