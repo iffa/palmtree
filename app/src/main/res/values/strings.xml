@@ -4,7 +4,6 @@
 
     <string name="leak_canary_display_activity_label">Palmtree (leaks)</string>
     <string name="error_page_load">Failed to load page, try again</string>
-    <string name="badge_gif" translatable="false">GIF</string>
     <string name="action_share">Share</string>
     <string name="action_share_title">Share link using</string>
     <string name="action_list">Listing</string>
@@ -42,4 +41,7 @@
     <string name="error_detail_load">Failed to load details</string>
     <string name="error_unsupported">Only images or videos are supported</string>
     <string name="error_image_load">Failed to load image</string>
+
+    <string name="badge_gif" translatable="false">GIF</string>
+    <string name="badge_nsfw" translatable="false">NSFW</string>
 </resources>

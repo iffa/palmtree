@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
@@ -128,7 +129,15 @@ class ListingViewHolder extends BaseViewHolder<ImageDetails> implements ToroPlay
 
         if (type == HolderItemType.TYPE_IMAGE) {
             video.setVisibility(View.GONE);
-            image.setLabelVisual(false);
+
+            if (item.nsfw()) {
+                image.setLabelVisual(true);
+                image.setLabelBackgroundColor(
+                        ContextCompat.getColor(image.getContext(), R.color.primary));
+                image.setLabelText(image.getResources().getString(R.string.badge_nsfw));
+            } else {
+                image.setLabelVisual(false);
+            }
 
             DrawableRequestBuilder<String> load = requestManager.load(item.fileUrl());
             if (fullPreviews) {
@@ -162,12 +171,16 @@ class ListingViewHolder extends BaseViewHolder<ImageDetails> implements ToroPlay
         } else {
             if (fullPreviews) {
                 video.setVisibility(View.VISIBLE);
-                image.setLabelVisual(true);
+                image.setLabelVisual(false);
                 videoPlayer.setMedia(
                         new ExoVideo(Uri.parse(item.fileUrl()), String.valueOf(item.id())));
             } else {
                 video.setVisibility(View.GONE);
+
+                image.setLabelBackgroundColor(
+                        ContextCompat.getColor(image.getContext(), R.color.accent));
                 image.setLabelVisual(true);
+
                 getVideoThumbnail(item.fileUrl())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
