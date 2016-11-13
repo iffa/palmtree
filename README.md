@@ -1,6 +1,8 @@
 # Palmtree
 
-Unofficial Android client for [Naamapalmu.com](http://naamapalmu.com).
+Unofficial Android client for [Naamapalmu.com](http://naamapalmu.com) - developed because a native implementation always beats the website (usually). Due to the lack of an API, Jsoup is used to scrape data from the website. We're also using libraries and frameworks that are all the hype in the Android community - like RxJava. With this project I also wanted to try out a less-known MVP library called [ThirtyInch](https://github.com/grandcentrix/ThirtyInch): it turned out to be quite nice and no doubt I'll be using it in other projects as well.
+
+You are free to submit issues, pull requests or just learn from the code. Sometime in the future after this app will not result in a suspension from Google Play, you'll be able to download the app on your device and be amazed at the quality of Finnish memes.
 
 ![Screenshot][ss1] ![Screenshot][ss2]
 
@@ -26,5 +28,5 @@ Unofficial Android client for [Naamapalmu.com](http://naamapalmu.com).
     See the License for the specific language governing permissions and
     limitations under the License.
     
-[ss1]: http://i.imgur.com/sdEt0bRl.png
-[ss2]: http://i.imgur.com/na782Nyl.png
+[ss1]: http://i.imgur.com/ZtlNNrRl.png
+[ss2]: http://i.imgur.com/FW3fgPNl.png
