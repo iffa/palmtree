@@ -3,11 +3,9 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'io.fabric'
 
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
 apply from: '../config/quality/quality.gradle'
 
+apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.getkeepsafe.dexcount'
 
@@ -74,18 +72,18 @@ dependencies {
     compile "com.android.support:design:$appcompatVersion"
 
     compile "com.google.dagger:dagger:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    apt "com.google.dagger:dagger-compiler:$daggerVersion"
     provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger 2
 
     provided "com.google.auto.value:auto-value:$autovalueVersion"
-    kapt "com.google.auto.value:auto-value:$autovalueVersion"
-    kapt 'com.ryanharter.auto.value:auto-value-parcel:0.2.4-rc2'
+    apt "com.google.auto.value:auto-value:$autovalueVersion"
+    apt 'com.ryanharter.auto.value:auto-value-parcel:0.2.4-rc2'
 
     compile "net.grandcentrix.thirtyinch:thirtyinch:$thirtyinchVersion"
     compile "net.grandcentrix.thirtyinch:thirtyinch-rx:$thirtyinchVersion"
 
     compile "com.jakewharton:butterknife:$butterknifeVersion"
-    kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+    apt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
 
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
@@ -94,8 +92,6 @@ dependencies {
     compile "im.ene.lab:toro:$toroVersion"
     compile "im.ene.lab:toro-player:$toroVersion"
     compile "im.ene.lab:toro-ext:$toroVersion"
-
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
     compile 'io.reactivex:rxjava:1.2.2'
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -126,7 +122,9 @@ dependencies {
     compile "com.davemorrissey.labs:subsampling-scale-image-view:3.6.0"
     compile 'com.github.linger1216:labelview:v1.1.1'
 
-    compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.11' // TODO: Wait for fix to issue with arm64 https://github.com/wseemann/FFmpegMediaMetadataRetriever/issues/124
+    // TODO: Wait for fix to issue with arm64 https://github.com/wseemann/FFmpegMediaMetadataRetriever/issues/124
+    // TODO: Do this some other way to cut down on apk size (lib is 20mb)
+    compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.11'
 
     // If you're wondering, this is a forked version with "fullscreen swipe" functionality
     // See: https://github.com/ikew0ng/SwipeBackLayout/pull/121
@@ -143,8 +141,4 @@ dependencies {
     compile('com.crashlytics.sdk.android:answers:1.3.10@aar') {
         transitive = true;
     }
-}
-
-kapt {
-    generateStubs = true
 }

@@ -27,7 +27,8 @@
     <string name="action_list_random">Random</string>
 
     <!-- never-ending TODO: update changelog -->
-    <string name="changelog">• Added new categories\n• Image descriptions are now shown in the list\n• Save data by turning off preview images\n• Experimental full size previews &amp; autoplaying videos\n• Long click an image to see details quickly\n• New customization options\n\n• Click an error notification to see details\n• Fixed bugs and improved performance</string>
+    <string name="changelog">• Ahoy Play store! Good to see you.</string>
+
     <string name="dialog_confirm_exit">Confirm exit</string>
     <string name="dialog_confirm_exit_content">Are you sure you want to exit?</string>
     <string name="exit">Exit</string>
